@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AssistSR2 · Doggygo</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --brand: #3a86ff;
+      --brand-2: #8338ec;
+      --bg-soft: #f6f8fb;
+      --text-muted: #6b7280;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(16,24,40,.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg-soft: #0b1220;
+        --text-muted: #96a1b2;
+      }
+      body{ background: #0a0f1c; color: #e7edf6; }
+      .card{ background: #0f172a; border-color: #1e293b; }
+      .list-group-item{ background: #0f172a; color: #dbe3f3; }
+      .btn-outline-secondary{ color:#cbd5e1; border-color:#334155; }
+      .badge.bg-light-subtle{ background:#152238!important; color:#9fb5d9!important; }
+    }
+
+    body{
+      background: radial-gradient(60vw 60vw at 20% -10%, #eaf2ff 0%, rgba(255,255,255,0) 60%),
+                  radial-gradient(60vw 60vw at 120% 30%, #f1eaff 0%, rgba(255,255,255,0) 60%),
+                  var(--bg-soft);
+      min-height: 100vh;
+    }
+
+    .app-shell{
+      max-width: 900px;
+      margin: clamp(16px, 4vw, 48px) auto;
+      padding: clamp(12px, 2vw, 20px);
+    }
+
+    .hero{
+      border-radius: var(--radius);
+      padding: clamp(16px,2vw,24px);
+      background: linear-gradient(135deg, #ffffffaa, #ffffff66);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(16,24,40,.08);
+      box-shadow: var(--shadow);
+    }
+
+    .brand-chip{
+      display: inline-flex; align-items:center; gap:.6rem;
+      border-radius: 999px; padding: .35rem .75rem;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff; font-weight: 600; letter-spacing:.2px;
+      box-shadow: 0 8px 24px rgba(58,134,255,.25);
+    }
+
+    .logo{
+      width: 52px; height: 52px; border-radius: 14px; object-fit: cover;
+      border: 6px solid #fff; box-shadow: 0 8px 24px rgba(16,24,40,.12);
+    }
+
+    .card.app{
+      border-radius: calc(var(--radius) + 2px);
+      box-shadow: var(--shadow);
+    }
+
+    .question{
+      animation: fadeUp .25s ease-out;
+    }
+    @keyframes fadeUp{
+      from{ transform: translateY(6px); opacity: 0; }
+      to{ transform: translateY(0); opacity: 1; }
+    }
+
+    .option-item{
+      border-radius: 12px !important;
+      padding: 14px 16px !important;
+      border: 1px solid rgba(16,24,40,.08) !important;
+      transition: transform .06s ease, box-shadow .12s ease, border-color .12s ease;
+      white-space: normal;
+    }
+    .option-item:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(16,24,40,.08);
+      border-color: rgba(16,24,40,.18)!important;
+      text-decoration: none;
+    }
+
+    .controls .btn{
+      border-radius: 999px;
+      padding: .55rem 1rem;
+    }
+
+    .skeleton{
+      border-radius: 10px;
+      height: 16px;
+      background: linear-gradient(90deg, rgba(0,0,0,.06), rgba(0,0,0,.12), rgba(0,0,0,.06));
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+    }
+    @keyframes shimmer{
+      from{ background-position: 200% 0; }
+      to{ background-position: -200% 0; }
+    }
+
+    .discreet{
+      color: var(--text-muted);
+      font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <!-- Header / Hero -->
+    <section class="hero d-flex align-items-center gap-3 flex-wrap justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <img src="doggygo.png" alt="" class="logo" width="52" height="52" />
+        <div>
+          <div class="brand-chip"><i class="fa-solid fa-paw"></i> Doggygo</div>
+          <h1 class="h4 m-0 mt-2">Votre assistant personnalisé</h1>
+          <p class="m-0 discreet">Répondez aux questions et on vous indiquera la bonne personne à contacter au Service de la Recherche.</p>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button id="lang-toggle" type="button" class="btn btn-outline-secondary btn-sm" aria-label="Basculer de langue">
+          <i class="fa-solid fa-language"></i> <span class="lang-label">FR</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- App Card -->
+    <section class="card app mt-4">
+      <div class="card-body">
+        <div id="progress" class="mb-3" aria-live="polite"></div>
+
+        <div id="question" class="question" aria-live="polite"></div>
+
+        <div id="controls" class="controls d-flex gap-2 mt-3">
+          <button id="back" type="button" class="btn btn-outline-secondary d-none">
+            <i class="fa-solid fa-chevron-left"></i> <span data-i18n="back">Retour</span>
+          </button>
+          <button id="restart" type="button" class="btn btn-outline-secondary d-none">
+            <i class="fa-solid fa-rotate-left"></i> <span data-i18n="restart">Recommencer</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <p class="mt-3 discreet">
+      <i class="fa-solid fa-circle-info"></i>
+      <span data-i18n="privacy">Les liens de contact pointent vers l’annuaire UNIL.</span>
+    </p>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ---------- Data ----------
+    let lang = "fr";
+    const papagoUrl = "./trees/";
+
+    const persons = {
+      "EAM": { name: "Eliane Abou Mansour", url: "https://www3.unil.ch/annuaire/browse/person/cn=Eliane%20Abou%20Mansour,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=abou&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "VL": { name: "V\u00e9ronique Longchamp", url: "https://www3.unil.ch/annuaire/browse/person/cn=V%C3%A9ronique%20Longchamp,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=longchamp&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "AEDC": { name: "Anne-Emmanuelle de Crousaz", url: "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Emmanuelle%20de%20Crousaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=emmanuelle&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "AB": { name: "Aur\u00e9lie Brehmer", url: "https://www3.unil.ch/annuaire/browse/person/cn=Aur%C3%A9lie%20Brehmer,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=Brehmer&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "CA": { name: "Claire Arnold", url: "https://www3.unil.ch/annuaire/browse/person/cn=Claire%20Arnold,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=arnold&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "ZEM": { name: "Zohra El Masbahi", url: "https://www3.unil.ch/annuaire/browse/person/cn=Zohra%20El%20Masbahi,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=zohra&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "ACB": { name: "Anne-Christine Butty", url: "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Christine%20Butty,ou=D%C3%A9canat%20(FBM),ou=FBM%20-%20D%C3%A9canat,ou=D%C3%A9canat%20%20hors%20d%C3%A9partements%20(FBM),ou=Facult%C3%A9%20de%20biologie%20et%20de%20m%C3%A9decine,o=Universite%20de%20Lausanne,c=ch?query=butty&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "MD": { name: "Ma\u00eblle Desard", url: "https://www3.unil.ch/annuaire/browse/person/cn=Ma%C3%ABlle%20Desard,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=desard&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "PAD": { name: "Pablo Andr\u00e9s Diaz", url: "https://www3.unil.ch/annuaire/browse/person/cn=Pablo%20Andr%C3%A9s%20Diaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=pablo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "TVL": { name: "Th\u00e9 Van Luong", url: "https://www3.unil.ch/annuaire/browse/person/cn=Th%C3%A9%20Van%20Luong,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=luong&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "MC": { name: "Micaela Crespo", url: "https://www3.unil.ch/annuaire/browse/person/cn=Rocio%20Micaela%20Crespo%20Quesada,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=crespo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "LC": { name: "Lucia Couto", url: "https://www3.unil.ch/annuaire/browse/person/cn=Lucia%20Couto,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=couto&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" },
+      "JR": { name: "Julian Randall", url: "https://www3.unil.ch/annuaire/browse/person/cn=Julian%20Randall,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=julian&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2" }
+    };
+
+    const i18n = {
+      fr: {
+        contact: "Contacter",
+        helper: "La personne ci-dessous peut vous conseiller sur le sujet qui vous préoccupe.",
+        error: "Doggygo n'est pas accessible pour le moment.",
+        back: "Retour",
+        restart: "Recommencer",
+        openDir: "Ouvrir l’annuaire",
+        privacy: "Les liens de contact pointent vers l’annuaire UNIL."
+      },
+      en: {
+        contact: "Contact",
+        helper: "The person below can advise you on your topic.",
+        error: "Doggygo is not available at the moment.",
+        back: "Back",
+        restart: "Restart",
+        openDir: "Open directory entry",
+        privacy: "Contact links point to the UNIL directory."
+      }
+    };
+
+    // ---------- State ----------
+    let papago = {};
+    let parentKey = "";
+    let oldKey = "";
+    let path = [];
+
+    // ---------- Helpers ----------
+    const $ = (sel) => document.querySelector(sel);
+    const questionEl = $("#question");
+    const backBtn = $("#back");
+    const restartBtn = $("#restart");
+    const progressEl = $("#progress");
+    const langToggle = $("#lang-toggle");
+    const langLabel = langToggle.querySelector(".lang-label");
+
+    function setText(el, key){
+      if(!el) return;
+      const dict = i18n[lang];
+      const target = el.querySelector(`[data-i18n="${key}"]`);
+      if(target) target.textContent = dict[key];
+    }
+
+    function renderProgress(){
+      // Simple breadcrumb chips for navigation context
+      if(path.length === 0){ progressEl.innerHTML = ""; return; }
+      const chips = path.map((p, idx) =>
+        `<span class="badge bg-light-subtle text-body-secondary me-1">${idx+1}</span>`
+      ).join("");
+      progressEl.innerHTML = `
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <span class="discreet"><i class="fa-solid fa-route"></i> Progression</span>
+          ${chips}
+        </div>
+      `;
+    }
+
+    function sanitize(str=""){
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function showSkeleton(){
+      questionEl.innerHTML = `
+        <div class="skeleton mb-2" style="width:70%"></div>
+        <div class="skeleton mb-2" style="width:55%"></div>
+        <div class="skeleton" style="width:40%"></div>
+      `;
+    }
+
+    function showError(){
+      questionEl.innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          ${i18n[lang].error}
+        </div>`;
+    }
+
+    function focusFirstInteractive(){
+      const first = questionEl.querySelector('a,button');
+      if(first) first.focus({preventScroll:true});
+    }
+
+    // ---------- Rendering ----------
+    function renderOptions(key){
+      const node = papago[key];
+      const hasParent = !!node?.parent;
+      parentKey = node?.parent || "";
+      oldKey = key;
+
+      // Maintain path for breadcrumb
+      if(path.length === 0 || path[path.length-1] !== key){
+        path.push(key);
+      }
+
+      const options = (node?.options || []).map((opt) => {
+        const label = sanitize(opt.option);
+        const value = opt.value.replace(/'/g, "\\'");
+        return `
+          <a class="list-group-item list-group-item-action option-item"
+             href="javascript:void(0)"
+             role="button"
+             onclick="format('${value}')">
+             <i class="fa-solid fa-arrow-right-long me-2"></i>${label}
+          </a>
+        `;
+      }).join("");
+
+      const labelHTML = sanitize(node?.label || "");
+
+      questionEl.innerHTML = `
+        <div class="mb-2">
+          <p class="lead mb-1"><strong>${labelHTML}</strong></p>
+        </div>
+        <div class="list-group" style="max-width:1000px; width:100%">
+          ${options || `<div class="discreet">${sanitize(i18n[lang].error)}</div>`}
+        </div>
+      `;
+
+      backBtn.classList.toggle("d-none", !hasParent);
+      restartBtn.classList.add("d-none");
+      setText(document, "back");
+      setText(document, "restart");
+      renderProgress();
+      focusFirstInteractive();
+    }
+
+    function renderContact(item){
+      // Expected format: "Contacter CODE"
+      const parts = item.split(" ");
+      const code = parts[1];
+      const person = persons[code];
+
+      const helper = sanitize(i18n[lang].helper);
+      const contactLabel = sanitize(i18n[lang].contact);
+      const openDir = sanitize(i18n[lang].openDir);
+
+      questionEl.innerHTML = `
+        <div class="question">
+          <p class="mb-3">${helper}</p>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="rounded-circle d-flex align-items-center justify-content-center"
+                   style="width:56px;height:56px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div>
+                <div class="h5 m-0">${sanitize(person?.name || code)}</div>
+                <div class="discreet"><i class="fa-regular fa-address-card"></i> UNIL · Service de la Recherche</div>
+              </div>
+            </div>
+            <div class="ms-auto"></div>
+            <a class="btn btn-primary btn-lg"
+               target="_blank" rel="noopener"
+               href="${person?.url || '#'}">
+              <i class="fa-solid fa-paper-plane"></i> ${contactLabel}
+            </a>
+            <a class="btn btn-outline-secondary"
+               target="_blank" rel="noopener"
+               href="${person?.url || '#'}">
+              <i class="fa-solid fa-up-right-from-square"></i> ${openDir}
+            </a>
+          </div>
+        </div>
+      `;
+
+      backBtn.classList.add("d-none");
+      restartBtn.classList.remove("d-none");
+      setText(document, "restart");
+      renderProgress();
+      focusFirstInteractive();
+    }
+
+    // ---------- Controller ----------
+    function format(item){
+      if(item.startsWith("Contacter")){
+        renderContact(item);
+      } else {
+        renderOptions(item);
+      }
+    }
+
+    function goBack(){
+      if(!papago[parentKey]) return;
+      // Step back in breadcrumb
+      path.pop(); // current
+      const parent = parentKey;
+      parentKey = papago[parent]?.parent || "";
+      format(parent);
+    }
+
+    function restart(){
+      path = [];
+      renderProgress();
+      format("0");
+    }
+
+    // ---------- Language ----------
+    function applyLangFromQuery(){
+      const params = new URLSearchParams(location.search);
+      const qLang = params.get("lang");
+      const notitle = params.get("notitle");
+      if(qLang && i18n[qLang]) lang = qLang;
+      if(notitle === "true"){
+        document.querySelector("h1")?.classList.add("visually-hidden");
+      }
+    }
+
+    function toggleLang(){
+      lang = (lang === "fr") ? "en" : "fr";
+      langLabel.textContent = (lang === "fr") ? "FR" : "EN";
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        el.textContent = i18n[lang][key];
+      });
+      // Re-render current view
+      if(oldKey){
+        format(oldKey);
+      }
+    }
+
+    // ---------- Init ----------
+    async function boot(){
+      applyLangFromQuery();
+      langLabel.textContent = (lang === "fr") ? "FR" : "EN";
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        el.textContent = i18n[lang][key];
+      });
+
+      showSkeleton();
+      try{
+        const res = await fetch(`${papagoUrl}papago-${lang}.json`, {cache: "no-store"});
+        papago = await res.json();
+        $("#controls").classList.remove("d-none");
+        format("0");
+      }catch(e){
+        console.error(e);
+        showError();
+      }
+    }
+
+    // Expose for inline onclick (kept simple)
+    window.format = format;
+
+    backBtn.addEventListener("click", goBack);
+    restartBtn.addEventListener("click", restart);
+    langToggle.addEventListener("click", toggleLang);
+
+    boot();
+  </script>
+</body>
+</html>

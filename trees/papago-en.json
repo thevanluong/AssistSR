@@ -1,0 +1,142 @@
+{
+    "0": {
+        "label": "What topic would you like to discuss?",
+        "options": [
+            {
+                "option": "Fundings and finances",
+                "value": "1"
+            },
+            {
+                "option": "Ethical Communication, IT and Research",
+                "value": "6"
+            },
+            {
+                "option": "Administration",
+                "value": "7"
+            }
+        ],
+        "parent": ""
+    },
+    "1": {
+        "label": "On which topic would you like to get more information?",
+        "options": [
+            {
+                "option": "Fundings",
+                "value": "2"
+            },
+            {
+                "option": "Finance and Procurement",
+                "value": "5"
+            }
+        ],
+        "parent": "0"
+    },
+    "2": {
+        "label": "Can you specify the type of funding you are interested in?",
+        "options": [
+            {
+                "option": "SNSF",
+                "value": "3"
+            },
+            {
+                "option": "EU",
+                "value": "4"
+            },
+            {
+                "option": "Mobi.Doc",
+                "value": "Contacter VL"
+            },
+            {
+                "option": "Other third-party funds",
+                "value": "Contacter CA"
+            }
+        ],
+        "parent": "1"
+    },
+    "3": {
+        "label": "What kind of promotion, support and guidance for FNS applications?",
+        "options": [
+            {
+                "option": "SNSF - Careers",
+                "value": "Contacter EAM"
+            },
+            {
+                "option": "SNSF - Non-career related",
+                "value": "Contacter VL"
+            }
+        ],
+        "parent": "2"
+    },
+    "4": {
+        "label": "What kind of promotion, support, and guidance for EU applications?",
+        "options": [
+            {
+                "option": "Horizon Europe and Transition Measures: Individual Projects",
+                "value": "Contacter AEDC"
+            },
+            {
+                "option": "Horizon Europe: Collaborative Projects",
+                "value": "Contacter AB"
+            }
+        ],
+        "parent": "2"
+    },
+    "5": {
+        "label": "On which specific aspect of finance or procurement would you like to learn more?",
+        "options": [
+            {
+                "option": "EU Financial Reporting",
+                "value": "Contacter EAM"
+            },
+            {
+                "option": "Public procurement of equipment and scientific contracts",
+                "value": "Contacter ZEM"
+            },
+            {
+                "option": "Validation of institutional unit costs",
+                "value": "Contacter ACB"
+            }
+        ],
+        "parent": "1"
+    },
+    "6": {
+        "label": "On which area would you like to receive more information?",
+        "options": [
+            {
+                "option": "Communication and coordination for the RSR",
+                "value": "Contacter MD"
+            },
+            {
+                "option": "Ethical",
+                "value": "Contacter PAD"
+            },
+            {
+                "option": "IT projects and systems",
+                "value": "Contacter TVL"
+            },
+            {
+                "option": "Open Access",
+                "value": "Contacter MC"
+            }
+        ],
+        "parent": "0"
+    },
+    "7": {
+        "label": "Who do you wish to Contacter for the administrative part?",
+        "options": [
+            {
+                "option": "Executive and Project Assistant",
+                "value": "Contacter LC"
+            },
+            {
+                "option": "Deputy Head of Department",
+                "value": "Contacter MC"
+            },
+            {
+                "option": "Head of Department",
+                "value": "Contacter JR"
+            }
+        ],
+        "parent": "0"
+    }
+}

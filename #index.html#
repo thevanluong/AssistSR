@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AssistSR2</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <script>
+      // *** parameters start ***
+      //default language
+      var lang = "fr";
+
+      var papagoUrl = "./trees/";
+
+      var persons = {
+	  "EAM" : {
+	      "name": "Eliane Abou Mansour",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Eliane%20Abou%20Mansour,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=abou&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "VL" : {
+	      "name": "V\u00e9ronique Longchamp",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=V%C3%A9ronique%20Longchamp,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=longchamp&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "AEDC" : {
+	      "name": "Anne-Emmanuelle de Crousaz",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Emmanuelle%20de%20Crousaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=emmanuelle&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "AB" : {
+	      "name": "Aur\u00e9lie Brehmer",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Aur%C3%A9lie%20Brehmer,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=Brehmer&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "CA" : {
+	      "name": "Claire Arnold",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Claire%20Arnold,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=arnold&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "ZEM" : {
+	      "name": "Zohra El Masbahi",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Zohra%20El%20Masbahi,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=zohra&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "ACB" : {
+	      "name": "Anne-Christine Butty",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Christine%20Butty,ou=D%C3%A9canat%20(FBM),ou=FBM%20-%20D%C3%A9canat,ou=D%C3%A9canat%20%20hors%20d%C3%A9partements%20(FBM),ou=Facult%C3%A9%20de%20biologie%20et%20de%20m%C3%A9decine,o=Universite%20de%20Lausanne,c=ch?query=butty&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "MD" : {
+	      "name": "Ma\u00eblle Desard",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Ma%C3%ABlle%20Desard,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=desard&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "PAD" : {
+	      "name": "Pablo Andr\u00e9s Diaz",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Pablo%20Andr%C3%A9s%20Diaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=pablo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "TVL" : {
+	      "name": "Th\u00e9 Van Luong",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Th%C3%A9%20Van%20Luong,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=luong&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "MC" : {
+	      "name": "Micaela Crespo",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Rocio%20Micaela%20Crespo%20Quesada,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=crespo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "LC" : {
+	      "name": "Lucia Couto",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Lucia%20Couto,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=couto&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+	  "JR" : {
+	      "name": "Julian Randall",
+	      "url": "https://www3.unil.ch/annuaire/browse/person/cn=Julian%20Randall,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=julian&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"}
+      }
+
+      var translate = { 
+	  "fr" : {
+	      "contact": "Contacter",
+	      "text" : "La personne mentionn\u00e9e ci-dessous est en mesure de vous offrir son expertise pour vous conseiller sur le sujet qui vous pr\u00e9occupe.",
+	      "error" : "Doggygo n\'est pas accessible pour le moment."},
+	  "en" : {
+	      "contact": "Contact",
+	      "text" : "The individual below can provide valuable insights and advice you on the subject matter you're interested in.",
+	      "error" : "Doggygo is not available at the moment."},
+      }
+
+      var parent = oldItem = sheet = jList = "";
+
+      function format(item) {
+	  // on vérifie si les 9 premiers caractères sont égaux à "Contacter"
+	  if (item.substr(0,9) == "Contacter") {
+	      parent = oldItem;
+	      item = item.replace("Contacter", translate[lang]["contact"]);
+	      url = item.split(' ');
+	      
+	      // on construit le bouton et lien de téléchargement pour la personne correspondante
+	      code = '<p>' + translate[lang]["text"] + '</p><a class="btn btn-info btn-lg" target="_blank" href="'+ persons[url[1]]["url"] + '"><i class="fa fa-send"></i>&nbsp;' + url[0] + '&nbsp;' + persons[url[1]]["name"]  + '</a></p>';
+
+
+	      $('#submit').hide(); 
+	      $('#restart').show();
+	  }
+	  // si ce n'est pas égal à "Contacter", on continue avec les autres questions
+	  else {
+	      jList = '';
+	      $('#restart').hide();
+	      code = '<p>' + papago[item]['label'] + '</p><div class="list-group btn-group-vertical" role="group" style="max-width:1000px; width:100%">';
+	      $.each(papago[item]['options'], function(index,value) {
+		  code = code+'<a class="list-group-item list-group-item-action btn" style="text-align:left; text-decoration:none; white-space:normal;" href="javascript:format(\'' + value['value'] +'\')"><i class="fa fa-arrow-right"></i>&nbsp;' + value['option'] + '</a>';
+	      });
+	      code = code + '</div>';
+	      if (papago[item]['parent']) {
+		  $('#back').show();
+	      }
+	      else {
+		  $('#back').hide();
+	      }
+	      parent = papago[item]['parent'];
+	      oldItem = item;
+	  }
+	  $('#question').html(code);
+      }
+
+      function goback() {
+	  format(parent);
+      }
+
+      $(document).ready(function(){
+	  param = {};
+	  str = window.location.search.substr(1);
+	  if(str) {
+	      pairs = str.split('&');
+	      for (i=0; i<pairs.length; i++) {
+		  part = pairs[i].split('=');
+		  param[part[0]] = part[1];
+	      }
+	  }
+	  if(param['lang'] && translate[param['lang']]) {
+	      lang = param['lang'];
+	  }
+	  if(param['notitle'] && param['notitle']=='true') {
+	      $('h3').hide();
+	  }
+	  $.getJSON( papagoUrl + "papago-" + lang + ".json")
+	      .done(function( data ) {
+		  papago = data;
+		  $('#buttons').show();
+		  format("0");
+	      })
+
+	      .fail(function(xhr, status, error) {
+		  $('form').html(translate[lang]['error']);
+		  console.log( error );
+	      });
+      });
+    </script>
+    <div style="margin: 1rem">
+      <h3>Votre assistant personnalis&eacute;</h3>
+      <img src="doggygo.png" width="256" height="227"/>
+      <p />
+      Vous avez une question et vous voudriez conna&icirc;tre la personne &agrave; contacter au Service de la Recherche ?
+      
+      <br />
+      R&eacute;pondez tout simplement aux questions que Doggygo vous posera ci-dessous.
+      
+      <h3>Doggygo dit :</h3>
+      <div id="question" style="margin-bottom: 1rem">
+      </div>
+      <div id="buttons" style="display:none">
+	<a id="back" href="javascript:goback();" class="btn btn-secondary btn-default" style="display:none; text-decoration:none"><i class="fa fa-chevron-left"></i>&nbsp;back</a>
+	<a id="restart" href="javascript:location.reload()" class="btn btn-secondary btn-default" style="display:none; text-decoration:none"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;restart</a>
+      </div>
+    </div>
+  </body>
+</html> 

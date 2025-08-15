@@ -1,0 +1,142 @@
+{
+    "0": {
+        "label": "Sur quel sujet souhaitez-vous \u00e9changer ?",
+        "options": [
+            {
+                "option": "Bailleurs de fonds et finances",
+                "value": "1"
+            },
+            {
+                "option": "Communication, informatique et recherche int\u00e8gre",
+                "value": "6"
+            },
+            {
+                "option": "Administration",
+                "value": "7"
+            }
+        ],
+        "parent": ""
+    },
+    "1": {
+        "label": "Pour quel sujet aimeriez-vous obtenir plus d'informations ?",
+        "options": [
+            {
+                "option": "Financements",
+                "value": "2"
+            },
+            {
+                "option": "Finances et achats",
+                "value": "5"
+            }
+        ],
+        "parent": "0"
+    },
+    "2": {
+        "label": "Pouvez-vous sp\u00e9cifier le type de financement qui vous int\u00e9resse ?",
+        "options": [
+            {
+                "option": "FNS",
+                "value": "3"
+            },
+            {
+                "option": "EU",
+                "value": "4"
+            },
+            {
+                "option": "Mobi.Doc",
+                "value": "Contacter VL"
+            },
+            {
+                "option": "Autres fonds tiers",
+                "value": "Contacter CA"
+            }
+        ],
+        "parent": "1"
+    },
+    "3": {
+        "label": "Quel type de promotion, soutien, accompagnement requ\u00eates FNS ?",
+        "options": [
+            {
+                "option": "FNS - Carri\u00e8res",
+                "value": "Contacter EAM"
+            },
+            {
+                "option": "FNS - Hors Carri\u00e8res",
+                "value": "Contacter VL"
+            }
+        ],
+        "parent": "2"
+    },
+    "4": {
+        "label": "Quel type de promotion, soutien, accompagnement requ\u00eates UE ?",
+        "options": [
+            {
+                "option": "Horizon Europe et mesures de transition : projets individuels",
+                "value": "Contacter AEDC"
+            },
+            {
+                "option": "Horizon Europe : projets collaboratifs",
+                "value": "Contacter AB"
+            }
+        ],
+        "parent": "2"
+    },
+    "5": {
+        "label": "Sur quel aspect pr\u00e9cis des finances ou des achats souhaitez-vous en savoir davantage ?",
+        "options": [
+            {
+                "option": "Reporting financier UE",
+                "value": "Contacter EAM"
+            },
+            {
+                "option": "March\u00e9s publics \u00e9quipements et mandats scientifiques",
+                "value": "Contacter ZEM"
+            },
+            {
+                "option": "Validation des co\u00fbts unitaires institutionnels",
+                "value": "Contacter ACB"
+            }
+        ],
+        "parent": "1"
+    },
+    "6": {
+        "label": "Sur quel domaine souhaiteriez-vous obtenir davantage d'informations ?",
+        "options": [
+            {
+                "option": "Communication et coordination RSR",
+                "value": "Contacter MD"
+            },
+            {
+                "option": "Ethique",
+                "value": "Contacter PAD"
+            },
+            {
+                "option": "Projets et syst\u00e8mes informatiques",
+                "value": "Contacter TVL"
+            },
+            {
+                "option": "Open Access",
+                "value": "Contacter MC"
+            }
+        ],
+        "parent": "0"
+    },
+    "7": {
+        "label": "Qui souhaitez-vous contacter pour la partie administration ?",
+        "options": [
+            {
+                "option": "Assistante de direction et charg\u00e9e de projets",
+                "value": "Contacter LC"
+            },
+            {
+                "option": "Cheffe de service adjointe",
+                "value": "Contacter MC"
+            },
+            {
+                "option": "Chef de service",
+                "value": "Contacter JR"
+            }
+        ],
+        "parent": "0"
+    }
+}
