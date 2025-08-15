@@ -1,320 +1,478 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>AssistSR2</title>
-    <!-- Dépendances d'origine conservées -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" crossorigin="anonymous"/>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Doggygo · AssistSR2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <style>
-      /* ======== Thème et tokens ======== */
-      :root{
-        --brand: #3a86ff;
-        --brand-2: #8338ec;
-        --bg-soft: #f6f8fc;
-        --text-muted: #6b7280;
-        --radius: 16px;
-        --card-bg: #ffffff;
-        --card-border: #e7edf3;
-        --shadow: 0 16px 42px rgba(16,24,40,.12);
-        --shadow-soft: 0 10px 30px rgba(16,24,40,.08);
-      }
-      @media (prefers-color-scheme: dark){
-        :root{
-          --bg-soft: #0b1220;
-          --text-muted: #9aa5b1;
-          --card-bg: #0f172a;
-          --card-border: #1e293b;
-        }
-        body{ color:#e7edf6; }
-        .btn-secondary{ color:#e2e8f0; border-color:#334155; }
-        .list-group-item{ background: var(--card-bg); color: #e7edf6; }
-      }
+<!-- Google Font (propre et lisible) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-      /* ======== Fond et conteneur ======== */
-      body{
-        background:
-          radial-gradient(50vw 50vw at 10% -15%, #eaf2ff 0%, rgba(255,255,255,0) 60%),
-          radial-gradient(50vw 50vw at 110% 30%, #f1eaff 0%, rgba(255,255,255,0) 60%),
-          var(--bg-soft);
-        min-height: 100vh;
-      }
-      .app-wrap{
-        max-width: 980px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-      }
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      /* ======== Bandeau / Hero ======== */
-      .hero{
-        background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.65));
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 1.25rem 1.25rem 1rem;
-      }
-      .hero .brand-chip{
-        display:inline-flex; align-items:center; gap:.5rem;
-        padding:.35rem .75rem; border-radius:999px; color:#fff; font-weight:600;
-        background: linear-gradient(135deg, var(--brand), var(--brand-2));
-        box-shadow: 0 10px 22px rgba(58,134,255,.25);
-      }
-      .hero .logo{
-        width:72px; height:72px; border-radius:14px; object-fit:cover;
-        border:6px solid #fff; box-shadow: var(--shadow-soft);
-      }
-      .hero .sub{
-        color: var(--text-muted); margin: .25rem 0 0;
-      }
+<!-- Font Awesome 6 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
-      /* ======== Carte question ======== */
-      #question{
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-soft);
-        padding: 1.25rem;
-        animation: fadeUp .25s ease-out;
-      }
-      #question > p{
-        font-size:1.15rem; font-weight:600; margin-bottom: .75rem;
-      }
-      @keyframes fadeUp{
-        from{ opacity:0; transform: translateY(6px) }
-        to{ opacity:1; transform: translateY(0) }
-      }
+<style>
+  /* ======== Design System ======== */
+  :root{
+    --radius: 18px;
+    --radius-sm: 12px;
+    --brand-1: #7b5cff;
+    --brand-2: #40d4ff;
+    --ink: #0f172a;
+    --ink-2: #334155;
+    --muted: #667085;
+    --surface: rgba(255,255,255,.65);
+    --stroke: rgba(15,23,42,.12);
+    --glass: rgba(255,255,255,.45);
+    --shadow: 0 20px 60px rgba(16,24,40,.15);
+    --shadow-soft: 0 10px 32px rgba(16,24,40,.10);
+    --ring: 0 0 0 .28rem rgba(123,92,255,.22);
+    --ring-strong: 0 0 0 .35rem rgba(64,212,255,.25);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink: #e6ebf5;
+      --ink-2: #b6c2d3;
+      --muted: #9fb0c7;
+      --surface: rgba(15,23,42,.6);
+      --stroke: rgba(255,255,255,.08);
+      --glass: rgba(16,24,40,.45);
+    }
+    .list-group-item{ background: transparent; color: var(--ink); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
 
-      /* ======== Options (list-group) ======== */
-      .option-item{
-        border-radius: 12px !important;
-        border: 1px solid rgba(16,24,40,.08) !important;
-        padding: 14px 16px !important;
-        transition: transform .06s ease, box-shadow .12s ease, border-color .12s ease;
-        white-space: normal;
-      }
-      .option-item i{ opacity:.75; }
-      .option-item:hover{
-        transform: translateY(-1px);
-        box-shadow: 0 10px 24px rgba(16,24,40,.12);
-        border-color: rgba(16,24,40,.18) !important;
-        text-decoration: none;
-      }
-      .option-item:focus{
-        outline: none;
-        box-shadow: 0 0 0 .25rem rgba(58,134,255,.25);
-      }
+  /* ======== Background “aura” ======== */
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(60vw 60vw at 10% -10%, #f0eaff 0%, rgba(255,255,255,0) 55%),
+      radial-gradient(60vw 60vw at 115% 30%, #e9fbff 0%, rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, #f8fbff 0%, #f5f7fb 30%, #f7f7ff 100%);
+    min-height: 100vh;
+  }
+  .bg-orbs::before, .bg-orbs::after{
+    content:""; position: fixed; inset: auto auto -120px -120px; width: 360px; height: 360px;
+    background: radial-gradient(closest-side, rgba(123,92,255,.22), rgba(123,92,255,0) 70%);
+    filter: blur(6px); transform: translateZ(0);
+    pointer-events: none; z-index: 0;
+  }
+  .bg-orbs::after{
+    inset: -120px -140px auto auto; background:
+      radial-gradient(closest-side, rgba(64,212,255,.25), rgba(64,212,255,0) 70%);
+  }
 
-      /* ======== Boutons ======== */
-      #buttons{
-        display:flex; gap:.5rem; flex-wrap:wrap;
-      }
-      #buttons .btn{
-        border-radius: 999px; padding: .5rem .9rem;
-        box-shadow: 0 8px 18px rgba(16,24,40,.06);
-      }
-      .btn-info{
-        background-image: linear-gradient(135deg, var(--brand), var(--brand-2));
-        border:none;
-      }
-      .btn-info:hover{ filter: brightness(1.03); }
-      .btn-info:focus{ box-shadow: 0 0 0 .25rem rgba(58,134,255,.35); }
+  /* ======== Shell ======== */
+  .app-shell{
+    position: relative; z-index: 1;
+    max-width: 980px; margin-inline: auto;
+    padding: clamp(16px, 4vw, 28px);
+  }
 
-      /* ======== Aides de mise en page ======== */
-      .section-title{
-        font-weight: 700;
-        margin: 1.25rem 0 .75rem;
-      }
-      .helper{
-        color: var(--text-muted);
-        margin-top:.25rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="app-wrap">
-      <!-- Bandeau / Hero (titres conservés) -->
-      <div class="hero mb-3">
-        <div class="d-flex align-items-center">
-          <img src="doggygo.png" alt="" class="logo mr-3"/>
-          <div>
-            <span class="brand-chip"><i class="fa fa-paw"></i>&nbsp;Doggygo</span>
-            <h3 class="mb-0 mt-2">Votre assistant personnalis&eacute;</h3>
-            <p class="sub">Vous avez une question et vous voudriez conna&icirc;tre la personne &agrave; contacter au Service de la Recherche ?<br>
-              R&eacute;pondez tout simplement aux questions que Doggygo vous posera ci-dessous.</p>
-          </div>
+  /* ======== Hero ======== */
+  .hero{
+    border-radius: var(--radius);
+    padding: clamp(16px, 2vw, 22px);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--stroke);
+    background: linear-gradient(135deg, var(--surface), rgba(255,255,255,.28));
+    backdrop-filter: saturate(140%) blur(10px);
+  }
+  .brand-chip{
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.45rem .9rem; border-radius: 999px; font-weight: 700; letter-spacing:.2px; color:#fff;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    box-shadow: 0 12px 28px rgba(64,212,255,.28);
+  }
+  .logo{
+    width:78px; height:78px; border-radius: 16px; object-fit: cover;
+    border: 6px solid rgba(255,255,255,.9);
+    box-shadow: var(--shadow-soft);
+  }
+  .hero .title{ margin: .4rem 0 0; font-weight: 800; letter-spacing: .1px; }
+  .hero .sub{ color: var(--muted); margin: .35rem 0 0; }
+
+  /* ======== Card / Question ======== */
+  .glass-card{
+    margin-top: 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow-soft);
+    background: linear-gradient(135deg, var(--glass), rgba(255,255,255,.22));
+    backdrop-filter: saturate(160%) blur(12px);
+  }
+  .glass-card .card-body{ padding: clamp(14px, 2.2vw, 24px); }
+  #question > .q-title{
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;
+  }
+
+  /* ======== Options ======== */
+  .option-item{
+    display: block; text-decoration: none;
+    border-radius: 14px; padding: 14px 15px;
+    border: 1px solid rgba(15,23,42,.08);
+    background: rgba(255,255,255,.64);
+    backdrop-filter: blur(6px) saturate(120%);
+    transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    color: inherit; white-space: normal;
+  }
+  .option-item + .option-item{ margin-top: 10px; }
+  .option-item .label{ display:inline-flex; gap:.6rem; align-items:center; }
+  .option-item .label i{ opacity:.75; }
+  .option-item:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(16,24,40,.12);
+    border-color: rgba(15,23,42,.18);
+    background: rgba(255,255,255,.82);
+  }
+  .option-item:focus{ outline: none; box-shadow: var(--ring); }
+
+  /* ======== Contact view ======== */
+  .contact-wrap{
+    display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center;
+  }
+  .contact-id{
+    display:flex; gap:14px; align-items:center;
+  }
+  .avatar{
+    width:64px; height:64px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 12px 26px rgba(123,92,255,.25);
+    font-size: 1.35rem; font-weight: 800;
+  }
+  .contact-name{ font-weight: 800; margin: 0; }
+  .contact-meta{ color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
+  .cta .btn{
+    border-radius: 999px; padding: .7rem 1rem; font-weight: 600;
+  }
+  .btn-gradient{
+    color:#fff;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    border: none;
+    box-shadow: 0 10px 24px rgba(64,212,255,.28);
+  }
+  .btn-gradient:focus{ box-shadow: var(--ring-strong); }
+  .btn-ghost{
+    background: transparent; border: 1px solid var(--stroke);
+  }
+
+  /* ======== Controls ======== */
+  #buttons{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top: 10px; }
+  #buttons .btn{
+    border-radius: 999px; padding: .55rem .9rem; font-weight:600;
+    box-shadow: 0 8px 18px rgba(16,24,40,.06);
+  }
+
+  /* ======== Progress ======== */
+  .progress-chips{ display:flex; gap:.4rem; flex-wrap: wrap; align-items: center; }
+  .chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:999px; font-weight:700; font-size:.85rem;
+    background: rgba(123,92,255,.12); color:#5b4af7; border: 1px solid rgba(123,92,255,.22);
+  }
+  .chip.muted{ background: transparent; color: var(--muted); border: 1px dashed rgba(15,23,42,.15); }
+  .hint{ color: var(--muted); font-size: .95rem; }
+
+  /* ======== Animations ======== */
+  .fade-up{ animation: fadeUp .25s ease-out; }
+  @keyframes fadeUp{
+    from{ transform: translateY(6px); opacity: 0; }
+    to{ transform: translateY(0); opacity: 1; }
+  }
+
+  /* ======== Theme toggle (optional) ======== */
+  .theme-toggle{
+    border-radius: 999px; border: 1px solid var(--stroke);
+    padding: .5rem .75rem; background: rgba(255,255,255,.6);
+    backdrop-filter: blur(6px);
+  }
+  .theme-toggle:focus{ box-shadow: var(--ring); }
+
+  /* ======== Accessibility helpers ======== */
+  [tabindex="0"]:focus{ outline: none; box-shadow: var(--ring); }
+</style>
+</head>
+<body class="bg-orbs">
+  <main class="app-shell">
+    <!-- HERO -->
+    <section class="hero d-flex align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <img src="doggygo.png" alt="" class="logo me-3" />
+        <div>
+          <span class="brand-chip"><i class="fa-solid fa-paw"></i> Doggygo</span>
+          <h1 class="title h4">Votre assistant personnalisé</h1>
+          <p class="sub">Répondez aux questions, et nous vous indiquerons la bonne personne à contacter au Service de la Recherche.</p>
         </div>
       </div>
-
-      <h3 class="section-title">Doggygo dit :</h3>
-
-      <!-- Zone dynamique conservée -->
-      <div id="question" aria-live="polite" style="margin-bottom: 1rem"></div>
-
-      <!-- Boutons d'origine, IDs conservés -->
-      <div id="buttons" style="display:none">
-        <a id="back" href="javascript:goback();" class="btn btn-secondary btn-default" style="display:none; text-decoration:none">
-          <i class="fa fa-chevron-left"></i>&nbsp;back
-        </a>
-        <a id="restart" href="javascript:location.reload()" class="btn btn-secondary btn-default" style="display:none; text-decoration:none">
-          <i class="fa fa-arrow-circle-o-left"></i>&nbsp;restart
-        </a>
+      <div class="d-flex align-items-center gap-2">
+        <button id="theme-btn" class="theme-toggle btn btn-sm" type="button" aria-label="Basculer le thème">
+          <i class="fa-solid fa-moon"></i>
+        </button>
       </div>
-    </div>
+    </section>
 
-    <!-- Script d'origine conservé (mêmes fonctions / variables) -->
-    <script>
-      // *** parameters start ***
-      // default language
-      var lang = "fr";
+    <!-- CARD -->
+    <section class="glass-card fade-up">
+      <div class="card-body">
+        <div id="progress" class="progress-chips mb-2" aria-live="polite"></div>
+        <div id="question" class="fade-up" aria-live="polite"></div>
 
-      var papagoUrl = "./trees/";
+        <div id="buttons" style="display:none">
+          <a id="back" href="javascript:goback();" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
+            <i class="fa-solid fa-chevron-left"></i> Retour
+          </a>
+          <a id="restart" href="javascript:location.reload()" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
+            <i class="fa-solid fa-rotate-left"></i> Recommencer
+          </a>
+        </div>
 
-      var persons = {
-        "EAM" : {
-            "name": "Eliane Abou Mansour",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Eliane%20Abou%20Mansour,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=abou&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "VL" : {
-            "name": "V\u00e9ronique Longchamp",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=V%C3%A9ronique%20Longchamp,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=longchamp&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "AEDC" : {
-            "name": "Anne-Emmanuelle de Crousaz",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Emmanuelle%20de%20Crousaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=emmanuelle&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "AB" : {
-            "name": "Aur\u00e9lie Brehmer",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Aur%C3%A9lie%20Brehmer,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=Brehmer&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "CA" : {
-            "name": "Claire Arnold",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Claire%20Arnold,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=arnold&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "ZEM" : {
-            "name": "Zohra El Masbahi",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Zohra%20El%20Masbahi,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=zohra&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "ACB" : {
-            "name": "Anne-Christine Butty",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Christine%20Butty,ou=D%C3%A9canat%20(FBM),ou=FBM%20-%20D%C3%A9canat,ou=D%C3%A9canat%20%20hors%20d%C3%A9partements%20(FBM),ou=Facult%C3%A9%20de%20biologie%20et%20de%20m%C3%A9decine,o=Universite%20de%20Lausanne,c=ch?query=butty&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "MD" : {
-            "name": "Ma\u00eblle Desard",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Ma%C3%ABlle%20Desard,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=desard&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "PAD" : {
-            "name": "Pablo Andr\u00e9s Diaz",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Pablo%20Andr%C3%A9s%20Diaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=pablo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "TVL" : {
-            "name": "Th\u00e9 Van Luong",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Th%C3%A9%20Van%20Luong,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=luong&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "MC" : {
-            "name": "Micaela Crespo",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Rocio%20Micaela%20Crespo%20Quesada,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=crespo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "LC" : {
-            "name": "Lucia Couto",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Lucia%20Couto,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=couto&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
-        "JR" : {
-            "name": "Julian Randall",
-            "url": "https://www3.unil.ch/annuaire/browse/person/cn=Julian%20Randall,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=julian&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"}
-      };
+        <p class="hint mt-3"><i class="fa-regular fa-circle-question"></i> Les liens de contact pointent vers l’annuaire UNIL.</p>
+      </div>
+    </section>
+  </main>
 
-      var translate = { 
-        "fr" : {
-            "contact": "Contacter",
-            "text" : "La personne mentionn\u00e9e ci-dessous est en mesure de vous offrir son expertise pour vous conseiller sur le sujet qui vous pr\u00e9occupe.",
-            "error" : "Doggygo n\'est pas accessible pour le moment."},
-        "en" : {
-            "contact": "Contact",
-            "text" : "The individual below can provide valuable insights and advice you on the subject matter you're interested in.",
-            "error" : "Doggygo is not available at the moment."},
+  <!-- Bootstrap JS (bundle) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ======== Données (fidèles à l’original) ========
+    var lang = "fr";
+    var papagoUrl = "./trees/";
+
+    var persons = {
+      "EAM" : {
+          "name": "Eliane Abou Mansour",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Eliane%20Abou%20Mansour,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=abou&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "VL" : {
+          "name": "V\u00e9ronique Longchamp",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=V%C3%A9ronique%20Longchamp,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=longchamp&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "AEDC" : {
+          "name": "Anne-Emmanuelle de Crousaz",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Emmanuelle%20de%20Crousaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=emmanuelle&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "AB" : {
+          "name": "Aur\u00e9lie Brehmer",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Aur%C3%A9lie%20Brehmer,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=Brehmer&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "CA" : {
+          "name": "Claire Arnold",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Claire%20Arnold,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=arnold&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "ZEM" : {
+          "name": "Zohra El Masbahi",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Zohra%20El%20Masbahi,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=zohra&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "ACB" : {
+          "name": "Anne-Christine Butty",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Anne-Christine%20Butty,ou=D%C3%A9canat%20(FBM),ou=FBM%20-%20D%C3%A9canat,ou=D%C3%A9canat%20%20hors%20d%C3%A9partements%20(FBM),ou=Facult%C3%A9%20de%20biologie%20et%20de%20m%C3%A9decine,o=Universite%20de%20Lausanne,c=ch?query=butty&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "MD" : {
+          "name": "Ma\u00eblle Desard",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Ma%C3%ABlle%20Desard,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=desard&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "PAD" : {
+          "name": "Pablo Andr\u00e9s Diaz",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Pablo%20Andr%C3%A9s%20Diaz,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=pablo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "TVL" : {
+          "name": "Th\u00e9 Van Luong",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Th%C3%A9%20Van%20Luong,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=luong&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "MC" : {
+          "name": "Micaela Crespo",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Rocio%20Micaela%20Crespo%20Quesada,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=crespo&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "LC" : {
+          "name": "Lucia Couto",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Lucia%20Couto,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=couto&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"},
+      "JR" : {
+          "name": "Julian Randall",
+          "url": "https://www3.unil.ch/annuaire/browse/person/cn=Julian%20Randall,ou=Service%20de%20la%20recherche,ou=Services%20Centraux,o=Universite%20de%20Lausanne,c=ch?query=julian&base=o%3DUniversite+de+Lausanne%2Cc%3Dch&category=2"}
+    };
+
+    var translate = { 
+      "fr" : {
+          "contact": "Contacter",
+          "text" : "La personne mentionnée ci-dessous est en mesure de vous conseiller sur le sujet qui vous préoccupe.",
+          "error" : "Doggygo n'est pas accessible pour le moment."},
+      "en" : {
+          "contact": "Contact",
+          "text" : "The person below can advise you on the topic you care about.",
+          "error" : "Doggygo is not available at the moment."},
+    }
+
+    // ======== État ========
+    var papago = {};
+    var parent = "", oldItem = "", jList = "", sheet = "";
+    var trail = []; // fil d’Ariane des clés déjà visitées
+
+    // ======== Helpers ========
+    function $(sel){ return document.querySelector(sel); }
+    function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
+    function show(el){ el.style.display = ""; }
+    function hide(el){ el.style.display = "none"; }
+    function escapeHTML(str){
+      var div = document.createElement('div');
+      div.textContent = String(str || "");
+      return div.innerHTML;
+    }
+
+    function renderProgress(){
+      var progressEl = $("#progress");
+      if(!progressEl) return;
+      if(trail.length === 0){ progressEl.innerHTML = ""; return; }
+      var chips = trail.map(function(_, idx){
+        return '<span class="chip'+(idx === trail.length-1 ? '' : ' muted')+'">'+ (idx+1) +'</span>';
+      }).join('');
+      progressEl.innerHTML = chips;
+    }
+
+    function initials(name){
+      if(!name) return "?";
+      var parts = name.split(" ");
+      var a = parts[0] ? parts[0][0] : "";
+      var b = parts[1] ? parts[1][0] : "";
+      return (a+b).toUpperCase();
+    }
+
+    // ======== Rendu principal ========
+    function renderOptions(key){
+      var node = papago[key] || {};
+      var label = escapeHTML(node.label || "");
+      parent = node.parent || "";
+      oldItem = key;
+
+      if(trail[trail.length-1] !== key){ trail.push(key); }
+      renderProgress();
+
+      var optionsHTML = (node.options || []).map(function(opt){
+        var v = String(opt.value || "").replace(/'/g, "\\'");
+        return ''+
+          '<a class="option-item" href="javascript:format(\''+ v +'\')" role="button">'+
+            '<span class="label"><i class="fa-solid fa-arrow-right-long"></i> '+ escapeHTML(opt.option) +'</span>'+
+          '</a>';
+      }).join('');
+
+      var html = ''+
+        '<div class="q-title">'+ label +'</div>'+
+        '<div class="list-group">'+ optionsHTML +'</div>';
+
+      setHTML("#question", html);
+      $("#question").classList.add("fade-up");
+
+      // Controls
+      show($("#buttons"));
+      if(node.parent){ show($("#back")); } else { hide($("#back")); }
+      hide($("#restart"));
+    }
+
+    function renderContact(item){
+      // "Contacter CODE" => devient "Contact CODE" (via translate) + lookup
+      var clean = item.replace("Contacter", translate[lang]["contact"]);
+      var parts = clean.split(" ");
+      var code = parts[1];
+      var p = persons[code] || {};
+      var name = p.name || code || "Contact";
+      var url = p.url || "#";
+
+      if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
+      renderProgress();
+
+      var html = ''+
+        '<div class="q-title">'+ escapeHTML(translate[lang]["text"]) +'</div>'+
+        '<div class="contact-wrap">'+
+          '<div class="contact-id">'+
+            '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
+            '<div>'+
+              '<p class="contact-name">'+ escapeHTML(name) +'</p>'+
+              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la Recherche</p>'+
+            '</div>'+
+          '</div>'+
+          '<div class="cta d-flex gap-2">'+
+            '<a class="btn btn-gradient btn-lg" target="_blank" rel="noopener" href="'+ url +'">'+
+              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
+            '</a>'+
+            '<a class="btn btn-ghost btn-lg" target="_blank" rel="noopener" href="'+ url +'">'+
+              '<i class="fa-solid fa-up-right-from-square"></i> Ouvrir la fiche'+
+            '</a>'+
+          '</div>'+
+        '</div>';
+
+      setHTML("#question", html);
+      $("#question").classList.add("fade-up");
+
+      show($("#buttons"));
+      hide($("#back"));
+      show($("#restart"));
+    }
+
+    // ======== API similaire à l’original ========
+    function format(item){
+      if(item.substr(0,9) === "Contacter"){
+        renderContact(item);
+      } else {
+        renderOptions(item);
       }
+    }
+    function goback(){
+      // remonte d’un cran dans le fil d’Ariane si possible
+      if(!parent) return;
+      trail.pop(); // retire l’écran courant
+      format(parent);
+    }
+    window.format = format; // exposé pour href="javascript:format(..)"
+    window.goback = goback;
 
-      var parent = oldItem = sheet = jList = "";
+    // ======== Init ========
+    function loadParams(){
+      var params = new URLSearchParams(location.search);
+      var qLang = params.get("lang");
+      var notitle = params.get("notitle");
+      if(qLang && translate[qLang]) lang = qLang;
+      if(notitle === "true"){ document.querySelectorAll("h1,.title").forEach(function(h){ h.classList.add("visually-hidden"); }); }
+    }
 
-      function format(item) {
-        // on vérifie si les 9 premiers caractères sont égaux à "Contacter"
-        if (item.substr(0,9) == "Contacter") {
-            parent = oldItem;
-            item = item.replace("Contacter", translate[lang]["contact"]);
-            var url = item.split(' ');
-            
-            // *** UI: sortie contact soignée (toujours fidèle au contenu) ***
-            var code = ''
-              + '<p>' + translate[lang]["text"] + '</p>'
-              + '<a class="btn btn-info btn-lg" target="_blank" href="'+ persons[url[1]]["url"] + '">'
-              +   '<i class="fa fa-send"></i>&nbsp;' + url[0] + '&nbsp;' + persons[url[1]]["name"]
-              + '</a>';
+    function showLoader(){
+      setHTML("#question",
+        '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div></div>'
+      );
+      hide($("#back")); hide($("#restart"));
+    }
 
-            $('#submit').hide(); 
-            $('#restart').show();
-        }
-        // si ce n'est pas égal à "Contacter", on continue avec les autres questions
-        else {
-            jList = '';
-            $('#restart').hide();
-
-            // *** UI: options modernisées, ajout classe option-item (le reste inchangé) ***
-            var code = '<p>' + papago[item]['label'] + '</p>'
-              + '<div class="list-group btn-group-vertical" role="group" style="max-width:1000px; width:100%">';
-            $.each(papago[item]['options'], function(index,value) {
-                code = code
-                  + '<a class="list-group-item list-group-item-action btn option-item"'
-                  + ' style="text-align:left; text-decoration:none; white-space:normal;"'
-                  + ' href="javascript:format(\'' + value['value'] +'\')">'
-                  +   '<i class="fa fa-arrow-right"></i>&nbsp;' + value['option']
-                  + '</a>';
-            });
-            code = code + '</div>';
-
-            if (papago[item]['parent']) {
-                $('#back').show();
-            }
-            else {
-                $('#back').hide();
-            }
-            parent = papago[item]['parent'];
-            oldItem = item;
-        }
-        $('#question').html(code);
-      }
-
-      function goback() {
-        format(parent);
-      }
-
-      $(document).ready(function(){
-        var param = {};
-        var str = window.location.search.substr(1);
-        if(str) {
-            var pairs = str.split('&');
-            for (var i=0; i<pairs.length; i++) {
-                var part = pairs[i].split('=');
-                param[part[0]] = part[1];
-            }
-        }
-        if(param['lang'] && translate[param['lang']]) {
-            lang = param['lang'];
-        }
-        if(param['notitle'] && param['notitle']=='true') {
-            $('h3').hide();
-        }
-
-        // petit squelette visuel pendant le chargement (non intrusif)
-        $('#question').html(
-          '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 45%"></div></div>'
+    async function boot(){
+      loadParams();
+      showLoader();
+      try{
+        var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
+        papago = await res.json();
+        show($("#buttons"));
+        format("0");
+      }catch(e){
+        console.error(e);
+        setHTML("#question",
+          '<div class="alert alert-danger mb-0" role="alert">'+
+          '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +'</div>'
         );
+      }
+    }
 
-        $.getJSON( papagoUrl + "papago-" + lang + ".json")
-          .done(function( data ) {
-              papago = data;
-              $('#buttons').show();
-              format("0");
-          })
-          .fail(function(xhr, status, error) {
-              $('#question').html(
-                '<div class="alert alert-danger mb-0" role="alert">'
-                + '<i class="fa fa-exclamation-triangle"></i> '
-                + translate[lang]['error']
-                + '</div>'
-              );
-              console.log( error );
-          });
+    document.addEventListener("DOMContentLoaded", boot);
+
+    // ======== Theme toggle (optionnel) ========
+    (function(){
+      var btn = $("#theme-btn");
+      if(!btn) return;
+      btn.addEventListener("click", function(){
+        var dark = document.documentElement.dataset.theme === "dark";
+        document.documentElement.dataset.theme = dark ? "light" : "dark";
+        btn.innerHTML = dark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        if(!dark){
+          // passage au thème sombre
+          document.body.style.background =
+            'linear-gradient(180deg, #0a0f1c 0%, #0b1220 100%)';
+        }else{
+          document.body.style.background = '';
+        }
       });
-    </script>
-  </body>
+    })();
+  </script>
+</body>
 </html>
