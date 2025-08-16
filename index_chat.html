@@ -14,38 +14,40 @@
 
 <style>
 /* =========================================================
-   AURORA MINIMAL+  —  Sobre, premium, avec “wow” discret
+   LUXE AURORA — Grand, élégant, “wow” maîtrisé
    ========================================================= */
 :root{
   color-scheme: light dark;
-  --radius: 12px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
+
+  /* Dimensions */
+  --radius: 14px;       /* bulles */
+  --radius-lg: 18px;    /* panneaux */
+  --radius-xl: 22px;    /* grandes cartes */
   --speed: .22s;
 
   /* Palette (Light) */
-  --bg: #f7f7f8;
+  --bg: #f6f7fb;
   --panel: #ffffff;
-  --text: #0b0f19;
-  --muted: #6b7280;
-  --border: #e6e6e8;
-  --chip: #f3f4f6;
+  --text: #0b1220;
+  --muted: #64748b;
+  --border: #e7e8ef;
+  --chip: #f1f3f7;
 
   /* Palette (Dark) */
-  --bg-dark: #0e0f13;
-  --panel-dark: #0f1116;
-  --text-dark: #e6e8ee;
+  --bg-dark: #0e1117;
+  --panel-dark: #0f131a;
+  --text-dark: #e9edf3;
   --muted-dark: #9aa3af;
-  --border-dark: #23262d;
-  --chip-dark: #151a21;
+  --border-dark: #242a33;
+  --chip-dark: #151b22;
 
-  /* Accent (dégradé) */
+  /* Accent (dégradé chic) */
   --accent-1: #10a37f;
   --accent-2: #2bb3a1;
 
   /* Ombres */
-  --shadow-1: 0 10px 24px rgba(0,0,0,.06);
-  --shadow-2: 0 18px 40px rgba(0,0,0,.08);
+  --shadow-1: 0 10px 26px rgba(18, 24, 40, .08);
+  --shadow-2: 0 22px 60px rgba(18, 24, 40, .12);
 }
 
 @media (prefers-color-scheme: dark){
@@ -65,114 +67,106 @@ body{
   margin:0; color:var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
-  /* Fond “aurora” discret */
+  /* Fond aurora premium (discret mais “wow”) */
   background:
-    radial-gradient(900px 520px at 50% -180px, rgba(16,163,127,.10), transparent 70%),
-    radial-gradient(900px 520px at 90% 0%, rgba(16,163,127,.06), transparent 60%),
+    radial-gradient(1200px 600px at 70% -10%, rgba(16,163,127,.10), transparent 70%),
+    radial-gradient(1000px 520px at -10% 10%, rgba(10,163,200,.08), transparent 60%),
     var(--bg);
 }
 body::before{
-  /* ruban aurora très doux (wow mais sobre) */
-  content:""; position: fixed; inset:-20% -10% auto -10%; height: 60vh;
+  content:""; position: fixed; inset: -20% -20% auto -20%; height: 54vh;
   background:
-    radial-gradient(35% 100% at 20% 0%, rgba(16,163,127,.16), transparent 60%),
-    radial-gradient(35% 100% at 80% 0%, rgba(16,163,127,.10), transparent 60%);
-  filter: blur(30px) saturate(115%);
-  opacity:.7; pointer-events: none;
-  animation: aurora 28s ease-in-out infinite alternate;
+    radial-gradient(40% 100% at 20% 0%, rgba(16,163,127,.18), transparent 60%),
+    radial-gradient(40% 100% at 80% 0%, rgba(10,163,200,.14), transparent 60%);
+  filter: blur(30px) saturate(115%); opacity:.75; pointer-events: none;
+  animation: aurora 30s ease-in-out infinite alternate;
 }
-@keyframes aurora{
-  from{ transform: translate3d(-2%, 0, 0) rotate(0.001deg); }
-  to{ transform: translate3d(2%, 2%, 0) rotate(0.001deg); }
+@keyframes aurora{ from{ transform: translate3d(-2%,0,0);} to{ transform: translate3d(2%,2%,0);} }
+
+.app-shell{
+  max-width: 1040px;     /* plus large que précédemment */
+  margin: 0 auto;
+  padding: clamp(16px, 3.2vw, 28px);
 }
 
-.app-shell{ max-width: 840px; margin: 0 auto; padding: clamp(12px, 3.2vw, 24px); }
-
-/* En-tête */
+/* En-tête ample */
 .header{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: 8px 0 10px 0;
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding: 6px 0 8px 0;
 }
-.brand{ display:flex; align-items:center; gap:10px; }
-.logo{ width:36px; height:36px; border-radius: 8px; object-fit: cover; }
-.h-title{ margin:0; font-weight:800; font-size: 16px; letter-spacing:.2px; }
-.h-sub{ margin:0; color: var(--muted); font-size: 13px; }
-.toolbar{ display:flex; gap:.5rem; }
+.brand{ display:flex; align-items:center; gap:12px; }
+.logo{ width:48px; height:48px; border-radius: 12px; object-fit: cover; }
+.h-title{ margin:0; font-weight:800; font-size: 20px; letter-spacing:.2px; }
+.h-sub{ margin:2px 0 0; color: var(--muted); font-size: 14px; }
+
+.toolbar{ display:flex; gap:.6rem; }
 .toolbar .btn{
-  border-radius: 999px; padding:.5rem .85rem; font-weight:600; font-size: 14px;
+  border-radius: 999px; padding:.6rem 1rem; font-weight:700; font-size: 14px;
   background: transparent; border: 1px solid var(--border); color: inherit;
   transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
 }
 .toolbar .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
 .toolbar .btn:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
 
-/* Ligne d’accent (sobre) */
+/* Trait d’accent animé */
 .accent-line{
-  height: 2px; width: 100%;
+  height: 3px; width: 100%;
   background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
   background-size: 200% 100%;
-  animation: shift 18s linear infinite;
-  border-radius: 2px; opacity:.9;
+  animation: shift 22s linear infinite; border-radius: 2px; opacity:.9;
 }
 @keyframes shift{ 0%{background-position:0 0;} 100%{background-position:200% 0;} }
 
-/* Panneau chat (bordure dégradée premium) */
+/* Panneau principal : grand, bordure dégradée chic */
 .chat-wrap{
-  margin-top: 12px;
+  margin-top: 14px;
   border-radius: var(--radius-xl);
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, var(--border), rgba(16,163,127,.35), var(--border)) border-box;
+    linear-gradient(120deg, var(--border), rgba(16,163,127,.36), var(--border)) border-box;
   border: 1px solid transparent;
   box-shadow: var(--shadow-2);
   position: relative; overflow: clip;
 }
 
-/* Ombres de défilement */
-.chat-wrap::before,
-.chat-wrap::after{
-  content:""; position: absolute; left:0; right:0; height: 18px; pointer-events:none;
-}
-.chat-wrap::before{ top:0; background: linear-gradient(180deg, rgba(0,0,0,.06), transparent); }
-.chat-wrap::after{ bottom:0; background: linear-gradient(0deg, rgba(0,0,0,.06), transparent); }
-
-/* Progress chips */
+/* Barre supérieure (progress) */
 .progress-chips{
-  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap;
-  padding: 12px 12px; border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
+  display:flex; gap:.45rem; align-items:center; flex-wrap:wrap;
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.03));
 }
 .chip{
-  width:22px; height:22px; border-radius: 999px; font-weight:700; font-size:12px;
+  width:26px; height:26px; border-radius: 999px; font-weight:800; font-size:12px;
   display:inline-flex; align-items:center; justify-content:center;
   color: var(--muted); background: transparent; border: 1px solid var(--border);
   transition: border-color var(--speed), color var(--speed);
 }
 .chip:last-child{ color: var(--text); border-color: rgba(16,163,127,.45); }
 
-/* Messages */
-#chat{ padding: 8px 12px 12px 12px; }
+/* Zone chat */
+#chat{ padding: 14px 16px 16px 16px; }
+
+/* Messages (grandes bulles) */
 .msg{
-  display:flex; align-items:flex-start; gap:10px; margin: 10px 0;
+  display:flex; align-items:flex-start; gap:12px; margin: 14px 0;
   animation: rise var(--speed) ease-out;
 }
 @keyframes rise{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
 .msg .avatar{
-  width:28px; height:28px; border-radius: 8px; flex: 0 0 auto;
-  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 14px;
+  width:36px; height:36px; border-radius: 10px; flex: 0 0 auto;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 16px;
   background: linear-gradient(180deg, #d5f5eb, #bfeee0); color:#064e3b;
   border:1px solid var(--border);
 }
 .msg.user .avatar{ opacity:.75; background: linear-gradient(180deg, #eceff3, #e5e9ee); color:#222; }
 .msg .bubble{
-  max-width: 760px; position: relative;
-  border-radius: var(--radius); padding: 12px 14px;
+  max-width: 920px; position: relative;
+  border-radius: var(--radius); padding: 16px 18px;
   border: 1px solid var(--border); background: var(--panel);
-  line-height: 1.55; box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  line-height: 1.6; font-size: 16.5px;
 }
 .msg .bubble::after{
-  /* hairline d’accent en haut (wow subtil) */
-  content:""; position:absolute; left:10px; right:10px; top:0; height: 1px;
+  content:""; position:absolute; left:14px; right:14px; top:0; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
   opacity:.7;
 }
@@ -186,71 +180,88 @@ body::before{
 }
 @keyframes blink{ 0%, 100%{opacity:0;} 50%{opacity:1;} }
 
-/* Options (chips) */
-.choices{ display:flex; flex-direction: column; gap: .5rem; margin-top:.6rem; }
-.chip-btn{
-  display:flex; align-items:center; gap:.65rem; padding:.68rem 1rem; text-decoration:none;
-  border-radius: 999px; background: var(--chip); border: 1px solid var(--border);
-  color: inherit; font-weight: 700; transition: transform var(--speed), box-shadow var(--speed), background var(--speed), border-color var(--speed), filter var(--speed);
+/* TITRE dans la bulle */
+.msg .bubble .title{ font-weight: 800; margin-bottom: 8px; letter-spacing:.2px; font-size: 17px; }
+
+/* ====== NOUVELLES CARTES DE RÉPONSES (GRANDES & DYNAMIQUES) ====== */
+.choices{ margin-top: 10px; }
+.choices-grid{
+  display:grid; gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-.chip-btn i{ color: var(--muted); }
-.chip-btn:hover{
-  background: linear-gradient(var(--chip), var(--chip)) padding-box,
-             linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
+.opt-card{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding: 16px 18px; border-radius: 16px;
+  background: var(--chip);
+  border: 1px solid var(--border);
+  text-decoration:none; color: inherit; font-weight: 800; font-size: 16px;
+  transition: transform var(--speed), box-shadow var(--speed), background var(--speed), border-color var(--speed);
+  min-height: 72px; position: relative; overflow: hidden;
+}
+.opt-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+.opt-ico{
+  width:36px; height:36px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, #eaf8f3, #dff3ec); color:#0e6d56; border: 1px solid var(--border);
+  flex: 0 0 auto;
+}
+.opt-text{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.opt-arrow{ opacity: 0; transition: opacity var(--speed); }
+.opt-card:hover{
+  background:
+    linear-gradient(var(--chip), var(--chip)) padding-box,
+    linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
   border-color: transparent; transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  box-shadow: var(--shadow-1);
 }
-.chip-btn:active{ transform: translateY(0); filter: saturate(110%); }
+.opt-card.typed .opt-arrow{ opacity: 1; }
 
 /* Actions bas de bulle */
-.bottom-actions{ display:flex; gap:.5rem; flex-wrap: wrap; margin-top: .8rem; }
+.bottom-actions{ display:flex; gap:.6rem; flex-wrap: wrap; margin-top: 12px; }
 .btn-ghost{
-  border-radius: 999px; padding:.45rem .85rem; font-weight:600; font-size: 14px;
+  border-radius: 999px; padding:.55rem 1rem; font-weight:700; font-size: 14px;
   background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
   transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
 }
 .btn-ghost:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
 .btn-ghost:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
-
 .btn-accent{
-  border-radius: 999px; padding:.6rem 1rem; font-weight:800; font-size: 14px;
+  border-radius: 999px; padding:.7rem 1.1rem; font-weight:800; font-size: 14px;
   background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   color: #fff; border: 1px solid transparent; text-decoration:none;
-  box-shadow: 0 10px 26px rgba(16,163,127,.25);
-  transition: transform var(--speed), box-shadow var(--speed), filter var(--speed);
+  box-shadow: 0 12px 28px rgba(16,163,127,.25);
 }
-.btn-accent:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(16,163,127,.28); }
+.btn-accent:hover{ transform: translateY(-1px); box-shadow: 0 16px 38px rgba(16,163,127,.28); }
 
-/* Carte contact (halo subtil + reveal) */
+/* Carte contact (premium + responsive) */
 .contact-card{
-  display:grid; grid-template-columns: auto 1fr auto; gap:12px; align-items:center;
-  border-radius: calc(var(--radius) + 2px);
-  padding: 12px; margin-top: 12px;
+  display:grid; grid-template-columns: auto 1fr auto; gap:14px; align-items:center;
+  border-radius: calc(var(--radius) + 4px);
+  padding: 14px; margin-top: 14px;
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
     linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
   border: 1px solid transparent;
-  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  box-shadow: 0 10px 26px rgba(0,0,0,.08);
   min-width: 0; transform: translateY(6px) scale(.98); opacity:0;
   animation: cardIn .28s ease-out forwards;
 }
 @keyframes cardIn{ to{ transform: translateY(0) scale(1); opacity:1; } }
 .contact-card .avatar{
-  width:46px; height:46px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
-  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border);
+  width:54px; height:54px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 18px;
 }
-.contact-card .name{ font-weight:800; }
+.contact-card .name{ font-weight:800; font-size: 16.5px; }
 .contact-card .meta{ color: var(--muted); font-size: 14px; word-break: break-word; }
 .contact-card .btn-accent{ min-width: 0; }
 
 /* Mobile : pile + bouton plein largeur */
-@media (max-width: 640px){
+@media (max-width: 680px){
   .contact-card{ grid-template-columns: 1fr; }
   .contact-card .btn-accent{ width: 100%; }
 }
 
 /* Note */
-.note{ color: var(--muted); font-size: 13px; padding: 10px 12px; border-top: 1px solid var(--border); }
+.note{ color: var(--muted); font-size: 13px; padding: 12px 16px; border-top: 1px solid var(--border); }
 
 /* Accessibilité */
 .visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
@@ -294,7 +305,7 @@ body::before{
 
   <script>
   /* ======================================================
-     Logique : streaming questions + réponses + finale
+     Logique : questions streamées + cartes réponses dynamiques
      ====================================================== */
 
   // ===== Données (inchangées) =====
@@ -318,12 +329,13 @@ body::before{
   var translate = { 
     "fr" : {
         "contact": "Contacter",
-        "text" : "La personne ci‑dessous peut vous conseiller directement.",
+        /* <<< demandé : en minuscules exactes >>> */
+        "text" : "la personne ci‑dessous peut vous conseiller directement.",
         "error" : "Doggygo n'est pas accessible pour le moment."
     },
     "en" : {
         "contact": "Contact",
-        "text" : "This person can advise you directly.",
+        "text" : "the person below can advise you directly.",
         "error" : "Doggygo is not available at the moment."
     }
   };
@@ -333,9 +345,8 @@ body::before{
   var currentKey = "";
   var parentKey = "";
   var trail = [];
-  var backTargetFromContact = "";
   var atContact = false;
-  var pathSelections = []; // stocke le texte des options choisies (pour le résumé final)
+  var backTargetFromContact = "";
 
   // ===== Helpers =====
   function $(sel){ return document.querySelector(sel); }
@@ -358,7 +369,7 @@ body::before{
     wrap.className = "msg assistant";
     wrap.innerHTML =
       '<div class="avatar" aria-hidden="true">🐾</div>'+
-      '<div class="bubble"><div class="text"></div><div class="choices" role="group" aria-label="Options"></div></div>';
+      '<div class="bubble"><div class="text"></div><div class="choices"></div></div>';
     $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
   }
   function addUserBubble(){
@@ -372,42 +383,57 @@ body::before{
   function typeStream(el, text, speed){
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(reduce || speed <= 0){
-      el.textContent = text;
-      return Promise.resolve();
+      el.textContent = text; return Promise.resolve();
     }
     return new Promise(function(resolve){
-      // on sépare “zone texte” et caret pour éviter de réécrire innerHTML
       var typedSpan = document.createElement('span');
       var caret = document.createElement('span'); caret.className = 'caret';
       el.appendChild(typedSpan); el.appendChild(caret);
-
       var i=0, len=text.length;
       (function loop(){
         if(i < len){
           typedSpan.textContent += text.charAt(i++);
           var ch = typedSpan.textContent.slice(-1);
           var s = (ch === ' ' || ch === '\n') ? speed * 0.6 : speed;
-          setTimeout(loop, s);
-          scrollToBottom();
-        }else{
-          // retire le caret
-          caret.remove();
-          resolve();
-        }
+          setTimeout(loop, s); scrollToBottom();
+        }else{ caret.remove(); resolve(); }
       })();
     });
   }
-
   async function streamAssistantMessage(text){
     var bubble = addAssistantBubble();
-    await typeStream(bubble.querySelector('.text'), text, 12); // rapide mais lisible
+    await typeStream(bubble.querySelector('.text'), text, 11); // rapide et fluide
+    return bubble;
+  }
+  async function streamUserMessage(text){
+    var bubble = addUserBubble();
+    await typeStream(bubble.querySelector('.typed'), text, 9);
     return bubble;
   }
 
-  async function streamUserMessage(text){
-    var bubble = addUserBubble();
-    await typeStream(bubble.querySelector('.typed'), text, 10); // un poil plus rapide côté user
-    return bubble;
+  // ===== Options : création d’une “carte” + typage du texte à l’intérieur =====
+  function createOptionCard(opt, onChoose){
+    var a = document.createElement('a');
+    a.href = "javascript:void(0)";
+    a.className = "opt-card";
+    a.innerHTML =
+      '<div class="opt-left">'+
+        '<div class="opt-ico"><i class="fa-solid fa-bolt"></i></div>'+
+        '<div class="opt-text" aria-live="polite"></div>'+
+      '</div>'+
+      '<div class="opt-arrow"><i class="fa-solid fa-chevron-right"></i></div>';
+    a.onclick = function(){ onChoose(opt.value, opt.option, a); };
+    return a;
+  }
+
+  // Typage séquentiel des cartes (vrai dynamique “dans les carrés”)
+  async function typeOptionsSequentially(container, cards, speed){
+    for(const card of cards){
+      var el = card.querySelector('.opt-text');
+      var label = card.getAttribute('data-label') || "";
+      await typeStream(el, label, speed);
+      card.classList.add('typed'); // fait apparaître la flèche
+    }
   }
 
   function addBottomActions(bubble, opts){
@@ -443,32 +469,38 @@ body::before{
 
     var bubble = await streamAssistantMessage(label);
 
-    var choices = bubble.querySelector('.choices');
+    // Grille de cartes
+    var choicesWrap = document.createElement('div');
+    choicesWrap.className = "choices";
+    var grid = document.createElement('div');
+    grid.className = "choices-grid";
+    choicesWrap.appendChild(grid);
+    bubble.querySelector('.bubble').appendChild(choicesWrap);
+
+    // Crée les cartes et les ajoute (texte vide pour l’instant)
+    var cards = [];
     (node.options || []).forEach(function(opt){
-      var btn = document.createElement('a');
-      btn.href = "javascript:void(0)";
-      btn.className = "chip-btn";
-      btn.innerHTML = '<i class="fa-solid fa-bolt"></i> '+ escapeHTML(opt.option);
-      btn.onclick = function(){ chooseOption(opt.value, opt.option, bubble); };
-      choices.appendChild(btn);
+      var card = createOptionCard(opt, chooseOption);
+      card.setAttribute('data-label', opt.option);
+      grid.appendChild(card);
+      cards.push(card);
     });
 
+    // Tape le texte **dans** chaque carte, l’une après l’autre
+    typeOptionsSequentially(grid, cards, 9);
+
+    // Actions bas de bulle
     addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
 
+    // Toolbar top
     show($("#buttons"));
     if(node.parent){ show($("#back")); } else { hide($("#back")); }
     hide($("#restart"));
     scrollToBottom();
   }
 
-  function buildSummaryText(pathArr){
-    if(!pathArr || !pathArr.length) return "";
-    if(pathArr.length === 1) return "Vous avez choisi : " + pathArr[0];
-    return "Vous avez choisi : " + pathArr.map(function(t, i){ return (i+1)+". "+t; }).join(" · ");
-  }
-
   async function renderContact(item){
-    // Nettoyage de l'intitulé
+    // Ex.: "Contacter CODE"
     var clean = item.replace("Contacter", translate[lang]["contact"]);
     var parts = clean.split(" ");
     var code = parts[1];
@@ -482,12 +514,10 @@ body::before{
     if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
     renderProgress();
 
-    // 1) Message assistant “résumé final” (streamé)
-    var summary = buildSummaryText(pathSelections);
-    var intro = summary ? (summary + "\n\n" + translate[lang]["text"]) : translate[lang]["text"];
-    var bubble = await streamAssistantMessage(intro);
+    // Message final EXACT demandé (tapé)
+    var bubble = await streamAssistantMessage(translate[lang]["text"]);
 
-    // 2) Carte contact
+    // Carte contact
     var card = document.createElement('div');
     card.className = "contact-card";
     card.innerHTML =
@@ -503,22 +533,21 @@ body::before{
       '</div>';
     bubble.querySelector('.text').appendChild(card);
 
-    // 3) Actions bas de bulle : Retour + Recommencer (fin de parcours)
+    // Actions bas : Retour + Recommencer (fin)
     addBottomActions(bubble, { showBack: true, showRestart: true });
 
+    // Toolbar top
     show($("#buttons")); show($("#back")); show($("#restart"));
     scrollToBottom();
   }
 
-  async function chooseOption(value, text, currentBubble){
-    // Désactive les options précédentes
-    var choices = currentBubble.querySelectorAll('.chip-btn');
-    choices.forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
+  // Lors d’un choix
+  async function chooseOption(value, text, currentCard){
+    // Désactive toutes les cartes pour éviter le double-clic
+    var grid = currentCard.closest('.choices-grid');
+    grid.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
 
-    // Afficher la réponse de l'utilisateur EN STREAMING
-    // (et gérer le fil des choix pour le résumé final)
-    pathSelections.length = Math.max(0, trail.length - 1); // tronque au niveau actuel
-    pathSelections.push(text);
+    // Affiche la réponse utilisateur avec typage
     await streamUserMessage(text);
 
     // Enchaîne
@@ -528,34 +557,17 @@ body::before{
     }, 60);
   }
 
-  // API publique
-  function format(item){
-    if(item.substr(0,9) === "Contacter"){
-      renderContact(item);
-    } else {
-      renderOptions(item);
-    }
-  }
-
+  // API publique (compat)
+  function format(item){ if(item.substr(0,9) === "Contacter"){ renderContact(item); } else { renderOptions(item); } }
   function goback(){
     if(atContact && backTargetFromContact){
-      // Retire "contact:*" du trail, remonte à la question précédente
       if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
-      setHTML("#chat", "");
-      // On ne touche pas à pathSelections ici : l’utilisateur revient pour éventuellement modifier le dernier choix
-      format(backTargetFromContact);
-      return;
+      setHTML("#chat", ""); format(backTargetFromContact); return;
     }
     if(!parentKey) return;
-    // remonte d’un cran : on réinitialise l’affichage et on tronque le résumé
-    trail.pop();
-    pathSelections.length = Math.max(0, trail.length - 1);
-    setHTML("#chat", "");
-    format(parentKey);
+    trail.pop(); setHTML("#chat", ""); format(parentKey);
   }
-
-  window.format = format;
-  window.goback = goback;
+  window.format = format; window.goback = goback;
 
   // ===== Boot =====
   function loadParams(){
@@ -573,7 +585,7 @@ body::before{
       var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
       papago = await res.json();
       show($("#buttons"));
-      format("0"); // pas de “…” avant la 1ʳᵉ question
+      format("0"); // pas de “…” avant la 1ère question
     }catch(e){
       console.error(e);
       var wrap = addAssistantBubble();
@@ -587,4 +599,3 @@ body::before{
   </script>
 </body>
 </html>
- 
