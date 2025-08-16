@@ -122,16 +122,12 @@
   /* ======== Contact view ======== */
   .contact-wrap{
     display: grid;
-    gap: 14px;
     align-items: center;
-    grid-template-columns: 1fr; /* mobile par défaut */
-  }
-  @media (min-width: 992px){
-    .contact-wrap{
-      grid-template-columns: auto auto; /* identité + CTA côte à côte, alignés à gauche */
-      justify-content: start;
-    }
-    .cta{ justify-self: start; }
+    gap: clamp(12px, 3vw, 24px);
+    /* Zone centrée pour éviter "trop à gauche" ou "trop à droite" sur laptop */
+    max-width: clamp(560px, 75vw, 780px);
+    margin-inline: auto;
+    grid-template-columns: minmax(280px, 1fr) auto; /* identité + CTA */
   }
   .contact-id{ display:flex; gap:14px; align-items:center; }
   .avatar{
@@ -144,7 +140,7 @@
   .contact-name{ font-weight: 800; margin: 0; }
   .contact-meta{ color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
 
-  .cta{ display:flex; gap:.6rem; }
+  .cta{ display:flex; gap:.6rem; justify-self: end; } /* sur laptop: légèrement à droite mais dans la zone centrée */
   .cta .btn{
     border-radius: 999px; padding: .7rem 1rem; font-weight: 600;
     min-width: 0;
@@ -154,8 +150,10 @@
     box-shadow: 0 10px 24px rgba(64,212,255,.28);
   }
   .cta .btn:focus{ box-shadow: var(--ring); }
+
   @media (max-width: 991.98px){
-    .cta{ width: 100%; }
+    .contact-wrap{ grid-template-columns: 1fr; max-width: 100%; }
+    .cta{ width: 100%; justify-self: stretch; }
     .cta .btn{ width: 100%; }
   }
 
@@ -221,7 +219,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // ======== Données (avec tes nouveaux liens) ========
+    // ======== Données (nouveaux liens) ========
     var lang = "fr";
     var papagoUrl = "./trees/";
 
@@ -331,7 +329,7 @@
       if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
       renderProgress();
 
-      // Un seul bouton "Contacter" (pilule), aligné à gauche sur desktop
+      // Un seul bouton "Contacter", positionné dans une zone centrée (ni trop gauche, ni trop droite)
       var html = ''+
         '<div class="q-title">'+ escapeHTML(translate[lang]["text"]) +'</div>'+
         '<div class="contact-wrap">'+
