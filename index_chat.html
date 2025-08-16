@@ -14,15 +14,15 @@
 
 <style>
 /* =========================================================
-   LUXE AURORA — Grand, élégant, “wow” maîtrisé
+   LINEAR GLOW XL — grand, premium, wow discret & lisible
    ========================================================= */
 :root{
   color-scheme: light dark;
 
   /* Dimensions */
-  --radius: 14px;       /* bulles */
-  --radius-lg: 18px;    /* panneaux */
-  --radius-xl: 22px;    /* grandes cartes */
+  --radius: 16px;       /* bulles */
+  --radius-lg: 22px;    /* panneaux */
+  --radius-xl: 20px;    /* cartes réponses */
   --speed: .22s;
 
   /* Palette (Light) */
@@ -31,7 +31,7 @@
   --text: #0b1220;
   --muted: #64748b;
   --border: #e7e8ef;
-  --chip: #f1f3f7;
+  --chip: #f2f4f8;
 
   /* Palette (Dark) */
   --bg-dark: #0e1117;
@@ -46,8 +46,8 @@
   --accent-2: #2bb3a1;
 
   /* Ombres */
-  --shadow-1: 0 10px 26px rgba(18, 24, 40, .08);
-  --shadow-2: 0 22px 60px rgba(18, 24, 40, .12);
+  --shadow-1: 0 12px 28px rgba(18, 24, 40, .08);
+  --shadow-2: 0 26px 64px rgba(18, 24, 40, .12);
 }
 
 @media (prefers-color-scheme: dark){
@@ -67,26 +67,26 @@ body{
   margin:0; color:var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
-  /* Fond aurora premium (discret mais “wow”) */
+  /* fond aurora sobre */
   background:
-    radial-gradient(1200px 600px at 70% -10%, rgba(16,163,127,.10), transparent 70%),
-    radial-gradient(1000px 520px at -10% 10%, rgba(10,163,200,.08), transparent 60%),
+    radial-gradient(1100px 560px at 75% -10%, rgba(16,163,127,.10), transparent 70%),
+    radial-gradient(1000px 500px at -10% 10%, rgba(10,163,200,.08), transparent 60%),
     var(--bg);
 }
 body::before{
-  content:""; position: fixed; inset: -20% -20% auto -20%; height: 54vh;
+  content:""; position: fixed; inset: -20% -20% auto -20%; height: 50vh;
   background:
-    radial-gradient(40% 100% at 20% 0%, rgba(16,163,127,.18), transparent 60%),
-    radial-gradient(40% 100% at 80% 0%, rgba(10,163,200,.14), transparent 60%);
+    radial-gradient(42% 100% at 20% 0%, rgba(16,163,127,.16), transparent 60%),
+    radial-gradient(42% 100% at 80% 0%, rgba(10,163,200,.12), transparent 60%);
   filter: blur(30px) saturate(115%); opacity:.75; pointer-events: none;
-  animation: aurora 30s ease-in-out infinite alternate;
+  animation: aurora 28s ease-in-out infinite alternate;
 }
 @keyframes aurora{ from{ transform: translate3d(-2%,0,0);} to{ transform: translate3d(2%,2%,0);} }
 
 .app-shell{
-  max-width: 1040px;     /* plus large que précédemment */
+  max-width: 1160px;     /* nettement plus large */
   margin: 0 auto;
-  padding: clamp(16px, 3.2vw, 28px);
+  padding: clamp(18px, 3.6vw, 32px);
 }
 
 /* En-tête ample */
@@ -95,8 +95,8 @@ body::before{
   padding: 6px 0 8px 0;
 }
 .brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:48px; height:48px; border-radius: 12px; object-fit: cover; }
-.h-title{ margin:0; font-weight:800; font-size: 20px; letter-spacing:.2px; }
+.logo{ width:52px; height:52px; border-radius: 12px; object-fit: cover; }
+.h-title{ margin:0; font-weight:800; font-size: 22px; letter-spacing:.2px; }
 .h-sub{ margin:2px 0 0; color: var(--muted); font-size: 14px; }
 
 .toolbar{ display:flex; gap:.6rem; }
@@ -108,7 +108,7 @@ body::before{
 .toolbar .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
 .toolbar .btn:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
 
-/* Trait d’accent animé */
+/* Trait d’accent */
 .accent-line{
   height: 3px; width: 100%;
   background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
@@ -117,10 +117,10 @@ body::before{
 }
 @keyframes shift{ 0%{background-position:0 0;} 100%{background-position:200% 0;} }
 
-/* Panneau principal : grand, bordure dégradée chic */
+/* Panneau principal */
 .chat-wrap{
-  margin-top: 14px;
-  border-radius: var(--radius-xl);
+  margin-top: 16px;
+  border-radius: var(--radius-lg);
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
     linear-gradient(120deg, var(--border), rgba(16,163,127,.36), var(--border)) border-box;
@@ -129,50 +129,49 @@ body::before{
   position: relative; overflow: clip;
 }
 
-/* Barre supérieure (progress) */
+/* Progress chips */
 .progress-chips{
   display:flex; gap:.45rem; align-items:center; flex-wrap:wrap;
-  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  padding: 16px; border-bottom: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.03));
 }
 .chip{
-  width:26px; height:26px; border-radius: 999px; font-weight:800; font-size:12px;
+  width:28px; height:28px; border-radius: 999px; font-weight:800; font-size:13px;
   display:inline-flex; align-items:center; justify-content:center;
   color: var(--muted); background: transparent; border: 1px solid var(--border);
-  transition: border-color var(--speed), color var(--speed);
 }
 .chip:last-child{ color: var(--text); border-color: rgba(16,163,127,.45); }
 
 /* Zone chat */
-#chat{ padding: 14px 16px 16px 16px; }
+#chat{ padding: 16px; }
 
-/* Messages (grandes bulles) */
+/* Messages */
 .msg{
-  display:flex; align-items:flex-start; gap:12px; margin: 14px 0;
+  display:flex; align-items:flex-start; gap:14px; margin: 16px 0;
   animation: rise var(--speed) ease-out;
 }
 @keyframes rise{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
 .msg .avatar{
-  width:36px; height:36px; border-radius: 10px; flex: 0 0 auto;
-  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 16px;
+  width:40px; height:40px; border-radius: 12px; flex: 0 0 auto;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 18px;
   background: linear-gradient(180deg, #d5f5eb, #bfeee0); color:#064e3b;
   border:1px solid var(--border);
 }
 .msg.user .avatar{ opacity:.75; background: linear-gradient(180deg, #eceff3, #e5e9ee); color:#222; }
 .msg .bubble{
-  max-width: 920px; position: relative;
-  border-radius: var(--radius); padding: 16px 18px;
+  max-width: 980px; position: relative;
+  border-radius: var(--radius); padding: 18px 20px;
   border: 1px solid var(--border); background: var(--panel);
-  line-height: 1.6; font-size: 16.5px;
+  line-height: 1.65; font-size: 18px;
 }
 .msg .bubble::after{
-  content:""; position:absolute; left:14px; right:14px; top:0; height: 1px;
+  content:""; position:absolute; left:16px; right:16px; top:0; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
   opacity:.7;
 }
 .msg.user .bubble{ background: color-mix(in oklab, var(--panel) 86%, var(--bg) 14%); }
 
-/* Caret de frappe (sobre) */
+/* Caret de frappe */
 .caret{
   display:inline-block; width: 8px; height: 1.05em; vertical-align: -0.2em;
   border-right: 2px solid rgba(16,163,127,.85); margin-left: 2px;
@@ -180,32 +179,41 @@ body::before{
 }
 @keyframes blink{ 0%, 100%{opacity:0;} 50%{opacity:1;} }
 
-/* TITRE dans la bulle */
-.msg .bubble .title{ font-weight: 800; margin-bottom: 8px; letter-spacing:.2px; font-size: 17px; }
+/* Titre bulle */
+.msg .bubble .title{ font-weight: 800; margin-bottom: 10px; letter-spacing:.2px; font-size: 20px; }
 
-/* ====== NOUVELLES CARTES DE RÉPONSES (GRANDES & DYNAMIQUES) ====== */
-.choices{ margin-top: 10px; }
+/* ===== Cartes réponses (grandes, dynamiques, multilignes) ===== */
+.choices{ margin-top: 12px; }
 .choices-grid{
-  display:grid; gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display:grid; gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); /* 1–3 colonnes selon largeur */
+  grid-auto-rows: minmax(80px, auto); /* hauteur auto si multi-lignes */
 }
 .opt-card{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: 16px 18px; border-radius: 16px;
+  padding: 18px 20px; border-radius: var(--radius-xl);
   background: var(--chip);
   border: 1px solid var(--border);
-  text-decoration:none; color: inherit; font-weight: 800; font-size: 16px;
+  text-decoration:none; color: inherit; font-weight: 800; font-size: 18px;
   transition: transform var(--speed), box-shadow var(--speed), background var(--speed), border-color var(--speed);
-  min-height: 72px; position: relative; overflow: hidden;
+  position: relative; overflow: hidden; min-height: 80px;
 }
-.opt-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+.opt-left{ display:flex; align-items:center; gap:14px; min-width:0; flex: 1 1 auto; }
 .opt-ico{
-  width:36px; height:36px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  width:42px; height:42px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
   background: linear-gradient(180deg, #eaf8f3, #dff3ec); color:#0e6d56; border: 1px solid var(--border);
-  flex: 0 0 auto;
+  flex: 0 0 auto; font-size: 18px;
 }
-.opt-text{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.opt-arrow{ opacity: 0; transition: opacity var(--speed); }
+.opt-text{
+  /* >>> Fix: jamais tronqué, multilignes <<< */
+  display:block; flex: 1 1 auto;
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+.opt-arrow{ flex: 0 0 auto; opacity: 0; transition: opacity var(--speed); font-size: 18px; }
 .opt-card:hover{
   background:
     linear-gradient(var(--chip), var(--chip)) padding-box,
@@ -216,52 +224,52 @@ body::before{
 .opt-card.typed .opt-arrow{ opacity: 1; }
 
 /* Actions bas de bulle */
-.bottom-actions{ display:flex; gap:.6rem; flex-wrap: wrap; margin-top: 12px; }
+.bottom-actions{ display:flex; gap:.6rem; flex-wrap: wrap; margin-top: 14px; }
 .btn-ghost{
-  border-radius: 999px; padding:.55rem 1rem; font-weight:700; font-size: 14px;
+  border-radius: 999px; padding:.6rem 1rem; font-weight:700; font-size: 15px;
   background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
   transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
 }
 .btn-ghost:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
 .btn-ghost:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
 .btn-accent{
-  border-radius: 999px; padding:.7rem 1.1rem; font-weight:800; font-size: 14px;
+  border-radius: 999px; padding:.8rem 1.2rem; font-weight:800; font-size: 15px;
   background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   color: #fff; border: 1px solid transparent; text-decoration:none;
-  box-shadow: 0 12px 28px rgba(16,163,127,.25);
+  box-shadow: 0 14px 34px rgba(16,163,127,.25);
 }
-.btn-accent:hover{ transform: translateY(-1px); box-shadow: 0 16px 38px rgba(16,163,127,.28); }
 
-/* Carte contact (premium + responsive) */
+/* Carte contact */
 .contact-card{
-  display:grid; grid-template-columns: auto 1fr auto; gap:14px; align-items:center;
+  display:grid; grid-template-columns: auto 1fr auto; gap:16px; align-items:center;
   border-radius: calc(var(--radius) + 4px);
-  padding: 14px; margin-top: 14px;
+  padding: 16px; margin-top: 16px;
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
     linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
   border: 1px solid transparent;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
   min-width: 0; transform: translateY(6px) scale(.98); opacity:0;
   animation: cardIn .28s ease-out forwards;
 }
 @keyframes cardIn{ to{ transform: translateY(0) scale(1); opacity:1; } }
 .contact-card .avatar{
-  width:54px; height:54px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
   font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 18px;
 }
-.contact-card .name{ font-weight:800; font-size: 16.5px; }
+.contact-card .name{ font-weight:800; font-size: 17px; }
 .contact-card .meta{ color: var(--muted); font-size: 14px; word-break: break-word; }
 .contact-card .btn-accent{ min-width: 0; }
 
 /* Mobile : pile + bouton plein largeur */
-@media (max-width: 680px){
+@media (max-width: 720px){
+  .choices-grid{ grid-template-columns: 1fr; }  /* 1 carte par ligne sur mobile */
   .contact-card{ grid-template-columns: 1fr; }
   .contact-card .btn-accent{ width: 100%; }
 }
 
 /* Note */
-.note{ color: var(--muted); font-size: 13px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.note{ color: var(--muted); font-size: 13px; padding: 14px 16px; border-top: 1px solid var(--border); }
 
 /* Accessibilité */
 .visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
@@ -305,7 +313,7 @@ body::before{
 
   <script>
   /* ======================================================
-     Logique : questions streamées + cartes réponses dynamiques
+     Logique : questions + réponses dynamiques (multilignes)
      ====================================================== */
 
   // ===== Données (inchangées) =====
@@ -329,13 +337,13 @@ body::before{
   var translate = { 
     "fr" : {
         "contact": "Contacter",
-        /* <<< demandé : en minuscules exactes >>> */
-        "text" : "la personne ci‑dessous peut vous conseiller directement.",
+        /* >>> Majuscule exigée <<< */
+        "text" : "La personne ci‑dessous peut vous conseiller directement.",
         "error" : "Doggygo n'est pas accessible pour le moment."
     },
     "en" : {
         "contact": "Contact",
-        "text" : "the person below can advise you directly.",
+        "text" : "The person below can advise you directly.",
         "error" : "Doggygo is not available at the moment."
     }
   };
@@ -375,16 +383,14 @@ body::before{
   function addUserBubble(){
     var wrap = document.createElement('div');
     wrap.className = "msg user";
-    wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed"></span></div>';
+    wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed" style="word-break:break-word; overflow-wrap:anywhere;"></span></div>';
     $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
   }
 
-  // Typage rapide avec caret (désactivé si prefers-reduced-motion)
+  /* Typage rapide avec caret (si non reduced-motion) */
   function typeStream(el, text, speed){
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce || speed <= 0){
-      el.textContent = text; return Promise.resolve();
-    }
+    if(reduce || speed <= 0){ el.textContent = text; return Promise.resolve(); }
     return new Promise(function(resolve){
       var typedSpan = document.createElement('span');
       var caret = document.createElement('span'); caret.className = 'caret';
@@ -402,7 +408,7 @@ body::before{
   }
   async function streamAssistantMessage(text){
     var bubble = addAssistantBubble();
-    await typeStream(bubble.querySelector('.text'), text, 11); // rapide et fluide
+    await typeStream(bubble.querySelector('.text'), text, 11);
     return bubble;
   }
   async function streamUserMessage(text){
@@ -411,7 +417,7 @@ body::before{
     return bubble;
   }
 
-  // ===== Options : création d’une “carte” + typage du texte à l’intérieur =====
+  // ===== Cartes d’options dynamiques (texte tapé à l’intérieur) =====
   function createOptionCard(opt, onChoose){
     var a = document.createElement('a');
     a.href = "javascript:void(0)";
@@ -426,8 +432,8 @@ body::before{
     return a;
   }
 
-  // Typage séquentiel des cartes (vrai dynamique “dans les carrés”)
-  async function typeOptionsSequentially(container, cards, speed){
+  async function typeOptionsSequentially(cards, speed){
+    // Tape chaque carte l’une après l’autre (vrai “dynamique”)
     for(const card of cards){
       var el = card.querySelector('.opt-text');
       var label = card.getAttribute('data-label') || "";
@@ -477,7 +483,7 @@ body::before{
     choicesWrap.appendChild(grid);
     bubble.querySelector('.bubble').appendChild(choicesWrap);
 
-    // Crée les cartes et les ajoute (texte vide pour l’instant)
+    // Crée les cartes (texte vide au départ)
     var cards = [];
     (node.options || []).forEach(function(opt){
       var card = createOptionCard(opt, chooseOption);
@@ -486,8 +492,8 @@ body::before{
       cards.push(card);
     });
 
-    // Tape le texte **dans** chaque carte, l’une après l’autre
-    typeOptionsSequentially(grid, cards, 9);
+    // Tape le texte **dans** les cartes (séquentiel)
+    await typeOptionsSequentially(cards, 9);
 
     // Actions bas de bulle
     addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
@@ -500,7 +506,7 @@ body::before{
   }
 
   async function renderContact(item){
-    // Ex.: "Contacter CODE"
+    // "Contacter CODE"
     var clean = item.replace("Contacter", translate[lang]["contact"]);
     var parts = clean.split(" ");
     var code = parts[1];
@@ -533,24 +539,20 @@ body::before{
       '</div>';
     bubble.querySelector('.text').appendChild(card);
 
-    // Actions bas : Retour + Recommencer (fin)
     addBottomActions(bubble, { showBack: true, showRestart: true });
 
-    // Toolbar top
     show($("#buttons")); show($("#back")); show($("#restart"));
     scrollToBottom();
   }
 
-  // Lors d’un choix
   async function chooseOption(value, text, currentCard){
     // Désactive toutes les cartes pour éviter le double-clic
     var grid = currentCard.closest('.choices-grid');
     grid.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
 
-    // Affiche la réponse utilisateur avec typage
+    // Affiche la réponse utilisateur en streaming (multiligne OK)
     await streamUserMessage(text);
 
-    // Enchaîne
     setTimeout(function(){
       if(String(value).substr(0,9) === "Contacter"){ renderContact(String(value)); }
       else{ renderOptions(String(value)); }
@@ -585,7 +587,7 @@ body::before{
       var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
       papago = await res.json();
       show($("#buttons"));
-      format("0"); // pas de “…” avant la 1ère question
+      format("0");
     }catch(e){
       console.error(e);
       var wrap = addAssistantBubble();
