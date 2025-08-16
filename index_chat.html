@@ -8,41 +8,51 @@
 
 <style>
 /* =========================================================
-   QUARTZ GRID — nouveau design, mobile-first, très fluide
-   (aucune dépendance CSS)
+   PRISM WAVE — dark glass + neon accents (mobile-first)
    ========================================================= */
 :root{
-  color-scheme: light dark;
+  color-scheme: dark light;
 
-  /* Palette claire / sombre */
-  --bg: #f6f7fb;
-  --panel: #ffffff;
-  --ink: #0f172a;
-  --muted: #64748b;
-  --line: #e5e7eb;
-  --chip: #f3f4f7;
-  --accent: #0ea5a4;
+  /* Palette (dark-first) */
+  --bg: #0b1020;                 /* nuit bleutée */
+  --panel: rgba(18,22,34,.78);   /* verre sombre */
+  --ink: #e9eefc;
+  --muted: #9fb0d0;
+  --line: rgba(255,255,255,.12);
+  --chip: rgba(255,255,255,.06);
 
-  --bg-dark: #0e1117; --panel-dark:#0f131a; --ink-dark:#e6e8ee;
-  --muted-dark:#9aa3af; --line-dark:#232a35; --chip-dark:#151b22;
+  /* Accents néon */
+  --a1: #22f0b5;   /* menthe */
+  --a2: #7b5cff;   /* violet */
+  --a3: #ffb970;   /* ambre */
 
-  /* Rayons, ombres, tailles fluides */
+  /* Light mode (si besoin) */
+  --bg-light: #f6f7fb;
+  --panel-light: rgba(255,255,255,.9);
+  --ink-light: #101625;
+  --muted-light: #667089;
+  --line-light: rgba(15,23,42,.14);
+  --chip-light: rgba(15,23,42,.04);
+
+  /* Rayons / tailles / ombres */
   --r: 14px; --r-lg: 18px;
-  --shadow-1: 0 8px 24px rgba(2,8,23,.08);
-  --shadow-2: 0 14px 36px rgba(2,8,23,.10);
-
-  --fs-12: clamp(12px, .9vw, 13px);
-  --fs-14: clamp(13px, 1vw, 14px);
-  --fs-16: clamp(14px, 1.1vw, 16px);
-  --fs-18: clamp(16px, 1.3vw, 18px);
-  --fs-20: clamp(17px, 1.6vw, 20px);
+  --fs-13: clamp(12.5px, .85vw, 13.5px);
+  --fs-15: clamp(13.5px, 1vw, 15px);
+  --fs-16: clamp(14px, 1.05vw, 16px);
+  --fs-18: clamp(16px, 1.25vw, 18px);
+  --fs-20: clamp(17px, 1.45vw, 20px);
+  --shadow-1: 0 12px 32px rgba(8,12,24,.28);
+  --shadow-2: 0 22px 70px rgba(8,12,24,.32);
 }
 
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme: light){
   :root{
-    --bg: var(--bg-dark); --panel: var(--panel-dark);
-    --ink: var(--ink-dark); --muted: var(--muted-dark);
-    --line: var(--line-dark); --chip: var(--chip-dark);
+    --bg: var(--bg-light);
+    --panel: var(--panel-light);
+    --ink: var(--ink-light);
+    --muted: var(--muted-light);
+    --line: var(--line-light);
+    --chip: var(--chip-light);
   }
 }
 
@@ -52,86 +62,122 @@ body{
   margin:0; color:var(--ink);
   font: 400 var(--fs-16)/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
   background:
-    radial-gradient(85vw 40vh at 70% -20%, rgba(14,165,233,.08), transparent 60%),
-    radial-gradient(80vw 42vh at -10% 0%, rgba(14,165,233,.06), transparent 60%),
+    radial-gradient(60vw 40vh at 20% -10%, rgba(123,92,255,.15), transparent 65%),
+    radial-gradient(60vw 40vh at 95% 0%, rgba(34,240,181,.12), transparent 58%),
+    radial-gradient(70vw 45vh at -10% 70%, rgba(255,185,112,.10), transparent 65%),
     var(--bg);
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ===== Shell ===== */
 .container{
-  max-width: 1180px;    /* -> occupe bien l’espace sur desktop */
+  max-width: 1240px;            /* occupe bien l’espace sur desktop */
   margin: 0 auto;
-  padding: clamp(12px, 3vw, 28px);
+  padding: clamp(14px, 3.2vw, 28px);
 }
 
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.brand .logo{ width:44px; height:44px; border-radius: 11px; object-fit: cover; }
-.brand .title{ margin:0; font-weight:800; font-size: var(--fs-20); letter-spacing:.2px; }
-.brand .sub{ margin:2px 0 0; color:var(--muted); font-size: var(--fs-14); }
-.tools{ display:flex; gap:.5rem; }
+.logo{ width:44px; height:44px; border-radius: 10px; object-fit: cover; }
+.brand .title{ margin:0; font-weight:800; letter-spacing:.2px; font-size: var(--fs-20); }
+.brand .sub{ margin:2px 0 0; color:var(--muted); font-size: var(--fs-15); }
+
+.tools{ display:flex; gap:.55rem; }
 .tools a{
-  text-decoration:none; color:inherit; border:1px solid var(--line); background:transparent;
-  padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size: var(--fs-14);
+  text-decoration:none; color:inherit; border:1px solid var(--line);
+  padding:.55rem .9rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
+  backdrop-filter: saturate(120%) blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
 }
 
-/* ===== Chat panel ===== */
+/* ===== Chat panel (verre + bordure dégradée) ===== */
 .chat{
-  margin-top: 14px; border-radius: var(--r-lg);
-  background: var(--panel); border:1px solid var(--line); box-shadow: var(--shadow-2);
-  overflow:hidden;
+  margin-top: 16px; border-radius: var(--r-lg);
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(120deg, rgba(34,240,181,.45), rgba(123,92,255,.35), rgba(255,185,112,.45)) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-2);
+  overflow: clip; backdrop-filter: saturate(140%) blur(8px);
 }
-.bar{ display:flex; gap:.35rem; align-items:center; flex-wrap:wrap; padding:10px 12px;
-  border-bottom:1px solid var(--line); background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.03));
+
+.bar{
+  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap; padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.15));
 }
-.dot{ width:22px; height:22px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
-  font:700 var(--fs-12)/1 Inter, sans-serif; color:var(--muted); border:1px solid var(--line);
+.dot{
+  width:22px; height:22px; border-radius: 999px; display:inline-flex; align-items:center; justify-content:center;
+  font:700 var(--fs-13)/1 Inter, sans-serif; color:var(--muted);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid var(--line);
 }
-.dot:last-child{ color:var(--ink); border-color: rgba(14,165,233,.35); }
+.dot:last-child{
+  color: var(--ink);
+  border-image: linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) 1;
+  border-width: 1px; border-style: solid;
+}
 
 .feed{ padding: 12px; }
 
 /* ===== Messages ===== */
-.msg{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
+.msg{ display:flex; align-items:flex-start; gap:10px; margin: 12px 0; }
 .avatar{
-  width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;
-  background:#e6f7f5; color:#0b7666; border:1px solid var(--line); font-size: 14px; flex:0 0 auto;
+  width:28px; height:28px; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-weight:800;
+  background: linear-gradient(180deg, rgba(34,240,181,.18), rgba(123,92,255,.18));
+  color:#0bfcce; border: 1px solid var(--line); font-size: 14px; flex:0 0 auto;
 }
-.msg.user .avatar{ background:#eef1f5; color:#222; }
+.msg.user .avatar{
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); color:#d4dbf5;
+}
 
 .bubble{
-  max-width: 100%; border-radius: var(--r); border:1px solid var(--line); background:var(--panel);
-  box-shadow: 0 1px 0 rgba(2,8,23,.03); padding:12px 14px; line-height:1.6; font-size: var(--fs-16);
+  max-width: 100%; border-radius: var(--r);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)) padding-box,
+    linear-gradient(90deg, rgba(34,240,181,.35), rgba(123,92,255,.25), transparent 70%) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 0 rgba(2,8,23,.25);
+  padding: 12px 14px; line-height: 1.6; font-size: var(--fs-16);
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size: var(--fs-18); }
 
-/* ===== Cards (options) – responsive grid, rapide, jolis ===== */
+/* ===== Cards (options) — grille large et dynamique ===== */
 .list{ margin-top: 10px; }
 .grid{
-  display:grid; gap:10px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* 1–3 colonnes selon largeur */
+  display:grid; gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 1–3 colonnes */
 }
 .card{
   display:flex; align-items:center; gap:12px; border-radius: 14px; padding: 14px 16px;
-  background: var(--chip); border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid var(--line);
   text-decoration:none; color:inherit; font-weight:800; font-size: var(--fs-16);
-  transform: translateY(4px) scale(.98); opacity:0; /* reveal animé */
-  will-change: transform, opacity;
+  transform: translateY(6px) scale(.985); opacity:0;
+  /* micro glow gauche */
+  position: relative; overflow: hidden;
 }
-.card.reveal{ opacity:1; transform: translateY(0) scale(1); transition: transform .18s ease, opacity .18s ease; }
+.card::before{
+  content:""; position:absolute; left:-2px; top:0; bottom:0; width:4px;
+  background: linear-gradient(180deg, var(--a1), var(--a2), var(--a3)); opacity:.35;
+  filter: blur(.4px);
+}
+.card.reveal{
+  opacity:1; transform: translateY(0) scale(1);
+  transition: transform .18s ease, opacity .18s ease;
+}
 .card:hover{ box-shadow: var(--shadow-1); transform: translateY(-1px) scale(1.01); transition: transform .18s ease, box-shadow .18s ease; }
 .card:active{ transform: translateY(0) scale(1); }
 
 .ic{
-  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-  background:#e9f7f1; color:#0f6e55; border:1px solid var(--line); flex:0 0 auto;
+  width:34px; height:34px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+  color:#0bfcce; border: 1px solid var(--line); flex:0 0 auto;
 }
 .txt{
   flex:1 1 auto; min-width:0;
-  /* >>> Le texte ne se coupe plus mal sur mobile : */
-  white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto;
+  white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto; /* propre sur mobile */
   line-height: 1.35;
 }
 .arr{ color: var(--muted); flex:0 0 auto; }
@@ -139,39 +185,42 @@ body{
 /* ===== Bottom actions ===== */
 .actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top: 10px; }
 .btn{
-  text-decoration:none; color:inherit; border:1px solid var(--line); background:transparent;
-  padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size: var(--fs-14);
+  text-decoration:none; color:inherit; border:1px solid var(--line);
+  padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
 }
 
-/* ===== Contact card ===== */
+/* ===== Contact ===== */
 .contact{
   display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
-  border:1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px; background: var(--panel);
-  box-shadow: 0 10px 26px rgba(0,0,0,.06);
+  border:1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
 }
 .contact .ava{
   width:52px; height:52px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  background:#e8faf5; color:#0b7666; font-weight:800; border:1px solid var(--line); font-size: 18px;
+  background: linear-gradient(180deg, rgba(34,240,181,.22), rgba(123,92,255,.18));
+  color:#0bfcce; font-weight:800; border:1px solid var(--line); font-size: 18px;
 }
 .contact .name{ font-weight:800; font-size: var(--fs-16); }
-.contact .meta{ color:var(--muted); font-size: var(--fs-14); }
+.contact .meta{ color:var(--muted); font-size: var(--fs-15); }
 .contact .cta{
-  text-decoration:none; color:#fff; background: linear-gradient(90deg, #10a37f, #2bb3a1);
-  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size: var(--fs-14); border:0;
+  text-decoration:none; color:#07151b;
+  background: linear-gradient(90deg, var(--a1), var(--a3));
+  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size: var(--fs-15); border:0;
+  box-shadow: 0 12px 26px rgba(34,240,181,.25);
 }
-
-/* Mobile: pile + bouton plein largeur */
 @media (max-width: 640px){
   .contact{ grid-template-columns: 1fr; }
-  .contact .cta{ width: 100%; text-align:center; }
+  .contact .cta{ width:100%; text-align:center; }
 }
 
 /* Note */
-.note{ color:var(--muted); font-size: var(--fs-14); padding: 10px 12px; border-top:1px solid var(--line); }
+.note{ color:var(--muted); font-size: var(--fs-15); padding: 10px 12px; border-top:1px solid var(--line); }
 
 /* Accessibilité */
 @media (prefers-reduced-motion: reduce){
-  .card{ transition:none !important; transform:none !important; opacity:1 !important; }
+  .card{ transition: none !important; transform:none !important; opacity:1 !important; }
 }
 </style>
 </head>
@@ -201,20 +250,20 @@ body{
 
 <script>
 /* =========================================================
-   JS — Quartz Grid
-   - Turbo par défaut (pas de typing lent)
-   - Option reveal très rapide des cartes (stagger)
-   - Compatible format/goback + JSON ./trees/papago-*.json
+   PRISM WAVE – JS
+   - Streaming rapide (questions, réponses, finale)
+   - Cartes tapées PAR MOTS, en PARALLÈLE (stagger)
+   - Remplit toute la largeur sur desktop, propre sur mobile
    ========================================================= */
 
-/* ---------- Réglages vitesse ---------- */
-const SETTINGS = {
-  TYPING_ENABLED: false,   // false = turbo (texte instantané)
-  TYPE_CHAR_MS: 10,        // si TYPING_ENABLED=true
-  CARD_STAGGER_MS: 50      // reveal ultra-rapide des cartes
+/* ---------- Réglages ---------- */
+const SPEED = {
+  CHAR_MS: 8,        // frappe par caractère (questions / réponses utilisateur)
+  WORD_MS: 40,       // frappe par mot (cartes)
+  STAGGER_MS: 35     // décalage entre cartes (wow rapide)
 };
 
-/* ---------- Données de base ---------- */
+/* ---------- Données ---------- */
 var lang = "fr";
 var papagoUrl = "./trees/";
 
@@ -233,8 +282,7 @@ var persons = {
   "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
   "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
 };
-
-var translate = { 
+var translate = {
   "fr" : { "contact": "Contacter", "text" : "La personne ci‑dessous peut vous conseiller directement.", "error" : "Doggygo n'est pas accessible pour le moment." },
   "en" : { "contact": "Contact", "text" : "The person below can advise you directly.", "error" : "Doggygo is not available at the moment." }
 };
@@ -244,14 +292,15 @@ var papago = {};
 var currentKey = "", parentKey = "", atContact = false, backFromContact = "";
 var trail = [];
 
-/* ---------- Helpers DOM ---------- */
+/* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
-function setHTML(target, html){ (typeof target==="string" ? $(target) : target).innerHTML = html; }
+function setHTML(t, h){ (typeof t==="string" ? $(t) : t).innerHTML = h; }
 function show(el){ el.style.display=""; }
 function hide(el){ el.style.display="none"; }
-function escapeHTML(str){ const d=document.createElement('div'); d.textContent=String(str||""); return d.innerHTML; }
+function escapeHTML(s){ const d=document.createElement('div'); d.textContent=String(s||""); return d.innerHTML; }
 function initials(name){ if(!name) return "?"; const p=name.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?"; }
-function scrollToBottom(){ requestAnimationFrame(()=>window.scrollTo({top:document.body.scrollHeight, behavior:"smooth"})); }
+function scrollToBottom(){ requestAnimationFrame(()=>window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })); }
+function reduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
 /* ---------- Progress ---------- */
 function renderProgress(){
@@ -272,62 +321,74 @@ function addAssistantBubble(){
     </div>`;
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
-function addUserBubble(text){
+function addUserBubble(){
   const item = document.createElement('div');
   item.className = "msg user";
-  item.innerHTML = `<div class="avatar" aria-hidden="true"></div><div class="bubble">${escapeHTML(text)}</div>`;
+  item.innerHTML = `<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed"></span></div>`;
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
 
-/* ---------- Typing (optionnel) ---------- */
-function typeText(el, text, ms){
-  if(!SETTINGS.TYPING_ENABLED || ms<=0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    el.textContent = text; return Promise.resolve();
-  }
+/* ---------- Typing ---------- */
+function typeChars(el, text, ms){
+  if(reduced()){ el.textContent=text; return Promise.resolve(); }
   return new Promise(resolve=>{
-    let i=0; const len=text.length, span=document.createElement('span'); el.appendChild(span);
-    (function loop(){ if(i<len){ span.textContent += text.charAt(i++); setTimeout(loop, ms); } else resolve(); })();
+    const span=document.createElement('span'); el.appendChild(span);
+    let i=0; (function loop(){ if(i<text.length){ span.textContent += text.charAt(i++); setTimeout(loop, ms); scrollToBottom(); } else resolve(); })();
+  });
+}
+function typeWords(el, text, ms){
+  if(reduced()){ el.textContent=text; return Promise.resolve(); }
+  const tokens = text.match(/\S+\s*/g) || [];
+  return new Promise(resolve=>{
+    const span=document.createElement('span'); el.appendChild(span);
+    let i=0; (function loop(){ if(i<tokens.length){ span.textContent += tokens[i++]; setTimeout(loop, ms); scrollToBottom(); } else resolve(); })();
   });
 }
 
 /* ---------- Options ---------- */
 function createCard(opt){
   const a = document.createElement('a');
-  a.href="javascript:void(0)"; a.className="card";
-  a.setAttribute("data-label", opt.option);
+  a.href="javascript:void(0)"; a.className="card"; a.title = opt.option; a.setAttribute('aria-label', opt.option);
   a.innerHTML = `
-      <div class="ic"><i class="fa-solid fa-bolt"></i></div>
-      <div class="txt">${escapeHTML(opt.option)}</div>
-      <div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
+    <div class="ic"><i class="fa-solid fa-bolt"></i></div>
+    <div class="txt"></div>
+    <div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
   a.onclick = ()=> choose(opt.value, opt.option, a);
   return a;
 }
+function revealAndTypeCards(grid, options){
+  const cards = [];
+  options.forEach((opt, i)=>{
+    const card = createCard(opt);
+    grid.appendChild(card);
+    cards.push({card, label: opt.option, idx:i});
+  });
 
-function revealCards(grid){
-  const cards = Array.from(grid.children);
-  cards.forEach((c,idx)=> setTimeout(()=> c.classList.add('reveal'), idx*SETTINGS.CARD_STAGGER_MS));
+  // Révélation rapide (stagger) + typage par mots en parallèle
+  cards.forEach(({card, label, idx})=>{
+    setTimeout(()=>{
+      card.classList.add('reveal');
+      typeWords(card.querySelector('.txt'), label, SPEED.WORD_MS);
+    }, idx * SPEED.STAGGER_MS);
+  });
 }
 
-/* ---------- Rendu questions / contact ---------- */
+/* ---------- Rendu étapes ---------- */
 async function renderOptions(key){
   const node = papago[key] || {};
-  const label = String(node.label||"");
-  parentKey = node.parent || "";
-  currentKey = key; atContact = false;
+  const label = String(node.label || "");
+  parentKey = node.parent || ""; currentKey = key; atContact = false;
 
   if(trail[trail.length-1] !== key) trail.push(key);
   renderProgress();
 
   const msg = addAssistantBubble();
-  await typeText(msg.querySelector('.text'), label, SETTINGS.TYPE_CHAR_MS);
+  await typeChars(msg.querySelector('.text'), label, SPEED.CHAR_MS);
 
   const list = msg.querySelector('.list');
   const grid = document.createElement('div'); grid.className="grid"; list.appendChild(grid);
+  revealAndTypeCards(grid, node.options || []);
 
-  (node.options || []).forEach(opt => grid.appendChild(createCard(opt)));
-  revealCards(grid);
-
-  // actions bas
   const actions = document.createElement('div'); actions.className="actions";
   if(node.parent){
     const back = document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back);
@@ -341,7 +402,6 @@ async function renderOptions(key){
 }
 
 async function renderContact(value){
-  // "Contacter CODE"
   const parts = value.split(" ");
   const code = parts[1];
   const p = persons[code] || {};
@@ -353,7 +413,7 @@ async function renderContact(value){
   renderProgress();
 
   const msg = addAssistantBubble();
-  await typeText(msg.querySelector('.text'), translate[lang]["text"], SETTINGS.TYPE_CHAR_MS);
+  await typeChars(msg.querySelector('.text'), translate[lang]["text"], SPEED.CHAR_MS);
 
   const card = document.createElement('div');
   card.className = "contact";
@@ -376,12 +436,13 @@ async function renderContact(value){
 }
 
 /* ---------- Choix ---------- */
-function choose(value, label, card){
-  // lock cartes de la même question
-  const grid = card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.6; });
+async function choose(value, label, card){
+  // Désactive les cartes de la même question
+  const grid = card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
 
-  // bulle utilisateur immédiate (turbo)
-  addUserBubble(label);
+  // Réponse utilisateur (rapide)
+  const user = addUserBubble();
+  await typeChars(user.querySelector('.typed'), label, SPEED.CHAR_MS);
 
   setTimeout(()=> {
     (String(value).substr(0,9) === "Contacter") ? renderContact(String(value)) : renderOptions(String(value));
@@ -417,7 +478,7 @@ async function boot(){
   }catch(e){
     console.error(e);
     const msg = addAssistantBubble();
-    msg.querySelector('.text').innerHTML = `<div role="alert" style="color:#b42318;font-weight:600;margin:0">⚠ ${translate[lang]["error"]}</div>`;
+    msg.querySelector('.text').innerHTML = `<div role="alert" style="color:#ff8a8a;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
     show($("#top-tools")); hide($("#back")); show($("#restart"));
   }
 }
