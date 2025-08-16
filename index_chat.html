@@ -3,75 +3,53 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Doggygo · AssistSR2</title>
+<title>Doggygo · AssistSR2 (UNIL)</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
-/* =========================================================
-   PRISM WAVE — dark glass + neon accents (mobile-first)
-   ========================================================= */
+/* ==========================================================
+   UNIL CRISP — Blanc net + accents #008CCC / #B3DDEF
+   Ultra-léger, rapide, mobile-first, dynamique
+   ========================================================== */
 :root{
-  color-scheme: dark light;
+  /* Tokens UNIL */
+  --brand-1: #008ccc;  /* primaire */
+  --brand-2: #b3ddef;  /* halo clair */
+  --ink: #0a1f30;      /* texte principal */
+  --muted: #6a7883;    /* texte secondaire */
+  --line: #e2e9ee;     /* traits/bordures */
+  --chip: #f5f9fc;     /* arrière-plan doux pour options */
 
-  /* Palette (dark-first) */
-  --bg: #0b1020;                 /* nuit bleutée */
-  --panel: rgba(18,22,34,.78);   /* verre sombre */
-  --ink: #e9eefc;
-  --muted: #9fb0d0;
-  --line: rgba(255,255,255,.12);
-  --chip: rgba(255,255,255,.06);
-
-  /* Accents néon */
-  --a1: #22f0b5;   /* menthe */
-  --a2: #7b5cff;   /* violet */
-  --a3: #ffb970;   /* ambre */
-
-  /* Light mode (si besoin) */
-  --bg-light: #f6f7fb;
-  --panel-light: rgba(255,255,255,.9);
-  --ink-light: #101625;
-  --muted-light: #667089;
-  --line-light: rgba(15,23,42,.14);
-  --chip-light: rgba(15,23,42,.04);
-
-  /* Rayons / tailles / ombres */
+  /* Surfaces / rayons / ombres */
+  --panel: #ffffff;
   --r: 14px; --r-lg: 18px;
+  --shadow-1: 0 8px 24px rgba(10,31,48,.06);
+  --shadow-2: 0 18px 48px rgba(10,31,48,.08);
+
+  /* Échelles fluides */
   --fs-13: clamp(12.5px, .85vw, 13.5px);
   --fs-15: clamp(13.5px, 1vw, 15px);
   --fs-16: clamp(14px, 1.05vw, 16px);
   --fs-18: clamp(16px, 1.25vw, 18px);
   --fs-20: clamp(17px, 1.45vw, 20px);
-  --shadow-1: 0 12px 32px rgba(8,12,24,.28);
-  --shadow-2: 0 22px 70px rgba(8,12,24,.32);
-}
-
-@media (prefers-color-scheme: light){
-  :root{
-    --bg: var(--bg-light);
-    --panel: var(--panel-light);
-    --ink: var(--ink-light);
-    --muted: var(--muted-light);
-    --line: var(--line-light);
-    --chip: var(--chip-light);
-  }
 }
 
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
   margin:0; color:var(--ink);
-  font: 400 var(--fs-16)/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
+  font: 400 var(--fs-16)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
+
+  /* Fond clair inspiré UNIL (sans couleurs agressives) */
   background:
-    radial-gradient(60vw 40vh at 20% -10%, rgba(123,92,255,.15), transparent 65%),
-    radial-gradient(60vw 40vh at 95% 0%, rgba(34,240,181,.12), transparent 58%),
-    radial-gradient(70vw 45vh at -10% 70%, rgba(255,185,112,.10), transparent 65%),
-    var(--bg);
+    radial-gradient(60vw 60vw at -10% -10%, #e6f3fb 0%, rgba(255,255,255,0) 58%),
+    radial-gradient(60vw 60vw at 110% 30%, #eff7fb 0%, rgba(255,255,255,0) 58%),
+    linear-gradient(180deg, #f7fafc 0%, #f5f9fc 30%, #f9fbfd 100%);
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
-  -webkit-font-smoothing: antialiased;
 }
 
 .container{
-  max-width: 1240px;            /* occupe bien l’espace sur desktop */
+  max-width: 1200px;  /* occupe l’espace sur desktop */
   margin: 0 auto;
   padding: clamp(14px, 3.2vw, 28px);
 }
@@ -79,43 +57,42 @@ body{
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:44px; height:44px; border-radius: 10px; object-fit: cover; }
-.brand .title{ margin:0; font-weight:800; letter-spacing:.2px; font-size: var(--fs-20); }
-.brand .sub{ margin:2px 0 0; color:var(--muted); font-size: var(--fs-15); }
+.logo{ width:52px; height:52px; border-radius: 12px; object-fit: cover; box-shadow: var(--shadow-1); }
+.title{ margin:0; font-weight:800; font-size: var(--fs-20); letter-spacing:.2px; }
+.sub{ margin:2px 0 0; color: var(--muted); font-size: var(--fs-15); }
 
 .tools{ display:flex; gap:.55rem; }
 .tools a{
-  text-decoration:none; color:inherit; border:1px solid var(--line);
+  text-decoration:none; color:inherit;
+  border:1px solid var(--line); background:#fff;
   padding:.55rem .9rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
-  backdrop-filter: saturate(120%) blur(6px);
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
 }
+.tools a:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
 
-/* ===== Chat panel (verre + bordure dégradée) ===== */
+/* ===== Chat panel (blanc + bordure dégradée subtile) ===== */
 .chat{
   margin-top: 16px; border-radius: var(--r-lg);
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, rgba(34,240,181,.45), rgba(123,92,255,.35), rgba(255,185,112,.45)) border-box;
+    linear-gradient(120deg, rgba(0,140,204,.35), rgba(179,221,239,.45), rgba(0,140,204,.35)) border-box;
   border: 1px solid transparent;
   box-shadow: var(--shadow-2);
-  overflow: clip; backdrop-filter: saturate(140%) blur(8px);
+  overflow: clip;
 }
 
 .bar{
-  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap; padding: 10px 12px;
+  display:flex; gap:.4rem; align-items:center; flex-wrap:wrap; padding: 10px 12px;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.15));
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
 }
 .dot{
-  width:22px; height:22px; border-radius: 999px; display:inline-flex; align-items:center; justify-content:center;
-  font:700 var(--fs-13)/1 Inter, sans-serif; color:var(--muted);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border: 1px solid var(--line);
+  width:24px; height:24px; border-radius: 999px; display:inline-flex; align-items:center; justify-content:center;
+  font:700 var(--fs-13)/1 Inter, sans-serif; color: var(--muted);
+  background:#fff; border: 1px solid var(--line);
 }
 .dot:last-child{
   color: var(--ink);
-  border-image: linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) 1;
+  border-image: linear-gradient(120deg, var(--brand-1), var(--brand-2)) 1;
   border-width: 1px; border-style: solid;
 }
 
@@ -124,91 +101,79 @@ body{
 /* ===== Messages ===== */
 .msg{ display:flex; align-items:flex-start; gap:10px; margin: 12px 0; }
 .avatar{
-  width:28px; height:28px; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-weight:800;
-  background: linear-gradient(180deg, rgba(34,240,181,.18), rgba(123,92,255,.18));
-  color:#0bfcce; border: 1px solid var(--line); font-size: 14px; flex:0 0 auto;
+  width:30px; height:30px; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-weight:800;
+  background: linear-gradient(180deg, #eaf5fb, #e4f2fb);
+  color:#0a5d83; border: 1px solid var(--line); font-size: 15px; flex:0 0 auto;
 }
-.msg.user .avatar{
-  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); color:#d4dbf5;
-}
+.msg.user .avatar{ background:#eef1f5; color:#2a3a44; }
 
 .bubble{
   max-width: 100%; border-radius: var(--r);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)) padding-box,
-    linear-gradient(90deg, rgba(34,240,181,.35), rgba(123,92,255,.25), transparent 70%) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 1px 0 rgba(2,8,23,.25);
+  background:#fff; border:1px solid var(--line); box-shadow: 0 1px 0 rgba(10,31,48,.03);
   padding: 12px 14px; line-height: 1.6; font-size: var(--fs-16);
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size: var(--fs-18); }
 
-/* ===== Cards (options) — grille large et dynamique ===== */
+/* ===== Cartes d’options (grille responsive, texte multi-ligne propre) ===== */
 .list{ margin-top: 10px; }
 .grid{
   display:grid; gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 1–3 colonnes */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));  /* 1–3 colonnes */
 }
 .card{
   display:flex; align-items:center; gap:12px; border-radius: 14px; padding: 14px 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, #fff) padding-box,
+             linear-gradient(180deg, rgba(0,140,204,.20), rgba(179,221,239,.25)) border-box;
+  border: 1px solid transparent;
   text-decoration:none; color:inherit; font-weight:800; font-size: var(--fs-16);
-  transform: translateY(6px) scale(.985); opacity:0;
-  /* micro glow gauche */
-  position: relative; overflow: hidden;
-}
-.card::before{
-  content:""; position:absolute; left:-2px; top:0; bottom:0; width:4px;
-  background: linear-gradient(180deg, var(--a1), var(--a2), var(--a3)); opacity:.35;
-  filter: blur(.4px);
+  transform: translateY(6px) scale(.985); opacity:0;  /* reveal animé */
+  will-change: transform, opacity;
 }
 .card.reveal{
   opacity:1; transform: translateY(0) scale(1);
-  transition: transform .18s ease, opacity .18s ease;
+  transition: transform .16s ease, opacity .16s ease;
 }
-.card:hover{ box-shadow: var(--shadow-1); transform: translateY(-1px) scale(1.01); transition: transform .18s ease, box-shadow .18s ease; }
-.card:active{ transform: translateY(0) scale(1); }
+.card:hover{ box-shadow: var(--shadow-1); transform: translateY(-1px); transition: transform .16s ease, box-shadow .16s ease; }
+.card:active{ transform: translateY(0); }
 
 .ic{
   width:34px; height:34px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-  color:#0bfcce; border: 1px solid var(--line); flex:0 0 auto;
+  background: #eef7fd; color:#0b6fa3; border: 1px solid var(--line); flex:0 0 auto;
 }
 .txt{
   flex:1 1 auto; min-width:0;
-  white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto; /* propre sur mobile */
+  /* Retour à la ligne propre (smartphone) */
+  white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto;
   line-height: 1.35;
 }
 .arr{ color: var(--muted); flex:0 0 auto; }
 
-/* ===== Bottom actions ===== */
+/* ===== Actions bas ===== */
 .actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top: 10px; }
 .btn{
-  text-decoration:none; color:inherit; border:1px solid var(--line);
-  padding:.5rem .85rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
+  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
 }
+.btn:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
 
-/* ===== Contact ===== */
+/* ===== Carte contact ===== */
 .contact{
   display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
-  border:1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  border:1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px; background: #fff;
+  box-shadow: 0 10px 26px rgba(10,31,48,.10);
 }
 .contact .ava{
   width:52px; height:52px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(180deg, rgba(34,240,181,.22), rgba(123,92,255,.18));
-  color:#0bfcce; font-weight:800; border:1px solid var(--line); font-size: 18px;
+  background: linear-gradient(180deg, var(--brand-1), var(--brand-2)); color:#fff; font-weight:800;
+  border: 1px solid rgba(0,0,0,.02); font-size: 18px;
 }
 .contact .name{ font-weight:800; font-size: var(--fs-16); }
 .contact .meta{ color:var(--muted); font-size: var(--fs-15); }
 .contact .cta{
-  text-decoration:none; color:#07151b;
-  background: linear-gradient(90deg, var(--a1), var(--a3));
+  text-decoration:none; color:#fff;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
   padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size: var(--fs-15); border:0;
-  box-shadow: 0 12px 26px rgba(34,240,181,.25);
+  box-shadow: 0 12px 26px rgba(0,140,204,.18);
 }
 @media (max-width: 640px){
   .contact{ grid-template-columns: 1fr; }
@@ -249,21 +214,20 @@ body{
   </div>
 
 <script>
-/* =========================================================
-   PRISM WAVE – JS
-   - Streaming rapide (questions, réponses, finale)
-   - Cartes tapées PAR MOTS, en PARALLÈLE (stagger)
-   - Remplit toute la largeur sur desktop, propre sur mobile
-   ========================================================= */
+/* ==========================================================
+   JS — dynamique rapide (UNIL CRISP)
+   - Questions & réponses : frappe par caractère (ms très court)
+   - Cartes : frappe PAR MOT en parallèle (stagger léger)
+   - Remplit l’espace desktop ; wrap propre mobile
+   ========================================================== */
 
-/* ---------- Réglages ---------- */
+/* Vitesses (n’hésite pas à ajuster) */
 const SPEED = {
-  CHAR_MS: 8,        // frappe par caractère (questions / réponses utilisateur)
-  WORD_MS: 40,       // frappe par mot (cartes)
-  STAGGER_MS: 35     // décalage entre cartes (wow rapide)
+  CHAR_MS: 7,        // frappe par caractère (questions / réponses)
+  WORD_MS: 28,       // frappe par mot (cartes)
+  STAGGER_MS: 28     // décalage entre cartes (wow sans lenteur)
 };
 
-/* ---------- Données ---------- */
 var lang = "fr";
 var papagoUrl = "./trees/";
 
@@ -282,17 +246,18 @@ var persons = {
   "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
   "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
 };
+
 var translate = {
   "fr" : { "contact": "Contacter", "text" : "La personne ci‑dessous peut vous conseiller directement.", "error" : "Doggygo n'est pas accessible pour le moment." },
   "en" : { "contact": "Contact", "text" : "The person below can advise you directly.", "error" : "Doggygo is not available at the moment." }
 };
 
-/* ---------- État ---------- */
+/* État */
 var papago = {};
 var currentKey = "", parentKey = "", atContact = false, backFromContact = "";
 var trail = [];
 
-/* ---------- Helpers ---------- */
+/* Helpers */
 const $ = s => document.querySelector(s);
 function setHTML(t, h){ (typeof t==="string" ? $(t) : t).innerHTML = h; }
 function show(el){ el.style.display=""; }
@@ -302,14 +267,14 @@ function initials(name){ if(!name) return "?"; const p=name.trim().split(/\s+/);
 function scrollToBottom(){ requestAnimationFrame(()=>window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })); }
 function reduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
-/* ---------- Progress ---------- */
+/* Progress */
 function renderProgress(){
   const el = $("#progress"); if(!el) return;
   if(trail.length===0){ el.innerHTML=""; return; }
   el.innerHTML = trail.map((_,i)=>`<span class="dot">${i+1}</span>`).join("");
 }
 
-/* ---------- Messages ---------- */
+/* Messages */
 function addAssistantBubble(){
   const item = document.createElement('div');
   item.className = "msg assistant";
@@ -328,7 +293,7 @@ function addUserBubble(){
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
 
-/* ---------- Typing ---------- */
+/* Typing */
 function typeChars(el, text, ms){
   if(reduced()){ el.textContent=text; return Promise.resolve(); }
   return new Promise(resolve=>{
@@ -345,7 +310,7 @@ function typeWords(el, text, ms){
   });
 }
 
-/* ---------- Options ---------- */
+/* Options */
 function createCard(opt){
   const a = document.createElement('a');
   a.href="javascript:void(0)"; a.className="card"; a.title = opt.option; a.setAttribute('aria-label', opt.option);
@@ -357,23 +322,17 @@ function createCard(opt){
   return a;
 }
 function revealAndTypeCards(grid, options){
-  const cards = [];
-  options.forEach((opt, i)=>{
+  options.forEach((opt, idx)=>{
     const card = createCard(opt);
     grid.appendChild(card);
-    cards.push({card, label: opt.option, idx:i});
-  });
-
-  // Révélation rapide (stagger) + typage par mots en parallèle
-  cards.forEach(({card, label, idx})=>{
     setTimeout(()=>{
       card.classList.add('reveal');
-      typeWords(card.querySelector('.txt'), label, SPEED.WORD_MS);
+      typeWords(card.querySelector('.txt'), opt.option, SPEED.WORD_MS);
     }, idx * SPEED.STAGGER_MS);
   });
 }
 
-/* ---------- Rendu étapes ---------- */
+/* Étapes */
 async function renderOptions(key){
   const node = papago[key] || {};
   const label = String(node.label || "");
@@ -402,8 +361,7 @@ async function renderOptions(key){
 }
 
 async function renderContact(value){
-  const parts = value.split(" ");
-  const code = parts[1];
+  const code = (value.split(" ")[1] || "").trim();
   const p = persons[code] || {};
   const name = p.name || code || "Contact";
   const url = p.url || "#";
@@ -435,12 +393,10 @@ async function renderContact(value){
   scrollToBottom();
 }
 
-/* ---------- Choix ---------- */
+/* Choix */
 async function choose(value, label, card){
-  // Désactive les cartes de la même question
   const grid = card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
 
-  // Réponse utilisateur (rapide)
   const user = addUserBubble();
   await typeChars(user.querySelector('.typed'), label, SPEED.CHAR_MS);
 
@@ -449,7 +405,7 @@ async function choose(value, label, card){
   }, 40);
 }
 
-/* ---------- API publique ---------- */
+/* API publique (compat) */
 function format(item){ (item.substr(0,9)==="Contacter") ? renderContact(item) : renderOptions(item); }
 function goback(){
   if(atContact && backFromContact){
@@ -461,7 +417,7 @@ function goback(){
 }
 window.format = format; window.goback = goback;
 
-/* ---------- Boot ---------- */
+/* Boot */
 function loadParams(){
   const params = new URLSearchParams(location.search);
   const qLang = params.get("lang"); const notitle = params.get("notitle");
@@ -478,7 +434,7 @@ async function boot(){
   }catch(e){
     console.error(e);
     const msg = addAssistantBubble();
-    msg.querySelector('.text').innerHTML = `<div role="alert" style="color:#ff8a8a;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
+    msg.querySelector('.text').innerHTML = `<div role="alert" style="color:#b42318;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
     show($("#top-tools")); hide($("#back")); show($("#restart"));
   }
 }
