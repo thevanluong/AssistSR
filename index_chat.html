@@ -8,8 +8,9 @@
 
 <style>
 /* ==========================================================
-   UNIL CRISP v2 — Blanc net + accents UNIL
-   • Fix iOS : pas de césure dans les cartes (smartphone)
+   UNIL CRISP v3 — Blanc net, accents #008CCC / #B3DDEF
+   • Fix smartphone : aucune césure + ellipsis en très petit
+   • Desktop : bulles pleine largeur + grille 1→2→3 colonnes
    ========================================================== */
 :root{
   --brand-1:#008ccc; --brand-2:#b3ddef;
@@ -37,7 +38,7 @@ body{
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
 
-.container{ max-width:1200px; margin:0 auto; padding:clamp(12px,3.2vw,24px); }
+.container{ max-width:1280px; margin:0 auto; padding:clamp(12px,3.2vw,24px); }
 
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
@@ -50,6 +51,7 @@ body{
 .tools a{
   text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
   padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-15);
+  touch-action: manipulation;
 }
 .tools a:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(0,140,204,.22); }
 
@@ -82,24 +84,31 @@ body{
 }
 .msg.user .avatar{ background:#eef1f5; color:#2a3a44; }
 
+/* >>> Bulle pleine largeur pour occuper l’espace desktop <<< */
 .bubble{
-  max-width:100%; border-radius:var(--r); background:#fff; border:1px solid var(--line);
+  width: 100%;
+  max-width: 100%;
+  border-radius:var(--r); background:#fff; border:1px solid var(--line);
   box-shadow:0 1px 0 rgba(10,31,48,.03); padding:12px 14px; line-height:1.6; font-size:var(--fs-16);
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size:var(--fs-18); }
 
 /* ===== Options ===== */
 .list{ margin-top:10px; }
-.grid{
-  display:grid; gap:10px;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); /* 1–3 colonnes */
-}
+
+/* Grille responsive : 1 → 2 → 3 colonnes */
+.grid{ display:grid; gap:10px; grid-template-columns: 1fr; }
+@media (min-width: 820px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1140px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+
 .card{
   display:flex; align-items:center; gap:12px; border-radius:14px; padding:14px 16px;
   background:linear-gradient(180deg,#fff,#fff) padding-box,
              linear-gradient(180deg, rgba(0,140,204,.20), rgba(179,221,239,.25)) border-box;
   border:1px solid transparent; text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
   transform:translateY(6px) scale(.985); opacity:0; will-change:transform,opacity;
+  min-height: 60px;
+  touch-action: manipulation;
 }
 .card.reveal{ opacity:1; transform:translateY(0) scale(1); transition:transform .16s ease, opacity .16s ease; }
 .card:hover{ box-shadow:var(--shadow-1); transform:translateY(-1px); transition:transform .16s ease, box-shadow .16s ease; }
@@ -110,15 +119,26 @@ body{
   background:#eef7fd; color:#0b6fa3; border:1px solid var(--line); flex:0 0 auto;
 }
 
-/* >>> FIX iOS : pas de césure, jamais de coupure au milieu d'un mot <<< */
-.txt{
+/* Texte des cartes : 
+   - par défaut multi-ligne propre (jamais de césure)
+   - en très petit écran → une seule ligne + ellipsis
+*/
+.txt, .txt span{
   flex:1 1 auto; min-width:0;
   white-space: normal;
-  word-break: normal;          /* garde les mots entiers */
-  overflow-wrap: break-word;   /* casse seulement si vraiment nécessaire */
-  -webkit-hyphens: none; hyphens: none;  /* désactive la césure automatique d’iOS */
+  word-break: normal;
+  overflow-wrap: break-word;
+  -webkit-hyphens: none; hyphens: none;   /* iOS: pas de césure */
   line-height:1.35;
 }
+@media (max-width: 420px){
+  .txt, .txt span{
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
 .arr{ color:var(--muted); flex:0 0 auto; }
 
 /* ===== Actions ===== */
@@ -186,9 +206,9 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide (UNIL CRISP v2)
+   JS — dynamique rapide (UNIL CRISP v3)
    ========================================================== */
-const SPEED = { CHAR_MS: 7, WORD_MS: 26, STAGGER_MS: 24 };
+const SPEED = { CHAR_MS: 7, WORD_MS: 24, STAGGER_MS: 22 };
 
 var lang="fr", papagoUrl="./trees/";
 var persons={
