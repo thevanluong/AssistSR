@@ -8,25 +8,16 @@
 
 <style>
 /* ==========================================================
-   UNIL CRISP — Blanc net + accents #008CCC / #B3DDEF
-   Ultra-léger, rapide, mobile-first, dynamique
+   UNIL CRISP v2 — Blanc net + accents UNIL
+   • Fix iOS : pas de césure dans les cartes (smartphone)
    ========================================================== */
 :root{
-  /* Tokens UNIL */
-  --brand-1: #008ccc;  /* primaire */
-  --brand-2: #b3ddef;  /* halo clair */
-  --ink: #0a1f30;      /* texte principal */
-  --muted: #6a7883;    /* texte secondaire */
-  --line: #e2e9ee;     /* traits/bordures */
-  --chip: #f5f9fc;     /* arrière-plan doux pour options */
+  --brand-1:#008ccc; --brand-2:#b3ddef;
+  --ink:#0a1f30; --muted:#6a7883; --line:#e2e9ee; --chip:#f5f9fc;
+  --panel:#fff; --r:14px; --r-lg:18px;
+  --shadow-1:0 8px 24px rgba(10,31,48,.06);
+  --shadow-2:0 18px 48px rgba(10,31,48,.08);
 
-  /* Surfaces / rayons / ombres */
-  --panel: #ffffff;
-  --r: 14px; --r-lg: 18px;
-  --shadow-1: 0 8px 24px rgba(10,31,48,.06);
-  --shadow-2: 0 18px 48px rgba(10,31,48,.08);
-
-  /* Échelles fluides */
   --fs-13: clamp(12.5px, .85vw, 13.5px);
   --fs-15: clamp(13.5px, 1vw, 15px);
   --fs-16: clamp(14px, 1.05vw, 16px);
@@ -38,9 +29,7 @@
 html,body{ height:100%; }
 body{
   margin:0; color:var(--ink);
-  font: 400 var(--fs-16)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
-
-  /* Fond clair inspiré UNIL (sans couleurs agressives) */
+  font:400 var(--fs-16)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
   background:
     radial-gradient(60vw 60vw at -10% -10%, #e6f3fb 0%, rgba(255,255,255,0) 58%),
     radial-gradient(60vw 60vw at 110% 30%, #eff7fb 0%, rgba(255,255,255,0) 58%),
@@ -48,144 +37,126 @@ body{
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
 
-.container{
-  max-width: 1200px;  /* occupe l’espace sur desktop */
-  margin: 0 auto;
-  padding: clamp(14px, 3.2vw, 28px);
-}
+.container{ max-width:1200px; margin:0 auto; padding:clamp(12px,3.2vw,24px); }
 
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:52px; height:52px; border-radius: 12px; object-fit: cover; box-shadow: var(--shadow-1); }
-.title{ margin:0; font-weight:800; font-size: var(--fs-20); letter-spacing:.2px; }
-.sub{ margin:2px 0 0; color: var(--muted); font-size: var(--fs-15); }
+.logo{ width:48px; height:48px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow-1); }
+.title{ margin:0; font-weight:800; font-size:var(--fs-20); letter-spacing:.2px; }
+.sub{ margin:2px 0 0; color:var(--muted); font-size:var(--fs-15); }
 
 .tools{ display:flex; gap:.55rem; }
 .tools a{
-  text-decoration:none; color:inherit;
-  border:1px solid var(--line); background:#fff;
-  padding:.55rem .9rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
+  text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
+  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-15);
 }
-.tools a:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
+.tools a:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(0,140,204,.22); }
 
-/* ===== Chat panel (blanc + bordure dégradée subtile) ===== */
+/* ===== Chat panel ===== */
 .chat{
-  margin-top: 16px; border-radius: var(--r-lg);
+  margin-top:12px; border-radius:var(--r-lg);
   background:
-    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(var(--panel),var(--panel)) padding-box,
     linear-gradient(120deg, rgba(0,140,204,.35), rgba(179,221,239,.45), rgba(0,140,204,.35)) border-box;
-  border: 1px solid transparent;
-  box-shadow: var(--shadow-2);
-  overflow: clip;
+  border:1px solid transparent; box-shadow:var(--shadow-2); overflow:clip;
 }
-
 .bar{
-  display:flex; gap:.4rem; align-items:center; flex-wrap:wrap; padding: 10px 12px;
-  border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
+  display:flex; gap:.4rem; align-items:center; flex-wrap:wrap; padding:10px 12px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
 }
 .dot{
-  width:24px; height:24px; border-radius: 999px; display:inline-flex; align-items:center; justify-content:center;
-  font:700 var(--fs-13)/1 Inter, sans-serif; color: var(--muted);
-  background:#fff; border: 1px solid var(--line);
+  width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
+  font:700 var(--fs-13)/1 Inter,sans-serif; color:var(--muted); background:#fff; border:1px solid var(--line);
 }
-.dot:last-child{
-  color: var(--ink);
-  border-image: linear-gradient(120deg, var(--brand-1), var(--brand-2)) 1;
-  border-width: 1px; border-style: solid;
-}
+.dot:last-child{ color:var(--ink); border-image:linear-gradient(120deg,var(--brand-1),var(--brand-2)) 1; }
 
-.feed{ padding: 12px; }
+.feed{ padding:12px; }
 
 /* ===== Messages ===== */
-.msg{ display:flex; align-items:flex-start; gap:10px; margin: 12px 0; }
+.msg{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
 .avatar{
-  width:30px; height:30px; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-weight:800;
-  background: linear-gradient(180deg, #eaf5fb, #e4f2fb);
-  color:#0a5d83; border: 1px solid var(--line); font-size: 15px; flex:0 0 auto;
+  width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;
+  background:linear-gradient(180deg,#eaf5fb,#e4f2fb); color:#0a5d83; border:1px solid var(--line); font-size:15px; flex:0 0 auto;
 }
 .msg.user .avatar{ background:#eef1f5; color:#2a3a44; }
 
 .bubble{
-  max-width: 100%; border-radius: var(--r);
-  background:#fff; border:1px solid var(--line); box-shadow: 0 1px 0 rgba(10,31,48,.03);
-  padding: 12px 14px; line-height: 1.6; font-size: var(--fs-16);
+  max-width:100%; border-radius:var(--r); background:#fff; border:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(10,31,48,.03); padding:12px 14px; line-height:1.6; font-size:var(--fs-16);
 }
-.bubble .title{ font-weight:800; margin-bottom:8px; font-size: var(--fs-18); }
+.bubble .title{ font-weight:800; margin-bottom:8px; font-size:var(--fs-18); }
 
-/* ===== Cartes d’options (grille responsive, texte multi-ligne propre) ===== */
-.list{ margin-top: 10px; }
+/* ===== Options ===== */
+.list{ margin-top:10px; }
 .grid{
-  display:grid; gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));  /* 1–3 colonnes */
+  display:grid; gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); /* 1–3 colonnes */
 }
 .card{
-  display:flex; align-items:center; gap:12px; border-radius: 14px; padding: 14px 16px;
-  background: linear-gradient(180deg, #fff, #fff) padding-box,
+  display:flex; align-items:center; gap:12px; border-radius:14px; padding:14px 16px;
+  background:linear-gradient(180deg,#fff,#fff) padding-box,
              linear-gradient(180deg, rgba(0,140,204,.20), rgba(179,221,239,.25)) border-box;
-  border: 1px solid transparent;
-  text-decoration:none; color:inherit; font-weight:800; font-size: var(--fs-16);
-  transform: translateY(6px) scale(.985); opacity:0;  /* reveal animé */
-  will-change: transform, opacity;
+  border:1px solid transparent; text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
+  transform:translateY(6px) scale(.985); opacity:0; will-change:transform,opacity;
 }
-.card.reveal{
-  opacity:1; transform: translateY(0) scale(1);
-  transition: transform .16s ease, opacity .16s ease;
-}
-.card:hover{ box-shadow: var(--shadow-1); transform: translateY(-1px); transition: transform .16s ease, box-shadow .16s ease; }
-.card:active{ transform: translateY(0); }
+.card.reveal{ opacity:1; transform:translateY(0) scale(1); transition:transform .16s ease, opacity .16s ease; }
+.card:hover{ box-shadow:var(--shadow-1); transform:translateY(-1px); transition:transform .16s ease, box-shadow .16s ease; }
+.card:active{ transform:translateY(0); }
 
 .ic{
-  width:34px; height:34px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
-  background: #eef7fd; color:#0b6fa3; border: 1px solid var(--line); flex:0 0 auto;
+  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+  background:#eef7fd; color:#0b6fa3; border:1px solid var(--line); flex:0 0 auto;
 }
+
+/* >>> FIX iOS : pas de césure, jamais de coupure au milieu d'un mot <<< */
 .txt{
   flex:1 1 auto; min-width:0;
-  /* Retour à la ligne propre (smartphone) */
-  white-space: normal; word-break: normal; overflow-wrap: anywhere; hyphens: auto;
-  line-height: 1.35;
+  white-space: normal;
+  word-break: normal;          /* garde les mots entiers */
+  overflow-wrap: break-word;   /* casse seulement si vraiment nécessaire */
+  -webkit-hyphens: none; hyphens: none;  /* désactive la césure automatique d’iOS */
+  line-height:1.35;
 }
-.arr{ color: var(--muted); flex:0 0 auto; }
+.arr{ color:var(--muted); flex:0 0 auto; }
 
-/* ===== Actions bas ===== */
-.actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top: 10px; }
+/* ===== Actions ===== */
+.actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:10px; }
 .btn{
   text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
-  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size: var(--fs-15);
+  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-15);
 }
-.btn:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
+.btn:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(0,140,204,.22); }
 
-/* ===== Carte contact ===== */
+/* ===== Contact ===== */
 .contact{
   display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
-  border:1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px; background: #fff;
-  box-shadow: 0 10px 26px rgba(10,31,48,.10);
+  border:1px solid var(--line); border-radius:14px; padding:14px; margin-top:12px; background:#fff;
+  box-shadow:0 10px 26px rgba(10,31,48,.10);
 }
 .contact .ava{
-  width:52px; height:52px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(180deg, var(--brand-1), var(--brand-2)); color:#fff; font-weight:800;
-  border: 1px solid rgba(0,0,0,.02); font-size: 18px;
+  width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,var(--brand-1),var(--brand-2)); color:#fff; font-weight:800; border:1px solid rgba(0,0,0,.02); font-size:18px;
 }
-.contact .name{ font-weight:800; font-size: var(--fs-16); }
-.contact .meta{ color:var(--muted); font-size: var(--fs-15); }
+.contact .name{ font-weight:800; font-size:var(--fs-16); }
+.contact .meta{ color:var(--muted); font-size:var(--fs-15); }
 .contact .cta{
-  text-decoration:none; color:#fff;
-  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
-  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size: var(--fs-15); border:0;
-  box-shadow: 0 12px 26px rgba(0,140,204,.18);
+  text-decoration:none; color:#fff; background:linear-gradient(90deg,var(--brand-1),var(--brand-2));
+  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size:var(--fs-15); border:0; box-shadow:0 12px 26px rgba(0,140,204,.18);
 }
-@media (max-width: 640px){
-  .contact{ grid-template-columns: 1fr; }
+@media (max-width:640px){
+  .container{ padding:12px; }
+  .contact{ grid-template-columns:1fr; }
   .contact .cta{ width:100%; text-align:center; }
 }
 
 /* Note */
-.note{ color:var(--muted); font-size: var(--fs-15); padding: 10px 12px; border-top:1px solid var(--line); }
+.note{ color:var(--muted); font-size:var(--fs-15); padding:10px 12px; border-top:1px solid var(--line); }
 
 /* Accessibilité */
 @media (prefers-reduced-motion: reduce){
-  .card{ transition: none !important; transform:none !important; opacity:1 !important; }
+  .card{ transition:none !important; transform:none !important; opacity:1 !important; }
 }
 </style>
 </head>
@@ -215,226 +186,169 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide (UNIL CRISP)
-   - Questions & réponses : frappe par caractère (ms très court)
-   - Cartes : frappe PAR MOT en parallèle (stagger léger)
-   - Remplit l’espace desktop ; wrap propre mobile
+   JS — dynamique rapide (UNIL CRISP v2)
    ========================================================== */
+const SPEED = { CHAR_MS: 7, WORD_MS: 26, STAGGER_MS: 24 };
 
-/* Vitesses (n’hésite pas à ajuster) */
-const SPEED = {
-  CHAR_MS: 7,        // frappe par caractère (questions / réponses)
-  WORD_MS: 28,       // frappe par mot (cartes)
-  STAGGER_MS: 28     // décalage entre cartes (wow sans lenteur)
+var lang="fr", papagoUrl="./trees/";
+var persons={
+  "EAM":{ "name":"Eliane Abou Mansour","url":"https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+  "VL":{ "name":"Véronique Longchamp","url":"https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+  "AEDC":{ "name":"Anne-Emmanuelle de Crousaz","url":"https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
+  "AB":{ "name":"Aurélie Brehmer","url":"https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+  "CA":{ "name":"Claire Arnold","url":"https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+  "ZEM":{ "name":"Zohra El Masbahi","url":"https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+  "ACB":{ "name":"Anne-Christine Butty","url":"https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+  "MD":{ "name":"Maëlle Desard","url":"https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+  "PAD":{ "name":"Pablo Andrés Diaz","url":"https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+  "TVL":{ "name":"Thé Van Luong","url":"https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+  "MC":{ "name":"Micaela Crespo","url":"https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+  "LC":{ "name":"Lucia Couto","url":"https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+  "JR":{ "name":"Julian Randall","url":"https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
+};
+var translate={
+  "fr":{ "contact":"Contacter","text":"La personne ci‑dessous peut vous conseiller directement.","error":"Doggygo n'est pas accessible pour le moment." },
+  "en":{ "contact":"Contact","text":"The person below can advise you directly.","error":"Doggygo is not available at the moment." }
 };
 
-var lang = "fr";
-var papagoUrl = "./trees/";
-
-var persons = {
-  "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
-  "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
-  "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
-  "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
-  "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
-  "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
-  "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
-  "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
-  "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
-  "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
-  "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
-  "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
-  "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
-};
-
-var translate = {
-  "fr" : { "contact": "Contacter", "text" : "La personne ci‑dessous peut vous conseiller directement.", "error" : "Doggygo n'est pas accessible pour le moment." },
-  "en" : { "contact": "Contact", "text" : "The person below can advise you directly.", "error" : "Doggygo is not available at the moment." }
-};
-
-/* État */
-var papago = {};
-var currentKey = "", parentKey = "", atContact = false, backFromContact = "";
-var trail = [];
+var papago={}, currentKey="", parentKey="", atContact=false, backFromContact="", trail=[];
 
 /* Helpers */
-const $ = s => document.querySelector(s);
-function setHTML(t, h){ (typeof t==="string" ? $(t) : t).innerHTML = h; }
-function show(el){ el.style.display=""; }
-function hide(el){ el.style.display="none"; }
-function escapeHTML(s){ const d=document.createElement('div'); d.textContent=String(s||""); return d.innerHTML; }
-function initials(name){ if(!name) return "?"; const p=name.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?"; }
-function scrollToBottom(){ requestAnimationFrame(()=>window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })); }
-function reduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+const $=s=>document.querySelector(s);
+function setHTML(t,h){(typeof t==="string"?$(t):t).innerHTML=h;}
+function show(el){el.style.display="";}
+function hide(el){el.style.display="none";}
+function escapeHTML(s){const d=document.createElement('div'); d.textContent=String(s||""); return d.innerHTML;}
+function initials(n){if(!n) return "?"; const p=n.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?";}
+function scrollToBottom(){requestAnimationFrame(()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"}));}
+function reduced(){return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
 
 /* Progress */
 function renderProgress(){
-  const el = $("#progress"); if(!el) return;
-  if(trail.length===0){ el.innerHTML=""; return; }
-  el.innerHTML = trail.map((_,i)=>`<span class="dot">${i+1}</span>`).join("");
+  const el=$("#progress"); if(!el) return;
+  if(!trail.length){el.innerHTML=""; return;}
+  el.innerHTML=trail.map((_,i)=>`<span class="dot">${i+1}</span>`).join("");
 }
 
 /* Messages */
 function addAssistantBubble(){
-  const item = document.createElement('div');
-  item.className = "msg assistant";
-  item.innerHTML = `
-    <div class="avatar" aria-hidden="true">🐾</div>
-    <div class="bubble">
-      <div class="text"></div>
-      <div class="list"></div>
-    </div>`;
+  const item=document.createElement('div');
+  item.className="msg assistant";
+  item.innerHTML=`<div class="avatar" aria-hidden="true">🐾</div>
+    <div class="bubble"><div class="text"></div><div class="list"></div></div>`;
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
 function addUserBubble(){
-  const item = document.createElement('div');
-  item.className = "msg user";
-  item.innerHTML = `<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed"></span></div>`;
+  const item=document.createElement('div');
+  item.className="msg user";
+  item.innerHTML=`<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed"></span></div>`;
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
 
 /* Typing */
-function typeChars(el, text, ms){
+function typeChars(el,text,ms){
   if(reduced()){ el.textContent=text; return Promise.resolve(); }
-  return new Promise(resolve=>{
+  return new Promise(res=>{
     const span=document.createElement('span'); el.appendChild(span);
-    let i=0; (function loop(){ if(i<text.length){ span.textContent += text.charAt(i++); setTimeout(loop, ms); scrollToBottom(); } else resolve(); })();
+    let i=0; (function loop(){ if(i<text.length){ span.textContent+=text.charAt(i++); setTimeout(loop,ms); scrollToBottom(); } else res(); })();
   });
 }
-function typeWords(el, text, ms){
+function typeWords(el,text,ms){
   if(reduced()){ el.textContent=text; return Promise.resolve(); }
-  const tokens = text.match(/\S+\s*/g) || [];
-  return new Promise(resolve=>{
+  const tokens=text.match(/\S+\s*/g)||[];
+  return new Promise(res=>{
     const span=document.createElement('span'); el.appendChild(span);
-    let i=0; (function loop(){ if(i<tokens.length){ span.textContent += tokens[i++]; setTimeout(loop, ms); scrollToBottom(); } else resolve(); })();
+    let i=0; (function loop(){ if(i<tokens.length){ span.textContent+=tokens[i++]; setTimeout(loop,ms); scrollToBottom(); } else res(); })();
   });
 }
 
 /* Options */
 function createCard(opt){
-  const a = document.createElement('a');
-  a.href="javascript:void(0)"; a.className="card"; a.title = opt.option; a.setAttribute('aria-label', opt.option);
-  a.innerHTML = `
-    <div class="ic"><i class="fa-solid fa-bolt"></i></div>
-    <div class="txt"></div>
-    <div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
-  a.onclick = ()=> choose(opt.value, opt.option, a);
+  const a=document.createElement('a');
+  a.href="javascript:void(0)"; a.className="card"; a.title=opt.option; a.setAttribute('aria-label',opt.option);
+  a.innerHTML=`<div class="ic"><i class="fa-solid fa-bolt"></i></div><div class="txt"></div><div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
+  a.onclick=()=> choose(opt.value,opt.option,a);
   return a;
 }
 function revealAndTypeCards(grid, options){
-  options.forEach((opt, idx)=>{
-    const card = createCard(opt);
-    grid.appendChild(card);
-    setTimeout(()=>{
-      card.classList.add('reveal');
-      typeWords(card.querySelector('.txt'), opt.option, SPEED.WORD_MS);
-    }, idx * SPEED.STAGGER_MS);
+  options.forEach((opt,idx)=>{
+    const card=createCard(opt); grid.appendChild(card);
+    setTimeout(()=>{ card.classList.add('reveal'); typeWords(card.querySelector('.txt'), opt.option, SPEED.WORD_MS); }, idx*SPEED.STAGGER_MS);
   });
 }
 
 /* Étapes */
 async function renderOptions(key){
-  const node = papago[key] || {};
-  const label = String(node.label || "");
-  parentKey = node.parent || ""; currentKey = key; atContact = false;
+  const node=papago[key]||{}; const label=String(node.label||"");
+  parentKey=node.parent||""; currentKey=key; atContact=false;
+  if(trail[trail.length-1]!==key) trail.push(key); renderProgress();
 
-  if(trail[trail.length-1] !== key) trail.push(key);
-  renderProgress();
+  const msg=addAssistantBubble(); await typeChars(msg.querySelector('.text'), label, SPEED.CHAR_MS);
 
-  const msg = addAssistantBubble();
-  await typeChars(msg.querySelector('.text'), label, SPEED.CHAR_MS);
+  const grid=document.createElement('div'); grid.className="grid";
+  msg.querySelector('.list').appendChild(grid);
+  revealAndTypeCards(grid, node.options||[]);
 
-  const list = msg.querySelector('.list');
-  const grid = document.createElement('div'); grid.className="grid"; list.appendChild(grid);
-  revealAndTypeCards(grid, node.options || []);
-
-  const actions = document.createElement('div'); actions.className="actions";
-  if(node.parent){
-    const back = document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back);
-  }
+  const actions=document.createElement('div'); actions.className="actions";
+  if(node.parent){ const back=document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back); }
   msg.querySelector('.bubble').appendChild(actions);
 
-  show($("#top-tools"));
-  node.parent ? show($("#back")) : hide($("#back"));
-  hide($("#restart"));
-  scrollToBottom();
+  show($("#top-tools")); node.parent?show($("#back")):hide($("#back")); hide($("#restart")); scrollToBottom();
 }
 
 async function renderContact(value){
-  const code = (value.split(" ")[1] || "").trim();
-  const p = persons[code] || {};
-  const name = p.name || code || "Contact";
-  const url = p.url || "#";
+  const code=(value.split(" ")[1]||"").trim(); const p=persons[code]||{};
+  const name=p.name||code||"Contact"; const url=p.url||"#";
 
-  backFromContact = currentKey; atContact = true;
-  if(trail[trail.length-1] !== "contact:"+code) trail.push("contact:"+code);
-  renderProgress();
+  backFromContact=currentKey; atContact=true;
+  if(trail[trail.length-1]!=="contact:"+code) trail.push("contact:"+code); renderProgress();
 
-  const msg = addAssistantBubble();
+  const msg=addAssistantBubble();
   await typeChars(msg.querySelector('.text'), translate[lang]["text"], SPEED.CHAR_MS);
 
-  const card = document.createElement('div');
-  card.className = "contact";
-  card.innerHTML = `
-    <div class="ava">${initials(name)}</div>
-    <div>
-      <div class="name">${escapeHTML(name)}</div>
-      <div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div>
-    </div>
+  const card=document.createElement('div'); card.className="contact";
+  card.innerHTML=`<div class="ava">${initials(name)}</div>
+    <div><div class="name">${escapeHTML(name)}</div>
+    <div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div></div>
     <div><a class="cta" target="_blank" rel="noopener" href="${url}"><i class="fa-solid fa-paper-plane"></i> ${escapeHTML(translate[lang]["contact"])}</a></div>`;
   msg.querySelector('.text').appendChild(card);
 
-  const actions = document.createElement('div'); actions.className="actions";
-  const back = document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back);
-  const restart = document.createElement('a'); restart.className="btn"; restart.href="javascript:location.reload()"; restart.textContent="⟲ Recommencer"; actions.appendChild(restart);
+  const actions=document.createElement('div'); actions.className="actions";
+  const back=document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back);
+  const restart=document.createElement('a'); restart.className="btn"; restart.href="javascript:location.reload()"; restart.textContent="⟲ Recommencer"; actions.appendChild(restart);
   msg.querySelector('.bubble').appendChild(actions);
 
-  show($("#top-tools")); show($("#back")); show($("#restart"));
-  scrollToBottom();
+  show($("#top-tools")); show($("#back")); show($("#restart")); scrollToBottom();
 }
 
 /* Choix */
-async function choose(value, label, card){
-  const grid = card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
-
-  const user = addUserBubble();
-  await typeChars(user.querySelector('.typed'), label, SPEED.CHAR_MS);
-
-  setTimeout(()=> {
-    (String(value).substr(0,9) === "Contacter") ? renderContact(String(value)) : renderOptions(String(value));
-  }, 40);
+async function choose(value,label,card){
+  const grid=card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
+  const user=addUserBubble(); await typeChars(user.querySelector('.typed'), label, SPEED.CHAR_MS);
+  setTimeout(()=>{ (String(value).substr(0,9)==="Contacter")?renderContact(String(value)):renderOptions(String(value)); }, 40);
 }
 
-/* API publique (compat) */
-function format(item){ (item.substr(0,9)==="Contacter") ? renderContact(item) : renderOptions(item); }
+/* API publique */
+function format(item){ (item.substr(0,9)==="Contacter")?renderContact(item):renderOptions(item); }
 function goback(){
-  if(atContact && backFromContact){
-    if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
+  if(atContact&&backFromContact){
+    if(trail[trail.length-1]&&String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
     setHTML("#feed",""); format(backFromContact); return;
   }
-  if(!parentKey) return;
-  trail.pop(); setHTML("#feed",""); format(parentKey);
+  if(!parentKey) return; trail.pop(); setHTML("#feed",""); format(parentKey);
 }
-window.format = format; window.goback = goback;
+window.format=format; window.goback=goback;
 
 /* Boot */
-function loadParams(){
-  const params = new URLSearchParams(location.search);
-  const qLang = params.get("lang"); const notitle = params.get("notitle");
-  if(qLang && translate[qLang]) lang = qLang;
-  if(notitle === "true"){ document.querySelector('.header').style.display="none"; }
-}
+function loadParams(){ const p=new URLSearchParams(location.search); const qLang=p.get("lang"); const nt=p.get("notitle"); if(qLang&&translate[qLang]) lang=qLang; if(nt==="true"){ document.querySelector('.header').style.display="none"; } }
 async function boot(){
   loadParams();
   try{
-    const res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
-    papago = await res.json();
-    show($("#top-tools"));
-    format("0");
+    const res=await fetch(papagoUrl+"papago-"+lang+".json",{cache:"no-store"}); papago=await res.json();
+    show($("#top-tools")); format("0");
   }catch(e){
     console.error(e);
-    const msg = addAssistantBubble();
-    msg.querySelector('.text').innerHTML = `<div role="alert" style="color:#b42318;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
+    const msg=addAssistantBubble(); msg.querySelector('.text').innerHTML=`<div role="alert" style="color:#b42318;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
     show($("#top-tools")); hide($("#back")); show($("#restart"));
   }
 }
