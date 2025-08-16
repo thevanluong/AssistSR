@@ -5,26 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Doggygo · AssistSR2</title>
 
-<!-- iOS system font first -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- (Optionnel) FontAwesome pour les icônes -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
 /* =========================================================
-   CUPERTINO PRO — mobile-first, élégant, lisible
+   SWISS COMPACT — dense, net, single-line, accessible
    ========================================================= */
 :root{
   color-scheme: light dark;
 
-  /* Echelles fluides (mobile -> desktop) */
-  --fs-body: clamp(15.5px, 1.9vw, 18px);
-  --fs-title: clamp(17px, 2.2vw, 20px);
-  --fs-card: clamp(16px, 2vw, 18px);
-  --radius: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 20px;
+  /* Échelles fluides (mobile → desktop) */
+  --fs-body: clamp(14px, 1.6vw, 16px);
+  --fs-title: clamp(15px, 1.9vw, 18px);
 
-  /* Couleurs Light */
+  /* Rayon & ombres */
+  --radius: 10px;
+  --radius-lg: 12px;
+
+  /* Light */
   --bg: #f5f7fb;
   --panel: #ffffff;
   --text: #0b1220;
@@ -32,7 +31,7 @@
   --border: #e6e9f0;
   --chip: #f3f5f9;
 
-  /* Couleurs Dark */
+  /* Dark */
   --bg-dark: #0e1117;
   --panel-dark: #0f131a;
   --text-dark: #e9edf3;
@@ -40,15 +39,12 @@
   --border-dark: #242a33;
   --chip-dark: #151b22;
 
-  /* Accent */
   --accent-1: #10a37f;
   --accent-2: #2bb3a1;
 
-  /* Ombres fines */
   --shadow-1: 0 6px 16px rgba(12,21,36,.06);
   --shadow-2: 0 12px 28px rgba(12,21,36,.10);
 }
-
 @media (prefers-color-scheme: dark){
   :root{
     --bg: var(--bg-dark);
@@ -64,11 +60,8 @@
 html,body{ height:100%; }
 body{
   margin:0; color:var(--text);
-  font: 400 var(--fs-body)/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  background:
-    radial-gradient(900px 380px at 50% -180px, rgba(16,163,127,.08), transparent 70%),
-    var(--bg);
-  /* Safe areas iOS */
+  font: 400 var(--fs-body)/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
+  background: var(--bg);
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -80,57 +73,55 @@ body{
   padding: clamp(12px, 3.6vw, 28px);
 }
 
-/* ====== Header ====== */
+/* ====== Header (sobre) ====== */
 .header{
   display:flex; align-items:center; justify-content:space-between; gap:10px;
-  padding: 4px 0 8px 0;
+  padding: 4px 0 10px 0;
 }
 .brand{ display:flex; align-items:center; gap:10px; }
 .logo{ width:40px; height:40px; border-radius: 10px; object-fit: cover; }
 .h-title{ margin:0; font-weight:800; font-size: var(--fs-title); letter-spacing:.2px; }
-.h-sub{ margin:2px 0 0; color: var(--muted); font-size: calc(var(--fs-body) - 2px); }
+.h-sub{ margin:2px 0 0; color: var(--muted); font-size: calc(var(--fs-body) - 1px); }
 
 .toolbar{ display:flex; gap:.45rem; }
-.toolbar .btn{
-  border-radius: 999px; padding:.5rem .9rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
+.toolbar a{
+  border-radius: 999px; padding:.45rem .8rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
   background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
 }
 
 /* ====== Chat panel ====== */
 .chat-wrap{
-  margin-top: 10px;
+  margin-top: 8px;
   border-radius: var(--radius-lg);
-  background:
-    linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, var(--border), rgba(16,163,127,.28), var(--border)) border-box;
-  border: 1px solid transparent;
+  background: var(--panel);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-2);
   overflow: clip;
 }
 
 .progress-chips{
   display:flex; gap:.35rem; align-items:center; flex-wrap:wrap;
-  padding: 10px 12px; border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
+  padding: 8px 10px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.02));
 }
 .chip{
-  width:22px; height:22px; border-radius: 999px; font-weight:800; font-size: 12px;
+  width:20px; height:20px; border-radius: 999px; font-weight:700; font-size: 12px;
   display:inline-flex; align-items:center; justify-content:center;
   color: var(--muted); border: 1px solid var(--border); background: transparent;
 }
 .chip:last-child{ color: var(--text); border-color: rgba(16,163,127,.45); }
 
-#chat{ padding: 12px; }
+#chat{ padding: 10px; }
 
 /* ====== Messages ====== */
 .msg{
-  display:flex; align-items:flex-start; gap:10px; margin: 12px 0;
+  display:flex; align-items:flex-start; gap:8px; margin: 10px 0;
 }
 .msg .avatar{
-  width:30px; height:30px; border-radius: 8px;
+  width:26px; height:26px; border-radius: 8px;
   display:flex; align-items:center; justify-content:center; font-weight:800;
   background: #e7faf3; color:#0a5d44; border: 1px solid var(--border);
-  font-size: 14px; flex:0 0 auto;
+  font-size: 13px; flex:0 0 auto;
 }
 .msg.user .avatar{ background:#eef1f5; color:#30363d; }
 .msg .bubble{
@@ -138,113 +129,120 @@ body{
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--panel);
-  padding: 12px 14px;
-  line-height: 1.6;
+  padding: 10px 12px;
+  line-height: 1.5;
   box-shadow: 0 1px 0 rgba(0,0,0,.02);
   font-size: var(--fs-body);
 }
-.msg .bubble .title{ font-weight:800; margin-bottom: 8px; font-size: var(--fs-title); }
+.msg .bubble .title{
+  font-weight: 800; margin-bottom: 6px; font-size: var(--fs-title);
+}
 
-/* Caret de frappe */
+/* Caret (pour le typing) — discret */
 .caret{
-  display:inline-block; width: 8px; height: 1.05em; vertical-align: -0.2em;
+  display:inline-block; width: 6px; height: 1.05em; vertical-align: -0.2em;
   border-right: 2px solid rgba(16,163,127,.85); margin-left: 2px;
   animation: blink .9s steps(1) infinite;
 }
 @keyframes blink{ 0%,100%{opacity:0;} 50%{opacity:1;} }
 
-/* ====== Cartes réponses (mobile-first) ====== */
-.choices{ margin-top: 10px; }
-.choices-grid{
-  display:grid; gap: 10px;
-  grid-template-columns: 1fr;           /* mobile: 1 colonne */
-}
-@media (min-width: 740px){
-  .choices-grid{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1080px){
-  .choices-grid{ grid-template-columns: repeat(3, 1fr); }
-}
-
+/* ====== OPTIONS : liste compacte, 1 ligne, ellipsis ====== */
+.choices{ margin-top: 8px; }
+.choices-grid{ display:block; } /* 1 carte par ligne */
 .opt-card{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: 14px; border-radius: var(--radius-xl);
+  position: relative;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding: 10px 12px; margin: 6px 0;
+  border-radius: var(--radius);
   background: var(--chip);
   border: 1px solid var(--border);
-  text-decoration:none; color: inherit; font-weight: 700; font-size: var(--fs-card);
-  min-height: 66px;
-  transition: background .2s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  text-decoration:none; color: inherit; font-weight: 700;
+  font-size: var(--fs-body);
+  min-height: 44px; /* densité */
+  transition: background .15s ease, border-color .15s ease, transform .1s ease;
 }
-.opt-left{ display:flex; align-items:center; gap:12px; min-width:0; flex: 1 1 auto; }
+.opt-card:hover{ background:#f6f8fb; border-color:#d9dde6; transform: translateY(-1px); }
+.opt-card:active{ transform: translateY(0); }
+
+.opt-left{ display:flex; align-items:center; gap:10px; min-width:0; flex: 1 1 auto; }
 .opt-ico{
-  width:34px; height:34px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
-  background: #e9f7f1; color:#0f6e55; border: 1px solid var(--border); flex:0 0 auto;
-  font-size: 15px;
+  width:28px; height:28px; border-radius: 8px; display:flex; align-items:center; justify-content:center;
+  background: #e9f7f1; color:#0f6e55; border: 1px solid var(--border);
+  flex:0 0 auto; font-size: 13px;
 }
+
+/* single-line + ellipsis (ne casse jamais les mots à la ligne) */
 .opt-text{
-  /* >>> lisible, multiline, hyphénation FR <<< */
-  white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  line-height: 1.35;
-  min-width:0;
+  flex: 1 1 auto; min-width:0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.opt-arrow{ opacity:.25; transition: opacity .15s ease; flex:0 0 auto; }
-.opt-card:hover{
-  background:
-    linear-gradient(var(--chip), var(--chip)) padding-box,
-    linear-gradient(120deg, rgba(16,163,127,.40), rgba(16,163,127,.15)) border-box;
-  border-color: transparent; transform: translateY(-1px);
-  box-shadow: var(--shadow-1);
+
+/* flèche discrète */
+.opt-arrow{ opacity:.45; flex:0 0 auto; font-size: 16px; }
+
+/* Info-bulle lisible (hover/focus, desktop) */
+.opt-card::after{
+  content: attr(data-label);
+  position: absolute;
+  left: 12px; right: 12px; bottom: calc(100% + 8px);
+  padding: 6px 8px;
+  font-weight: 600; font-size: 12px; line-height: 1.45;
+  color: #fff; background: rgba(28,33,42,.96);
+  border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  display: none; white-space: normal; z-index: 3;
 }
-.opt-card.typed .opt-arrow{ opacity: .9; }
+@media (hover:hover){
+  .opt-card:hover::after, .opt-card:focus-visible::after{ display:block; }
+}
 
 /* ====== Actions bas ====== */
 .bottom-actions{
-  display:flex; gap:.5rem; flex-wrap: wrap; margin-top: 10px;
+  display:flex; gap:.5rem; flex-wrap: wrap; margin-top: 8px;
 }
 .btn-ghost{
-  border-radius: 999px; padding:.5rem .9rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
+  border-radius: 999px; padding:.45rem .8rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
   background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
-}
-.btn-accent{
-  border-radius: 999px; padding:.7rem 1rem; font-weight:800; font-size: calc(var(--fs-body) - 1px);
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  color:#fff; border: 1px solid transparent; text-decoration:none;
-  box-shadow: 0 10px 24px rgba(16,163,127,.22);
 }
 
 /* ====== Carte contact ====== */
 .contact-card{
-  display:grid; grid-template-columns: auto 1fr auto; gap:12px; align-items:center;
-  border-radius: calc(var(--radius) + 4px);
-  padding: 14px; margin-top: 12px;
-  background:
-    linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, rgba(16,163,127,.40), rgba(16,163,127,.15)) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  display:grid; grid-template-columns: auto 1fr auto; gap:10px; align-items:center;
+  border-radius: var(--radius);
+  padding: 12px; margin-top: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 16px rgba(0,0,0,.06);
   min-width: 0;
 }
 .contact-card .avatar{
-  width:50px; height:50px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 16px;
+  width:42px; height:42px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 14px;
 }
-.contact-card .name{ font-weight:800; font-size: var(--fs-card); }
+.contact-card .name{ font-weight:800; font-size: calc(var(--fs-body) + 1px); }
 .contact-card .meta{ color: var(--muted); font-size: calc(var(--fs-body) - 1px); word-break: break-word; }
+.contact-card .btn-accent{
+  border-radius: 999px; padding:.55rem .9rem; font-weight:800; font-size: calc(var(--fs-body) - 1px);
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color:#fff; border: 1px solid transparent; text-decoration:none;
+}
+
+/* Mobile : pile + bouton full width */
 @media (max-width: 680px){
   .contact-card{ grid-template-columns: 1fr; }
   .contact-card .btn-accent{ width: 100%; }
 }
 
 /* Note bas */
-.note{ color: var(--muted); font-size: calc(var(--fs-body) - 2px); padding: 10px 12px; border-top: 1px solid var(--border); }
+.note{
+  color: var(--muted); font-size: calc(var(--fs-body) - 1px);
+  padding: 8px 10px; border-top: 1px solid var(--border);
+}
 
 /* Accessibilité */
-.visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
 @media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; }
+  .opt-card,.btn-ghost{ transition: none !important; }
 }
 </style>
 </head>
@@ -260,8 +258,8 @@ body{
         </div>
       </div>
       <div class="toolbar" id="buttons" style="display:none">
-        <a id="back" href="javascript:goback();" class="btn" style="display:none">← Retour</a>
-        <a id="restart" href="javascript:location.reload()" class="btn" style="display:none">⟲ Recommencer</a>
+        <a id="back" href="javascript:goback();" style="display:none">← Retour</a>
+        <a id="restart" href="javascript:location.reload()" style="display:none">⟲ Recommencer</a>
       </div>
     </header>
 
@@ -276,7 +274,8 @@ body{
 
 <script>
 /* =========================================================
-   Logique : typing + cartes dynamiques (par mots)
+   Logique : streaming (questions), cartes dynamiques PAR MOTS,
+   options single-line + ellipsis, message final exact.
    ========================================================= */
 
 /* ----- Données (inchangées) ----- */
@@ -318,7 +317,7 @@ var trail = [];
 var atContact = false;
 var backTargetFromContact = "";
 
-/* ----- Helpers DOM ----- */
+/* ----- Helpers ----- */
 function $(sel){ return document.querySelector(sel); }
 function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
 function show(el){ el.style.display = ""; }
@@ -332,6 +331,7 @@ function renderProgress(){
   if(trail.length === 0){ el.innerHTML = ""; return; }
   el.innerHTML = trail.map(function(_, i){ return '<span class="chip">'+(i+1)+'</span>'; }).join('');
 }
+function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
 /* ----- Messages ----- */
 function addAssistantBubble(){
@@ -345,13 +345,11 @@ function addAssistantBubble(){
 function addUserBubble(){
   var wrap = document.createElement('div');
   wrap.className = "msg user";
-  wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed" style="word-break:normal; overflow-wrap:break-word; hyphens:auto;"></span></div>';
+  wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed"></span></div>';
   $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
 }
 
-/* ----- Typage : par caractères (bulle) & par mots (cartes) ----- */
-function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
-
+/* Typage lettres (bulle) */
 function typeChars(el, text, speed){
   if(prefersReduced() || speed <= 0){ el.textContent = text; return Promise.resolve(); }
   return new Promise(function(resolve){
@@ -370,7 +368,7 @@ function typeChars(el, text, speed){
   });
 }
 
-/* Typage par mots — évite les coupures “Commu nic ation” */
+/* Typage par MOTS (cartes) — évite toute coupure visuelle */
 function typeWords(el, text, baseDelay){
   if(prefersReduced() || baseDelay <= 0){ el.textContent = text; return Promise.resolve(); }
   var tokens = text.match(/\S+\s*/g) || []; // conserve les espaces
@@ -383,8 +381,7 @@ function typeWords(el, text, baseDelay){
       if(i < tokens.length){
         var token = tokens[i++];
         typed.textContent += token;
-        var delay = baseDelay;
-        if(/[.,;:!?…]$/.test(token.trim())) delay = baseDelay * 1.6; // micro pause sur ponctuation
+        var delay = /[.,;:!?…]$/.test(token.trim()) ? baseDelay * 1.6 : baseDelay;
         setTimeout(loop, delay); scrollToBottom();
       }else{ caret.remove(); resolve(); }
     })();
@@ -402,11 +399,13 @@ async function streamUserMessage(text){
   return bubble;
 }
 
-/* ----- Options : cartes avec typage PAR MOTS ----- */
+/* ----- Cartes options (single-line + ellipsis + tooltip) ----- */
 function createOptionCard(opt, onChoose){
   var a = document.createElement('a');
   a.href = "javascript:void(0)";
   a.className = "opt-card";
+  a.setAttribute('title', opt.option);      // tooltip natif (desktop & long-press iOS)
+  a.setAttribute('aria-label', opt.option); // accessibilité
   a.innerHTML =
     '<div class="opt-left">'+
       '<div class="opt-ico"><i class="fa-solid fa-bolt"></i></div>'+
@@ -416,12 +415,11 @@ function createOptionCard(opt, onChoose){
   a.onclick = function(){ onChoose(opt.value, opt.option, a); };
   return a;
 }
-async function typeOptionsSequentially(cards, speed){
+async function typeOptionsSequentially(cards, msPerWord){
   for(const card of cards){
     var el = card.querySelector('.opt-text');
     var label = card.getAttribute('data-label') || "";
-    await typeWords(el, label, speed);  // <<< par mots
-    card.classList.add('typed');
+    await typeWords(el, label, msPerWord);  // par mots → jamais de cassure visuelle
   }
 }
 
@@ -459,22 +457,22 @@ async function renderOptions(key){
 
   var bubble = await streamAssistantMessage(label);
 
-  var choicesWrap = document.createElement('div');
-  choicesWrap.className = "choices";
-  var grid = document.createElement('div');
-  grid.className = "choices-grid";
-  choicesWrap.appendChild(grid);
-  bubble.querySelector('.bubble').appendChild(choicesWrap);
+  var choices = document.createElement('div');
+  choices.className = "choices";
+  var list = document.createElement('div');
+  list.className = "choices-grid";
+  choices.appendChild(list);
+  bubble.querySelector('.bubble').appendChild(choices);
 
   var cards = [];
   (node.options || []).forEach(function(opt){
     var card = createOptionCard(opt, chooseOption);
     card.setAttribute('data-label', opt.option);
-    grid.appendChild(card);
+    list.appendChild(card);
     cards.push(card);
   });
 
-  await typeOptionsSequentially(cards, 120); // 120ms par mot ≈ rapide et lisible
+  await typeOptionsSequentially(cards, 120); // ~120ms par mot
 
   addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
 
@@ -499,7 +497,7 @@ async function renderContact(item){
   if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
   renderProgress();
 
-  // Message final EXACT (avec majuscule)
+  // Message final EXACT (Majuscule)
   var bubble = await streamAssistantMessage(translate[lang]["text"]);
 
   var card = document.createElement('div');
@@ -524,10 +522,11 @@ async function renderContact(item){
 }
 
 async function chooseOption(value, text, currentCard){
-  // désactiver les cartes pour éviter double clic
-  var grid = currentCard.closest('.choices-grid');
-  grid.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
+  // désactive les cartes pour éviter double clic
+  var list = currentCard.closest('.choices-grid');
+  list.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
 
+  // bulle utilisateur (stream)
   await streamUserMessage(text);
 
   setTimeout(function(){
@@ -569,7 +568,7 @@ async function boot(){
     console.error(e);
     var wrap = addAssistantBubble();
     wrap.querySelector('.text').innerHTML =
-      '<div class="alert" role="alert" style="margin:0;color:#b42318">⚠ '+ translate[lang]['error'] +'</div>';
+      '<div role="alert" style="margin:0;color:#b42318;font-weight:600">⚠ '+ translate[lang]['error'] +'</div>';
     show($("#buttons")); hide($("#back")); show($("#restart"));
   }
 }
