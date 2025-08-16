@@ -196,7 +196,69 @@
   .theme-toggle:focus{ box-shadow: var(--ring); }
 
   /* ======== Accessibility helpers ======== */
-  [tabindex="0"]:focus{ outline: none; box-shadow: var(--ring); }
+    [tabindex="0"]:focus{ outline: none; box-shadow: var(--ring); }
+
+    /* ---------- PATCH anti-débordements & pastilles plus fines ---------- */
+
+/* 1) Pastilles de progression : plus petites, plus élégantes, responsive */
+.progress-chips{ gap: .35rem; flex-wrap: wrap; }
+.chip{
+  width: clamp(18px, 4.8vw, 26px);
+  height: clamp(18px, 4.8vw, 26px);
+  font-size: clamp(.65rem, 2.8vw, .85rem);
+  border-radius: 999px;
+  background: rgba(123,92,255,.10);
+  color: #5b4af7;
+  border: 1px solid rgba(123,92,255,.22);
+}
+.chip.muted{
+  background: transparent;
+  color: rgba(16,24,40,.55);
+  border: 1px dashed rgba(16,24,40,.20);
+}
+
+/* 2) Avatar : taille qui s’ajuste selon l’écran (fini l’aspect “gros badge”) */
+.avatar{
+  width: clamp(44px, 10vw, 64px);
+  height: clamp(44px, 10vw, 64px);
+  border-radius: clamp(10px, 2.4vw, 16px);
+}
+
+/* 3) Mise en page contact : grille qui ne déborde jamais */
+.contact-wrap{
+  grid-template-columns: 1fr auto; /* desktop par défaut */
+  align-items: center;
+}
+.cta{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .6rem;
+}
+.cta .btn{ min-width: 0; }
+
+/* Desktop ≥992px : beau gros bouton ROND (mais contenu garanti dans la carte) */
+@media (min-width: 992px){
+  .cta .btn-gradient{
+    width: 160px; height: 160px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0; line-height: 1.1; font-size: 1.05rem;
+  }
+}
+
+/* Mobile & tablettes <992px : pilule full‑width (plus de débordement) */
+@media (max-width: 991.98px){
+  .contact-wrap{ grid-template-columns: 1fr; gap: .8rem; }
+  .cta{ grid-template-columns: 1fr; }
+  .cta .btn-gradient{
+    width: 100%; height: auto;
+    border-radius: 12px; padding: .9rem 1.1rem; /* bouton pilule */
+  }
+  .btn-ghost{ width: 100%; }
+}
+
+/* 4) Sécurité : rien ne dépasse visuellement de la carte */
+.glass-card{ overflow: hidden; }
+
 </style>
 </head>
 <body class="bg-orbs">
