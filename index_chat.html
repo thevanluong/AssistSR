@@ -2,38 +2,37 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Doggygo · AssistSR2</title>
 
-<!-- Fonts -->
+<!-- iOS system font first -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<!-- Bootstrap (utilitaires) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
 /* =========================================================
-   LINEAR GLOW XL — grand, premium, wow discret & lisible
+   CUPERTINO PRO — mobile-first, élégant, lisible
    ========================================================= */
 :root{
   color-scheme: light dark;
 
-  /* Dimensions */
-  --radius: 16px;       /* bulles */
-  --radius-lg: 22px;    /* panneaux */
-  --radius-xl: 20px;    /* cartes réponses */
-  --speed: .22s;
+  /* Echelles fluides (mobile -> desktop) */
+  --fs-body: clamp(15.5px, 1.9vw, 18px);
+  --fs-title: clamp(17px, 2.2vw, 20px);
+  --fs-card: clamp(16px, 2vw, 18px);
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
 
-  /* Palette (Light) */
-  --bg: #f6f7fb;
+  /* Couleurs Light */
+  --bg: #f5f7fb;
   --panel: #ffffff;
   --text: #0b1220;
-  --muted: #64748b;
-  --border: #e7e8ef;
-  --chip: #f2f4f8;
+  --muted: #657089;
+  --border: #e6e9f0;
+  --chip: #f3f5f9;
 
-  /* Palette (Dark) */
+  /* Couleurs Dark */
   --bg-dark: #0e1117;
   --panel-dark: #0f131a;
   --text-dark: #e9edf3;
@@ -41,13 +40,13 @@
   --border-dark: #242a33;
   --chip-dark: #151b22;
 
-  /* Accent (dégradé chic) */
+  /* Accent */
   --accent-1: #10a37f;
   --accent-2: #2bb3a1;
 
-  /* Ombres */
-  --shadow-1: 0 12px 28px rgba(18, 24, 40, .08);
-  --shadow-2: 0 26px 64px rgba(18, 24, 40, .12);
+  /* Ombres fines */
+  --shadow-1: 0 6px 16px rgba(12,21,36,.06);
+  --shadow-2: 0 12px 28px rgba(12,21,36,.10);
 }
 
 @media (prefers-color-scheme: dark){
@@ -65,111 +64,86 @@
 html,body{ height:100%; }
 body{
   margin:0; color:var(--text);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-
-  /* fond aurora sobre */
+  font: 400 var(--fs-body)/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   background:
-    radial-gradient(1100px 560px at 75% -10%, rgba(16,163,127,.10), transparent 70%),
-    radial-gradient(1000px 500px at -10% 10%, rgba(10,163,200,.08), transparent 60%),
+    radial-gradient(900px 380px at 50% -180px, rgba(16,163,127,.08), transparent 70%),
     var(--bg);
+  /* Safe areas iOS */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
-body::before{
-  content:""; position: fixed; inset: -20% -20% auto -20%; height: 50vh;
-  background:
-    radial-gradient(42% 100% at 20% 0%, rgba(16,163,127,.16), transparent 60%),
-    radial-gradient(42% 100% at 80% 0%, rgba(10,163,200,.12), transparent 60%);
-  filter: blur(30px) saturate(115%); opacity:.75; pointer-events: none;
-  animation: aurora 28s ease-in-out infinite alternate;
-}
-@keyframes aurora{ from{ transform: translate3d(-2%,0,0);} to{ transform: translate3d(2%,2%,0);} }
 
+/* ====== Shell ====== */
 .app-shell{
-  max-width: 1160px;     /* nettement plus large */
+  max-width: 1040px;
   margin: 0 auto;
-  padding: clamp(18px, 3.6vw, 32px);
+  padding: clamp(12px, 3.6vw, 28px);
 }
 
-/* En-tête ample */
+/* ====== Header ====== */
 .header{
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
-  padding: 6px 0 8px 0;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding: 4px 0 8px 0;
 }
-.brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:52px; height:52px; border-radius: 12px; object-fit: cover; }
-.h-title{ margin:0; font-weight:800; font-size: 22px; letter-spacing:.2px; }
-.h-sub{ margin:2px 0 0; color: var(--muted); font-size: 14px; }
+.brand{ display:flex; align-items:center; gap:10px; }
+.logo{ width:40px; height:40px; border-radius: 10px; object-fit: cover; }
+.h-title{ margin:0; font-weight:800; font-size: var(--fs-title); letter-spacing:.2px; }
+.h-sub{ margin:2px 0 0; color: var(--muted); font-size: calc(var(--fs-body) - 2px); }
 
-.toolbar{ display:flex; gap:.6rem; }
+.toolbar{ display:flex; gap:.45rem; }
 .toolbar .btn{
-  border-radius: 999px; padding:.6rem 1rem; font-weight:700; font-size: 14px;
-  background: transparent; border: 1px solid var(--border); color: inherit;
-  transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
+  border-radius: 999px; padding:.5rem .9rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
+  background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
 }
-.toolbar .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
-.toolbar .btn:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
 
-/* Trait d’accent */
-.accent-line{
-  height: 3px; width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
-  background-size: 200% 100%;
-  animation: shift 22s linear infinite; border-radius: 2px; opacity:.9;
-}
-@keyframes shift{ 0%{background-position:0 0;} 100%{background-position:200% 0;} }
-
-/* Panneau principal */
+/* ====== Chat panel ====== */
 .chat-wrap{
-  margin-top: 16px;
+  margin-top: 10px;
   border-radius: var(--radius-lg);
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, var(--border), rgba(16,163,127,.36), var(--border)) border-box;
+    linear-gradient(120deg, var(--border), rgba(16,163,127,.28), var(--border)) border-box;
   border: 1px solid transparent;
   box-shadow: var(--shadow-2);
-  position: relative; overflow: clip;
+  overflow: clip;
 }
 
-/* Progress chips */
 .progress-chips{
-  display:flex; gap:.45rem; align-items:center; flex-wrap:wrap;
-  padding: 16px; border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.03));
+  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap;
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
 }
 .chip{
-  width:28px; height:28px; border-radius: 999px; font-weight:800; font-size:13px;
+  width:22px; height:22px; border-radius: 999px; font-weight:800; font-size: 12px;
   display:inline-flex; align-items:center; justify-content:center;
-  color: var(--muted); background: transparent; border: 1px solid var(--border);
+  color: var(--muted); border: 1px solid var(--border); background: transparent;
 }
 .chip:last-child{ color: var(--text); border-color: rgba(16,163,127,.45); }
 
-/* Zone chat */
-#chat{ padding: 16px; }
+#chat{ padding: 12px; }
 
-/* Messages */
+/* ====== Messages ====== */
 .msg{
-  display:flex; align-items:flex-start; gap:14px; margin: 16px 0;
-  animation: rise var(--speed) ease-out;
+  display:flex; align-items:flex-start; gap:10px; margin: 12px 0;
 }
-@keyframes rise{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
 .msg .avatar{
-  width:40px; height:40px; border-radius: 12px; flex: 0 0 auto;
-  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 18px;
-  background: linear-gradient(180deg, #d5f5eb, #bfeee0); color:#064e3b;
-  border:1px solid var(--border);
+  width:30px; height:30px; border-radius: 8px;
+  display:flex; align-items:center; justify-content:center; font-weight:800;
+  background: #e7faf3; color:#0a5d44; border: 1px solid var(--border);
+  font-size: 14px; flex:0 0 auto;
 }
-.msg.user .avatar{ opacity:.75; background: linear-gradient(180deg, #eceff3, #e5e9ee); color:#222; }
+.msg.user .avatar{ background:#eef1f5; color:#30363d; }
 .msg .bubble{
-  max-width: 980px; position: relative;
-  border-radius: var(--radius); padding: 18px 20px;
-  border: 1px solid var(--border); background: var(--panel);
-  line-height: 1.65; font-size: 18px;
+  max-width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 12px 14px;
+  line-height: 1.6;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  font-size: var(--fs-body);
 }
-.msg .bubble::after{
-  content:""; position:absolute; left:16px; right:16px; top:0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
-  opacity:.7;
-}
-.msg.user .bubble{ background: color-mix(in oklab, var(--panel) 86%, var(--bg) 14%); }
+.msg .bubble .title{ font-weight:800; margin-bottom: 8px; font-size: var(--fs-title); }
 
 /* Caret de frappe */
 .caret{
@@ -177,99 +151,95 @@ body::before{
   border-right: 2px solid rgba(16,163,127,.85); margin-left: 2px;
   animation: blink .9s steps(1) infinite;
 }
-@keyframes blink{ 0%, 100%{opacity:0;} 50%{opacity:1;} }
+@keyframes blink{ 0%,100%{opacity:0;} 50%{opacity:1;} }
 
-/* Titre bulle */
-.msg .bubble .title{ font-weight: 800; margin-bottom: 10px; letter-spacing:.2px; font-size: 20px; }
-
-/* ===== Cartes réponses (grandes, dynamiques, multilignes) ===== */
-.choices{ margin-top: 12px; }
+/* ====== Cartes réponses (mobile-first) ====== */
+.choices{ margin-top: 10px; }
 .choices-grid{
-  display:grid; gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); /* 1–3 colonnes selon largeur */
-  grid-auto-rows: minmax(80px, auto); /* hauteur auto si multi-lignes */
+  display:grid; gap: 10px;
+  grid-template-columns: 1fr;           /* mobile: 1 colonne */
 }
+@media (min-width: 740px){
+  .choices-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1080px){
+  .choices-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+
 .opt-card{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: 18px 20px; border-radius: var(--radius-xl);
+  padding: 14px; border-radius: var(--radius-xl);
   background: var(--chip);
   border: 1px solid var(--border);
-  text-decoration:none; color: inherit; font-weight: 800; font-size: 18px;
-  transition: transform var(--speed), box-shadow var(--speed), background var(--speed), border-color var(--speed);
-  position: relative; overflow: hidden; min-height: 80px;
+  text-decoration:none; color: inherit; font-weight: 700; font-size: var(--fs-card);
+  min-height: 66px;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.opt-left{ display:flex; align-items:center; gap:14px; min-width:0; flex: 1 1 auto; }
+.opt-left{ display:flex; align-items:center; gap:12px; min-width:0; flex: 1 1 auto; }
 .opt-ico{
-  width:42px; height:42px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(180deg, #eaf8f3, #dff3ec); color:#0e6d56; border: 1px solid var(--border);
-  flex: 0 0 auto; font-size: 18px;
+  width:34px; height:34px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  background: #e9f7f1; color:#0f6e55; border: 1px solid var(--border); flex:0 0 auto;
+  font-size: 15px;
 }
 .opt-text{
-  /* >>> Fix: jamais tronqué, multilignes <<< */
-  display:block; flex: 1 1 auto;
+  /* >>> lisible, multiline, hyphénation FR <<< */
   white-space: normal;
-  overflow: visible;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: auto;
   line-height: 1.35;
+  min-width:0;
 }
-.opt-arrow{ flex: 0 0 auto; opacity: 0; transition: opacity var(--speed); font-size: 18px; }
+.opt-arrow{ opacity:.25; transition: opacity .15s ease; flex:0 0 auto; }
 .opt-card:hover{
   background:
     linear-gradient(var(--chip), var(--chip)) padding-box,
-    linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
+    linear-gradient(120deg, rgba(16,163,127,.40), rgba(16,163,127,.15)) border-box;
   border-color: transparent; transform: translateY(-1px);
   box-shadow: var(--shadow-1);
 }
-.opt-card.typed .opt-arrow{ opacity: 1; }
+.opt-card.typed .opt-arrow{ opacity: .9; }
 
-/* Actions bas de bulle */
-.bottom-actions{ display:flex; gap:.6rem; flex-wrap: wrap; margin-top: 14px; }
+/* ====== Actions bas ====== */
+.bottom-actions{
+  display:flex; gap:.5rem; flex-wrap: wrap; margin-top: 10px;
+}
 .btn-ghost{
-  border-radius: 999px; padding:.6rem 1rem; font-weight:700; font-size: 15px;
+  border-radius: 999px; padding:.5rem .9rem; font-weight:700; font-size: calc(var(--fs-body) - 1px);
   background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
-  transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
 }
-.btn-ghost:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
-.btn-ghost:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
 .btn-accent{
-  border-radius: 999px; padding:.8rem 1.2rem; font-weight:800; font-size: 15px;
+  border-radius: 999px; padding:.7rem 1rem; font-weight:800; font-size: calc(var(--fs-body) - 1px);
   background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  color: #fff; border: 1px solid transparent; text-decoration:none;
-  box-shadow: 0 14px 34px rgba(16,163,127,.25);
+  color:#fff; border: 1px solid transparent; text-decoration:none;
+  box-shadow: 0 10px 24px rgba(16,163,127,.22);
 }
 
-/* Carte contact */
+/* ====== Carte contact ====== */
 .contact-card{
-  display:grid; grid-template-columns: auto 1fr auto; gap:16px; align-items:center;
+  display:grid; grid-template-columns: auto 1fr auto; gap:12px; align-items:center;
   border-radius: calc(var(--radius) + 4px);
-  padding: 16px; margin-top: 16px;
+  padding: 14px; margin-top: 12px;
   background:
     linear-gradient(var(--panel), var(--panel)) padding-box,
-    linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
+    linear-gradient(120deg, rgba(16,163,127,.40), rgba(16,163,127,.15)) border-box;
   border: 1px solid transparent;
-  box-shadow: 0 12px 30px rgba(0,0,0,.08);
-  min-width: 0; transform: translateY(6px) scale(.98); opacity:0;
-  animation: cardIn .28s ease-out forwards;
+  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  min-width: 0;
 }
-@keyframes cardIn{ to{ transform: translateY(0) scale(1); opacity:1; } }
 .contact-card .avatar{
-  width:56px; height:56px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
-  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 18px;
+  width:50px; height:50px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border); font-size: 16px;
 }
-.contact-card .name{ font-weight:800; font-size: 17px; }
-.contact-card .meta{ color: var(--muted); font-size: 14px; word-break: break-word; }
-.contact-card .btn-accent{ min-width: 0; }
-
-/* Mobile : pile + bouton plein largeur */
-@media (max-width: 720px){
-  .choices-grid{ grid-template-columns: 1fr; }  /* 1 carte par ligne sur mobile */
+.contact-card .name{ font-weight:800; font-size: var(--fs-card); }
+.contact-card .meta{ color: var(--muted); font-size: calc(var(--fs-body) - 1px); word-break: break-word; }
+@media (max-width: 680px){
   .contact-card{ grid-template-columns: 1fr; }
   .contact-card .btn-accent{ width: 100%; }
 }
 
-/* Note */
-.note{ color: var(--muted); font-size: 13px; padding: 14px 16px; border-top: 1px solid var(--border); }
+/* Note bas */
+.note{ color: var(--muted); font-size: calc(var(--fs-body) - 2px); padding: 10px 12px; border-top: 1px solid var(--border); }
 
 /* Accessibilité */
 .visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
@@ -290,15 +260,10 @@ body::before{
         </div>
       </div>
       <div class="toolbar" id="buttons" style="display:none">
-        <a id="back" href="javascript:goback();" class="btn" style="display:none; text-decoration:none">
-          <i class="fa-solid fa-chevron-left"></i> Retour
-        </a>
-        <a id="restart" href="javascript:location.reload()" class="btn" style="display:none; text-decoration:none">
-          <i class="fa-solid fa-rotate-left"></i> Recommencer
-        </a>
+        <a id="back" href="javascript:goback();" class="btn" style="display:none">← Retour</a>
+        <a id="restart" href="javascript:location.reload()" class="btn" style="display:none">⟲ Recommencer</a>
       </div>
     </header>
-    <div class="accent-line" aria-hidden="true"></div>
 
     <section class="chat-wrap">
       <div id="progress" class="progress-chips" aria-live="polite"></div>
@@ -309,295 +274,306 @@ body::before{
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* =========================================================
+   Logique : typing + cartes dynamiques (par mots)
+   ========================================================= */
 
-  <script>
-  /* ======================================================
-     Logique : questions + réponses dynamiques (multilignes)
-     ====================================================== */
-
-  // ===== Données (inchangées) =====
-  var lang = "fr";
-  var papagoUrl = "./trees/";
-  var persons = {
-    "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
-    "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
-    "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
-    "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
-    "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
-    "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
-    "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
-    "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
-    "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
-    "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
-    "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
-    "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
-    "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
-  };
-  var translate = { 
-    "fr" : {
-        "contact": "Contacter",
-        /* >>> Majuscule exigée <<< */
-        "text" : "La personne ci‑dessous peut vous conseiller directement.",
-        "error" : "Doggygo n'est pas accessible pour le moment."
-    },
-    "en" : {
-        "contact": "Contact",
-        "text" : "The person below can advise you directly.",
-        "error" : "Doggygo is not available at the moment."
-    }
-  };
-
-  // ===== État =====
-  var papago = {};
-  var currentKey = "";
-  var parentKey = "";
-  var trail = [];
-  var atContact = false;
-  var backTargetFromContact = "";
-
-  // ===== Helpers =====
-  function $(sel){ return document.querySelector(sel); }
-  function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
-  function show(el){ el.style.display = ""; }
-  function hide(el){ el.style.display = "none"; }
-  function escapeHTML(str){ var d=document.createElement('div'); d.textContent=String(str||""); return d.innerHTML; }
-  function initials(name){ if(!name) return "?"; var p=name.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?"; }
-  function scrollToBottom(){ requestAnimationFrame(function(){ window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }); }
-  function renderProgress(){
-    var el = $("#progress");
-    if(!el) return;
-    if(trail.length === 0){ el.innerHTML = ""; return; }
-    el.innerHTML = trail.map(function(_, i){ return '<span class="chip">'+(i+1)+'</span>'; }).join('');
+/* ----- Données (inchangées) ----- */
+var lang = "fr";
+var papagoUrl = "./trees/";
+var persons = {
+  "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+  "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+  "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
+  "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+  "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+  "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+  "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+  "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+  "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+  "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+  "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+  "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+  "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
+};
+var translate = { 
+  "fr" : {
+      "contact": "Contacter",
+      "text" : "La personne ci‑dessous peut vous conseiller directement.",
+      "error" : "Doggygo n'est pas accessible pour le moment."
+  },
+  "en" : {
+      "contact": "Contact",
+      "text" : "The person below can advise you directly.",
+      "error" : "Doggygo is not available at the moment."
   }
+};
 
-  // ===== Messages =====
-  function addAssistantBubble(){
-    var wrap = document.createElement('div');
-    wrap.className = "msg assistant";
-    wrap.innerHTML =
-      '<div class="avatar" aria-hidden="true">🐾</div>'+
-      '<div class="bubble"><div class="text"></div><div class="choices"></div></div>';
-    $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+/* ----- État ----- */
+var papago = {};
+var currentKey = "";
+var parentKey = "";
+var trail = [];
+var atContact = false;
+var backTargetFromContact = "";
+
+/* ----- Helpers DOM ----- */
+function $(sel){ return document.querySelector(sel); }
+function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
+function show(el){ el.style.display = ""; }
+function hide(el){ el.style.display = "none"; }
+function escapeHTML(str){ var d=document.createElement('div'); d.textContent=String(str||""); return d.innerHTML; }
+function initials(name){ if(!name) return "?"; var p=name.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?"; }
+function scrollToBottom(){ requestAnimationFrame(function(){ window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }); }
+function renderProgress(){
+  var el = $("#progress");
+  if(!el) return;
+  if(trail.length === 0){ el.innerHTML = ""; return; }
+  el.innerHTML = trail.map(function(_, i){ return '<span class="chip">'+(i+1)+'</span>'; }).join('');
+}
+
+/* ----- Messages ----- */
+function addAssistantBubble(){
+  var wrap = document.createElement('div');
+  wrap.className = "msg assistant";
+  wrap.innerHTML =
+    '<div class="avatar" aria-hidden="true">🐾</div>'+
+    '<div class="bubble"><div class="text"></div><div class="choices"></div></div>';
+  $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+}
+function addUserBubble(){
+  var wrap = document.createElement('div');
+  wrap.className = "msg user";
+  wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed" style="word-break:normal; overflow-wrap:break-word; hyphens:auto;"></span></div>';
+  $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+}
+
+/* ----- Typage : par caractères (bulle) & par mots (cartes) ----- */
+function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+function typeChars(el, text, speed){
+  if(prefersReduced() || speed <= 0){ el.textContent = text; return Promise.resolve(); }
+  return new Promise(function(resolve){
+    var typed = document.createElement('span');
+    var caret = document.createElement('span'); caret.className = 'caret';
+    el.appendChild(typed); el.appendChild(caret);
+    var i=0, len=text.length;
+    (function loop(){
+      if(i < len){
+        typed.textContent += text.charAt(i++);
+        var ch = typed.textContent.slice(-1);
+        var s = (ch === ' ' || ch === '\n') ? speed * 0.6 : speed;
+        setTimeout(loop, s); scrollToBottom();
+      }else{ caret.remove(); resolve(); }
+    })();
+  });
+}
+
+/* Typage par mots — évite les coupures “Commu nic ation” */
+function typeWords(el, text, baseDelay){
+  if(prefersReduced() || baseDelay <= 0){ el.textContent = text; return Promise.resolve(); }
+  var tokens = text.match(/\S+\s*/g) || []; // conserve les espaces
+  return new Promise(function(resolve){
+    var typed = document.createElement('span');
+    var caret = document.createElement('span'); caret.className = 'caret';
+    el.appendChild(typed); el.appendChild(caret);
+    var i=0;
+    (function loop(){
+      if(i < tokens.length){
+        var token = tokens[i++];
+        typed.textContent += token;
+        var delay = baseDelay;
+        if(/[.,;:!?…]$/.test(token.trim())) delay = baseDelay * 1.6; // micro pause sur ponctuation
+        setTimeout(loop, delay); scrollToBottom();
+      }else{ caret.remove(); resolve(); }
+    })();
+  });
+}
+
+async function streamAssistantMessage(text){
+  var bubble = addAssistantBubble();
+  await typeChars(bubble.querySelector('.text'), text, 12);
+  return bubble;
+}
+async function streamUserMessage(text){
+  var bubble = addUserBubble();
+  await typeChars(bubble.querySelector('.typed'), text, 10);
+  return bubble;
+}
+
+/* ----- Options : cartes avec typage PAR MOTS ----- */
+function createOptionCard(opt, onChoose){
+  var a = document.createElement('a');
+  a.href = "javascript:void(0)";
+  a.className = "opt-card";
+  a.innerHTML =
+    '<div class="opt-left">'+
+      '<div class="opt-ico"><i class="fa-solid fa-bolt"></i></div>'+
+      '<div class="opt-text" aria-live="polite"></div>'+
+    '</div>'+
+    '<div class="opt-arrow"><i class="fa-solid fa-chevron-right"></i></div>';
+  a.onclick = function(){ onChoose(opt.value, opt.option, a); };
+  return a;
+}
+async function typeOptionsSequentially(cards, speed){
+  for(const card of cards){
+    var el = card.querySelector('.opt-text');
+    var label = card.getAttribute('data-label') || "";
+    await typeWords(el, label, speed);  // <<< par mots
+    card.classList.add('typed');
   }
-  function addUserBubble(){
-    var wrap = document.createElement('div');
-    wrap.className = "msg user";
-    wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble"><span class="typed" style="word-break:break-word; overflow-wrap:anywhere;"></span></div>';
-    $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+}
+
+/* ----- Actions bas ----- */
+function addBottomActions(bubble, opts){
+  var actions = document.createElement('div');
+  actions.className = "bottom-actions";
+  if(opts.showBack){
+    var backBtn = document.createElement('a');
+    backBtn.href = "javascript:goback()";
+    backBtn.className = "btn-ghost";
+    backBtn.innerText = "← Retour";
+    actions.appendChild(backBtn);
   }
-
-  /* Typage rapide avec caret (si non reduced-motion) */
-  function typeStream(el, text, speed){
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce || speed <= 0){ el.textContent = text; return Promise.resolve(); }
-    return new Promise(function(resolve){
-      var typedSpan = document.createElement('span');
-      var caret = document.createElement('span'); caret.className = 'caret';
-      el.appendChild(typedSpan); el.appendChild(caret);
-      var i=0, len=text.length;
-      (function loop(){
-        if(i < len){
-          typedSpan.textContent += text.charAt(i++);
-          var ch = typedSpan.textContent.slice(-1);
-          var s = (ch === ' ' || ch === '\n') ? speed * 0.6 : speed;
-          setTimeout(loop, s); scrollToBottom();
-        }else{ caret.remove(); resolve(); }
-      })();
-    });
+  if(opts.showRestart){
+    var restartBtn = document.createElement('a');
+    restartBtn.href = "javascript:location.reload()";
+    restartBtn.className = "btn-ghost";
+    restartBtn.innerText = "⟲ Recommencer";
+    actions.appendChild(restartBtn);
   }
-  async function streamAssistantMessage(text){
-    var bubble = addAssistantBubble();
-    await typeStream(bubble.querySelector('.text'), text, 11);
-    return bubble;
+  bubble.querySelector('.bubble').appendChild(actions);
+}
+
+/* ----- Étapes ----- */
+async function renderOptions(key){
+  var node = papago[key] || {};
+  var label = String(node.label || "");
+  parentKey = node.parent || "";
+  currentKey = key;
+  atContact = false;
+
+  if(trail[trail.length-1] !== key){ trail.push(key); }
+  renderProgress();
+
+  var bubble = await streamAssistantMessage(label);
+
+  var choicesWrap = document.createElement('div');
+  choicesWrap.className = "choices";
+  var grid = document.createElement('div');
+  grid.className = "choices-grid";
+  choicesWrap.appendChild(grid);
+  bubble.querySelector('.bubble').appendChild(choicesWrap);
+
+  var cards = [];
+  (node.options || []).forEach(function(opt){
+    var card = createOptionCard(opt, chooseOption);
+    card.setAttribute('data-label', opt.option);
+    grid.appendChild(card);
+    cards.push(card);
+  });
+
+  await typeOptionsSequentially(cards, 120); // 120ms par mot ≈ rapide et lisible
+
+  addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
+
+  show($("#buttons"));
+  if(node.parent){ show($("#back")); } else { hide($("#back")); }
+  hide($("#restart"));
+  scrollToBottom();
+}
+
+async function renderContact(item){
+  // "Contacter CODE"
+  var clean = item.replace("Contacter", translate[lang]["contact"]);
+  var parts = clean.split(" ");
+  var code = parts[1];
+  var p = persons[code] || {};
+  var name = p.name || code || "Contact";
+  var url = p.url || "#";
+
+  backTargetFromContact = currentKey;
+  atContact = true;
+
+  if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
+  renderProgress();
+
+  // Message final EXACT (avec majuscule)
+  var bubble = await streamAssistantMessage(translate[lang]["text"]);
+
+  var card = document.createElement('div');
+  card.className = "contact-card";
+  card.innerHTML =
+    '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
+    '<div>'+
+      '<div class="name">'+ escapeHTML(name) +'</div>'+
+      '<div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div>'+
+    '</div>'+
+    '<div>'+
+      '<a class="btn-accent" target="_blank" rel="noopener" href="'+ url +'">'+
+        '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
+      '</a>'+
+    '</div>';
+  bubble.querySelector('.text').appendChild(card);
+
+  addBottomActions(bubble, { showBack: true, showRestart: true });
+
+  show($("#buttons")); show($("#back")); show($("#restart"));
+  scrollToBottom();
+}
+
+async function chooseOption(value, text, currentCard){
+  // désactiver les cartes pour éviter double clic
+  var grid = currentCard.closest('.choices-grid');
+  grid.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
+
+  await streamUserMessage(text);
+
+  setTimeout(function(){
+    if(String(value).substr(0,9) === "Contacter"){ renderContact(String(value)); }
+    else{ renderOptions(String(value)); }
+  }, 60);
+}
+
+/* ----- API publique (compat) ----- */
+function format(item){ if(item.substr(0,9) === "Contacter"){ renderContact(item); } else { renderOptions(item); } }
+function goback(){
+  if(atContact && backTargetFromContact){
+    if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
+    setHTML("#chat", ""); format(backTargetFromContact); return;
   }
-  async function streamUserMessage(text){
-    var bubble = addUserBubble();
-    await typeStream(bubble.querySelector('.typed'), text, 9);
-    return bubble;
+  if(!parentKey) return;
+  trail.pop(); setHTML("#chat", ""); format(parentKey);
+}
+window.format = format; window.goback = goback;
+
+/* ----- Boot ----- */
+function loadParams(){
+  var params = new URLSearchParams(location.search);
+  var qLang = params.get("lang");
+  var notitle = params.get("notitle");
+  if(qLang && translate[qLang]) lang = qLang;
+  if(notitle === "true"){
+    document.querySelectorAll(".brand, .toolbar").forEach(function(h){ h.classList.add("visually-hidden"); });
   }
-
-  // ===== Cartes d’options dynamiques (texte tapé à l’intérieur) =====
-  function createOptionCard(opt, onChoose){
-    var a = document.createElement('a');
-    a.href = "javascript:void(0)";
-    a.className = "opt-card";
-    a.innerHTML =
-      '<div class="opt-left">'+
-        '<div class="opt-ico"><i class="fa-solid fa-bolt"></i></div>'+
-        '<div class="opt-text" aria-live="polite"></div>'+
-      '</div>'+
-      '<div class="opt-arrow"><i class="fa-solid fa-chevron-right"></i></div>';
-    a.onclick = function(){ onChoose(opt.value, opt.option, a); };
-    return a;
-  }
-
-  async function typeOptionsSequentially(cards, speed){
-    // Tape chaque carte l’une après l’autre (vrai “dynamique”)
-    for(const card of cards){
-      var el = card.querySelector('.opt-text');
-      var label = card.getAttribute('data-label') || "";
-      await typeStream(el, label, speed);
-      card.classList.add('typed'); // fait apparaître la flèche
-    }
-  }
-
-  function addBottomActions(bubble, opts){
-    var actions = document.createElement('div');
-    actions.className = "bottom-actions";
-    if(opts.showBack){
-      var backBtn = document.createElement('a');
-      backBtn.href = "javascript:goback()";
-      backBtn.className = "btn-ghost";
-      backBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i> Retour';
-      actions.appendChild(backBtn);
-    }
-    if(opts.showRestart){
-      var restartBtn = document.createElement('a');
-      restartBtn.href = "javascript:location.reload()";
-      restartBtn.className = "btn-ghost";
-      restartBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Recommencer';
-      actions.appendChild(restartBtn);
-    }
-    bubble.querySelector('.bubble').appendChild(actions);
-  }
-
-  // ===== Étapes =====
-  async function renderOptions(key){
-    var node = papago[key] || {};
-    var label = String(node.label || "");
-    parentKey = node.parent || "";
-    currentKey = key;
-    atContact = false;
-
-    if(trail[trail.length-1] !== key){ trail.push(key); }
-    renderProgress();
-
-    var bubble = await streamAssistantMessage(label);
-
-    // Grille de cartes
-    var choicesWrap = document.createElement('div');
-    choicesWrap.className = "choices";
-    var grid = document.createElement('div');
-    grid.className = "choices-grid";
-    choicesWrap.appendChild(grid);
-    bubble.querySelector('.bubble').appendChild(choicesWrap);
-
-    // Crée les cartes (texte vide au départ)
-    var cards = [];
-    (node.options || []).forEach(function(opt){
-      var card = createOptionCard(opt, chooseOption);
-      card.setAttribute('data-label', opt.option);
-      grid.appendChild(card);
-      cards.push(card);
-    });
-
-    // Tape le texte **dans** les cartes (séquentiel)
-    await typeOptionsSequentially(cards, 9);
-
-    // Actions bas de bulle
-    addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
-
-    // Toolbar top
+}
+async function boot(){
+  loadParams();
+  try{
+    var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
+    papago = await res.json();
     show($("#buttons"));
-    if(node.parent){ show($("#back")); } else { hide($("#back")); }
-    hide($("#restart"));
-    scrollToBottom();
+    format("0");
+  }catch(e){
+    console.error(e);
+    var wrap = addAssistantBubble();
+    wrap.querySelector('.text').innerHTML =
+      '<div class="alert" role="alert" style="margin:0;color:#b42318">⚠ '+ translate[lang]['error'] +'</div>';
+    show($("#buttons")); hide($("#back")); show($("#restart"));
   }
-
-  async function renderContact(item){
-    // "Contacter CODE"
-    var clean = item.replace("Contacter", translate[lang]["contact"]);
-    var parts = clean.split(" ");
-    var code = parts[1];
-    var p = persons[code] || {};
-    var name = p.name || code || "Contact";
-    var url = p.url || "#";
-
-    backTargetFromContact = currentKey;
-    atContact = true;
-
-    if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
-    renderProgress();
-
-    // Message final EXACT demandé (tapé)
-    var bubble = await streamAssistantMessage(translate[lang]["text"]);
-
-    // Carte contact
-    var card = document.createElement('div');
-    card.className = "contact-card";
-    card.innerHTML =
-      '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
-      '<div>'+
-        '<div class="name">'+ escapeHTML(name) +'</div>'+
-        '<div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div>'+
-      '</div>'+
-      '<div>'+
-        '<a class="btn-accent" target="_blank" rel="noopener" href="'+ url +'">'+
-          '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
-        '</a>'+
-      '</div>';
-    bubble.querySelector('.text').appendChild(card);
-
-    addBottomActions(bubble, { showBack: true, showRestart: true });
-
-    show($("#buttons")); show($("#back")); show($("#restart"));
-    scrollToBottom();
-  }
-
-  async function chooseOption(value, text, currentCard){
-    // Désactive toutes les cartes pour éviter le double-clic
-    var grid = currentCard.closest('.choices-grid');
-    grid.querySelectorAll('.opt-card').forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
-
-    // Affiche la réponse utilisateur en streaming (multiligne OK)
-    await streamUserMessage(text);
-
-    setTimeout(function(){
-      if(String(value).substr(0,9) === "Contacter"){ renderContact(String(value)); }
-      else{ renderOptions(String(value)); }
-    }, 60);
-  }
-
-  // API publique (compat)
-  function format(item){ if(item.substr(0,9) === "Contacter"){ renderContact(item); } else { renderOptions(item); } }
-  function goback(){
-    if(atContact && backTargetFromContact){
-      if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
-      setHTML("#chat", ""); format(backTargetFromContact); return;
-    }
-    if(!parentKey) return;
-    trail.pop(); setHTML("#chat", ""); format(parentKey);
-  }
-  window.format = format; window.goback = goback;
-
-  // ===== Boot =====
-  function loadParams(){
-    var params = new URLSearchParams(location.search);
-    var qLang = params.get("lang");
-    var notitle = params.get("notitle");
-    if(qLang && translate[qLang]) lang = qLang;
-    if(notitle === "true"){
-      document.querySelectorAll(".brand, .toolbar, .accent-line").forEach(function(h){ h.classList.add("visually-hidden"); });
-    }
-  }
-  async function boot(){
-    loadParams();
-    try{
-      var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
-      papago = await res.json();
-      show($("#buttons"));
-      format("0");
-    }catch(e){
-      console.error(e);
-      var wrap = addAssistantBubble();
-      wrap.querySelector('.text').innerHTML =
-        '<div class="alert alert-danger mb-0" role="alert">'+
-        '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +'</div>';
-      show($("#buttons")); hide($("#back")); show($("#restart"));
-    }
-  }
-  document.addEventListener("DOMContentLoaded", boot);
-  </script>
+}
+document.addEventListener("DOMContentLoaded", boot);
+</script>
 </body>
 </html>
