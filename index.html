@@ -124,7 +124,7 @@
     display: grid;
     align-items: center;
     gap: clamp(12px, 3vw, 24px);
-    /* Zone centrée pour éviter "trop à gauche" ou "trop à droite" sur laptop */
+    /* Zone centrée pour éviter "trop à gauche / trop à droite" sur laptop */
     max-width: clamp(560px, 75vw, 780px);
     margin-inline: auto;
     grid-template-columns: minmax(280px, 1fr) auto; /* identité + CTA */
@@ -140,7 +140,7 @@
   .contact-name{ font-weight: 800; margin: 0; }
   .contact-meta{ color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
 
-  .cta{ display:flex; gap:.6rem; justify-self: end; } /* sur laptop: légèrement à droite mais dans la zone centrée */
+  .cta{ display:flex; gap:.6rem; justify-self: end; }
   .cta .btn{
     border-radius: 999px; padding: .7rem 1rem; font-weight: 600;
     min-width: 0;
@@ -190,7 +190,7 @@
         <div>
           <span class="brand-chip"><i class="fa-solid fa-paw"></i> Doggygo</span>
           <h1 class="title h4">Votre assistant personnalisé</h1>
-          <p class="sub">Répondez aux questions, et nous vous indiquerons la bonne personne à contacter au Service de la Recherche.</p>
+          <p class="sub">Répondez aux questions ; nous vous dirons qui contacter au Service de la Recherche.</p>
         </div>
       </div>
     </section>
@@ -242,12 +242,12 @@
     var translate = { 
       "fr" : {
           "contact": "Contacter",
-          "text" : "La personne ci-dessous peut vous conseiller.",
+          "text" : "La personne ci‑dessous peut vous conseiller directement.",
           "error" : "Doggygo n'est pas accessible pour le moment."
       },
       "en" : {
           "contact": "Contact",
-          "text" : "This person can advise you.",
+          "text" : "This person can advise you directly.",
           "error" : "Doggygo is not available at the moment."
       }
     };
@@ -329,7 +329,7 @@
       if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
       renderProgress();
 
-      // Un seul bouton "Contacter", positionné dans une zone centrée (ni trop gauche, ni trop droite)
+      // Un seul bouton "Contacter", dans une zone centrée (ni trop gauche, ni trop droite)
       var html = ''+
         '<div class="q-title">'+ escapeHTML(translate[lang]["text"]) +'</div>'+
         '<div class="contact-wrap">'+
