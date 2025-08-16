@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Doggygo · AssistSR2</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- Bootstrap (utilitaires) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+
+<style>
+/* ================================
+   CALM GLOW — Sobre avec effet “wow”
+   ================================ */
+:root{
+  color-scheme: light dark;
+  --radius: 12px;        /* bulles */
+  --radius-lg: 14px;     /* panneaux */
+  --radius-xl: 18px;     /* gros panels */
+  --speed: .22s;
+
+  /* Palette light */
+  --bg: #f7f7f8;
+  --bg-tint: #eef2f6;
+  --panel: #ffffff;
+  --text: #0b0f19;
+  --muted: #6b7280;
+  --border: #e6e6e8;
+  --chip: #f3f4f6;
+
+  /* Palette dark */
+  --bg-dark: #0e0f13;
+  --bg-tint-dark: #0a0c10;
+  --panel-dark: #0f1116;
+  --text-dark: #e6e8ee;
+  --muted-dark: #9aa3af;
+  --border-dark: #23262d;
+  --chip-dark: #151a21;
+
+  /* Accent (dégradé subtil) */
+  --accent-1: #10a37f;
+  --accent-2: #2bb3a1;
+
+  /* Ombres */
+  --shadow-1: 0 10px 24px rgba(0,0,0,.06);
+  --shadow-2: 0 18px 40px rgba(0,0,0,.08);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: var(--bg-dark);
+    --bg-tint: var(--bg-tint-dark);
+    --panel: var(--panel-dark);
+    --text: var(--text-dark);
+    --muted: var(--muted-dark);
+    --border: var(--border-dark);
+    --chip: var(--chip-dark);
+  }
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; color:var(--text); background:
+    radial-gradient(900px 450px at 50% -180px, var(--bg-tint) 0%, transparent 70%),
+    var(--bg);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+/* Trait d’accent animé (sobre) */
+.accent-line{
+  height: 2px; width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
+  background-size: 200% 100%;
+  animation: shift 14s linear infinite;
+  border-radius: 2px;
+  opacity:.9;
+}
+@keyframes shift{ 0%{background-position:0 0;} 100%{background-position:200% 0;} }
+
+.app-shell{ max-width: 820px; margin: 0 auto; padding: clamp(12px, 3.2vw, 24px); }
+
+/* En-tête sobre + léger “glow” */
+.header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding: 8px 0 10px 0;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.logo{ width:36px; height:36px; border-radius: 8px; object-fit: cover; }
+.h-title{ margin:0; font-weight:800; font-size: 16px; letter-spacing:.2px; }
+.h-sub{ margin:0; color: var(--muted); font-size: 13px; }
+
+.toolbar{ display:flex; gap:.5rem; }
+.toolbar .btn{
+  border-radius: 999px; padding:.5rem .85rem; font-weight:600; font-size: 14px;
+  color: inherit; background: transparent; border: 1px solid var(--border);
+  transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
+}
+.toolbar .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
+.toolbar .btn:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
+
+/* Panneau de chat — bordure dégradée subtile */
+.chat-wrap{
+  margin-top: 12px;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(120deg, var(--border), rgba(16,163,127,.35), var(--border)) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-2);
+  position: relative; overflow: clip;
+}
+
+/* Ombre de défilement (haut/bas) */
+.chat-wrap::before,
+.chat-wrap::after{
+  content:""; position: absolute; left:0; right:0; height: 18px; pointer-events:none;
+}
+.chat-wrap::before{ top:0; background: linear-gradient(180deg, rgba(0,0,0,.06), transparent); }
+.chat-wrap::after{ bottom:0; background: linear-gradient(0deg, rgba(0,0,0,.06), transparent); }
+
+/* Fil d’Ariane (pastilles) */
+.progress-chips{
+  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap;
+  padding: 12px 12px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
+}
+.chip{
+  width:22px; height:22px; border-radius: 999px; font-weight:700; font-size:12px;
+  display:inline-flex; align-items:center; justify-content:center;
+  color: var(--muted); background: transparent; border: 1px solid var(--border);
+  transition: border-color var(--speed), color var(--speed);
+}
+.chip:last-child{
+  color: var(--text);
+  border-color: color-mix(in oklab, var(--border) 70%, var(--accent-1) 30%);
+}
+
+/* Messages */
+#chat{ padding: 8px 12px 12px 12px; }
+.msg{
+  display:flex; align-items:flex-start; gap:10px; margin: 10px 0;
+  animation: rise var(--speed) ease-out;
+}
+@keyframes rise{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
+.msg .avatar{
+  width:28px; height:28px; border-radius: 8px; flex: 0 0 auto;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 14px;
+  background: linear-gradient(180deg, #d5f5eb, #b8eadc); color:#064e3b;
+  border:1px solid var(--border);
+}
+.msg.user .avatar{ opacity:.75; background: linear-gradient(180deg, #eceff3, #e5e9ee); color:#222; }
+.msg .bubble{
+  max-width: 760px; position: relative;
+  border-radius: var(--radius); padding: 12px 14px;
+  border: 1px solid var(--border); background: var(--panel);
+  line-height: 1.55; box-shadow: 0 1px 0 rgba(0,0,0,.02);
+}
+.msg .bubble::after{
+  /* ligne de sommet très subtile (wow discret) */
+  content:""; position:absolute; left:10px; right:10px; top:0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16,163,127,.35), transparent);
+  opacity:.7;
+}
+.msg.user .bubble{ background: color-mix(in oklab, var(--panel) 84%, var(--bg-tint) 16%); }
+
+/* Titre dans la bulle */
+.msg .bubble .title{ font-weight: 800; margin-bottom: 6px; letter-spacing:.2px; }
+
+/* Options (chips) */
+.choices{ display:flex; flex-direction: column; gap: .5rem; margin-top:.6rem; }
+.chip-btn{
+  display:flex; align-items:center; gap:.65rem; padding:.68rem 1rem; text-decoration:none;
+  border-radius: 999px; background: var(--chip); border: 1px solid var(--border);
+  color: inherit; font-weight: 700; transition: transform var(--speed), box-shadow var(--speed), background var(--speed), border-color var(--speed);
+}
+.chip-btn i{ color: var(--muted); }
+.chip-btn:hover{
+  background: linear-gradient(var(--chip), var(--chip)) padding-box,
+             linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
+  border-color: transparent; transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+/* Actions bas de bulle */
+.bottom-actions{
+  display:flex; gap:.5rem; flex-wrap: wrap; margin-top: .8rem;
+}
+.btn-ghost{
+  border-radius: 999px; padding:.45rem .85rem; font-weight:600; font-size: 14px;
+  background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
+  transition: transform var(--speed), box-shadow var(--speed), background var(--speed);
+}
+.btn-ghost:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); }
+.btn-ghost:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.22); }
+
+.btn-accent{
+  border-radius: 999px; padding:.6rem 1rem; font-weight:800; font-size: 14px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: #fff; border: 1px solid transparent; text-decoration:none;
+  box-shadow: 0 10px 26px rgba(16,163,127,.25);
+  transition: transform var(--speed), box-shadow var(--speed), filter var(--speed);
+}
+.btn-accent:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(16,163,127,.28); }
+
+/* Carte contact (halo discret + responsive) */
+.contact-card{
+  display:grid; grid-template-columns: auto 1fr auto; gap:12px; align-items:center;
+  border-radius: calc(var(--radius) + 2px);
+  padding: 12px; margin-top: 10px;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(120deg, rgba(16,163,127,.45), rgba(16,163,127,.15)) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  min-width: 0;
+}
+.contact-card .avatar{
+  width:46px; height:46px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; background: #e5f5ef; color:#065f46; border: 1px solid var(--border);
+}
+.contact-card .name{ font-weight:800; }
+.contact-card .meta{ color: var(--muted); font-size: 14px; word-break: break-word; }
+.contact-card .btn-accent{ min-width: 0; }
+
+/* Mobile : pile + boutons plein largeur (plus de débordement) */
+@media (max-width: 640px){
+  .contact-card{ grid-template-columns: 1fr; }
+  .contact-card .btn-accent{ width: 100%; }
+}
+
+/* Note bas du panneau */
+.note{ color: var(--muted); font-size: 13px; padding: 10px 12px; border-top: 1px solid var(--border); }
+
+/* Accessibilité */
+.visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="header">
+      <div class="brand">
+        <img src="doggygo.png" alt="" class="logo" />
+        <div>
+          <p class="h-title">Doggygo</p>
+          <p class="h-sub">Assistant du Service de la recherche</p>
+        </div>
+      </div>
+      <div class="toolbar" id="buttons" style="display:none">
+        <a id="back" href="javascript:goback();" class="btn" style="display:none; text-decoration:none">
+          <i class="fa-solid fa-chevron-left"></i> Retour
+        </a>
+        <a id="restart" href="javascript:location.reload()" class="btn" style="display:none; text-decoration:none">
+          <i class="fa-solid fa-rotate-left"></i> Recommencer
+        </a>
+      </div>
+    </header>
+    <div class="accent-line" aria-hidden="true"></div>
+
+    <section class="chat-wrap">
+      <div id="progress" class="progress-chips" aria-live="polite"></div>
+      <div id="chat" aria-live="polite" aria-label="Flux de conversation"></div>
+      <div class="note">
+        <i class="fa-regular fa-circle-question"></i> Les liens de contact pointent vers l’annuaire UNIL.
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+  /* ======================================================
+     Logique : sobre + “calm wow”, Retour & Recommencer OK
+     ====================================================== */
+
+  // ===== Données (inchangées) =====
+  var lang = "fr";
+  var papagoUrl = "./trees/";
+  var persons = {
+    "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+    "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+    "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
+    "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+    "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+    "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+    "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+    "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+    "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+    "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+    "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+    "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+    "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
+  };
+  var translate = { 
+    "fr" : {
+        "contact": "Contacter",
+        "text" : "La personne ci‑dessous peut vous conseiller directement.",
+        "error" : "Doggygo n'est pas accessible pour le moment."
+    },
+    "en" : {
+        "contact": "Contact",
+        "text" : "This person can advise you directly.",
+        "error" : "Doggygo is not available at the moment."
+    }
+  };
+
+  // ===== État =====
+  var papago = {};
+  var currentKey = "";
+  var parentKey = "";
+  var trail = [];
+  var backTargetFromContact = "";
+  var atContact = false;
+
+  // ===== Helpers =====
+  function $(sel){ return document.querySelector(sel); }
+  function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
+  function show(el){ el.style.display = ""; }
+  function hide(el){ el.style.display = "none"; }
+  function escapeHTML(str){ var d=document.createElement('div'); d.textContent=String(str||""); return d.innerHTML; }
+  function initials(name){ if(!name) return "?"; var p=name.trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"?"; }
+  function scrollToBottom(){ requestAnimationFrame(function(){ window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }); }
+  function renderProgress(){
+    var el = $("#progress");
+    if(!el) return;
+    if(trail.length === 0){ el.innerHTML = ""; return; }
+    el.innerHTML = trail.map(function(_, i){ return '<span class="chip">'+(i+1)+'</span>'; }).join('');
+  }
+
+  // ===== Messages =====
+  function addAssistantBubble(){
+    var wrap = document.createElement('div');
+    wrap.className = "msg assistant";
+    wrap.innerHTML =
+      '<div class="avatar" aria-hidden="true">🐾</div>'+
+      '<div class="bubble"><div class="text"></div><div class="choices" role="group" aria-label="Options"></div></div>';
+    $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+  }
+  function addUserBubble(text){
+    var wrap = document.createElement('div');
+    wrap.className = "msg user";
+    wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble">'+ escapeHTML(text) +'</div>';
+    $("#chat").appendChild(wrap); scrollToBottom(); return wrap;
+  }
+
+  // Typage rapide (pas de “…” au démarrage)
+  function typeStream(el, text, speed){
+    return new Promise(function(resolve){
+      var i=0, len=text.length;
+      (function loop(){
+        if(i < len){ el.textContent += text.charAt(i++); setTimeout(loop, speed); scrollToBottom(); }
+        else{ resolve(); }
+      })();
+    });
+  }
+  async function streamAssistantMessage(text){
+    var bubble = addAssistantBubble();
+    await typeStream(bubble.querySelector('.text'), text, 14);
+    return bubble;
+  }
+
+  function addBottomActions(bubble, opts){
+    var actions = document.createElement('div');
+    actions.className = "bottom-actions";
+    if(opts.showBack){
+      var backBtn = document.createElement('a');
+      backBtn.href = "javascript:goback()";
+      backBtn.className = "btn-ghost";
+      backBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i> Retour';
+      actions.appendChild(backBtn);
+    }
+    if(opts.showRestart){
+      var restartBtn = document.createElement('a');
+      restartBtn.href = "javascript:location.reload()";
+      restartBtn.className = "btn-ghost";
+      restartBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Recommencer';
+      actions.appendChild(restartBtn);
+    }
+    bubble.querySelector('.bubble').appendChild(actions);
+  }
+
+  // ===== Étapes =====
+  async function renderOptions(key){
+    var node = papago[key] || {};
+    var label = String(node.label || "");
+    parentKey = node.parent || "";
+    currentKey = key;
+    atContact = false;
+
+    if(trail[trail.length-1] !== key){ trail.push(key); }
+    renderProgress();
+
+    var bubble = await streamAssistantMessage(label);
+
+    var choices = bubble.querySelector('.choices');
+    (node.options || []).forEach(function(opt){
+      var btn = document.createElement('a');
+      btn.href = "javascript:void(0)";
+      btn.className = "chip-btn";
+      btn.innerHTML = '<i class="fa-solid fa-bolt"></i> '+ escapeHTML(opt.option);
+      btn.onclick = function(){ chooseOption(opt.value, opt.option, bubble); };
+      choices.appendChild(btn);
+    });
+
+    addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
+
+    show($("#buttons"));
+    if(node.parent){ show($("#back")); } else { hide($("#back")); }
+    hide($("#restart"));
+    scrollToBottom();
+  }
+
+  async function renderContact(item){
+    var clean = item.replace("Contacter", translate[lang]["contact"]);
+    var parts = clean.split(" ");
+    var code = parts[1];
+    var p = persons[code] || {};
+    var name = p.name || code || "Contact";
+    var url = p.url || "#";
+
+    backTargetFromContact = currentKey;
+    atContact = true;
+
+    if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
+    renderProgress();
+
+    var bubble = await streamAssistantMessage(translate[lang]["text"]);
+
+    var card = document.createElement('div');
+    card.className = "contact-card";
+    card.innerHTML =
+      '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
+      '<div>'+
+        '<div class="name">'+ escapeHTML(name) +'</div>'+
+        '<div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div>'+
+      '</div>'+
+      '<div>'+
+        '<a class="btn-accent" target="_blank" rel="noopener" href="'+ url +'">'+
+          '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
+        '</a>'+
+      '</div>';
+    bubble.querySelector('.text').appendChild(card);
+
+    addBottomActions(bubble, { showBack: true, showRestart: true });
+
+    show($("#buttons")); show($("#back")); show($("#restart"));
+    scrollToBottom();
+  }
+
+  function chooseOption(value, text, currentBubble){
+    addUserBubble(text);
+    var choices = currentBubble.querySelectorAll('.chip-btn');
+    choices.forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
+    setTimeout(function(){
+      if(String(value).substr(0,9) === "Contacter"){ renderContact(String(value)); }
+      else{ renderOptions(String(value)); }
+    }, 60);
+  }
+
+  // API publique
+  function format(item){ if(item.substr(0,9) === "Contacter"){ renderContact(item); } else { renderOptions(item); } }
+  function goback(){
+    if(atContact && backTargetFromContact){
+      if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
+      setHTML("#chat", ""); format(backTargetFromContact); return;
+    }
+    if(!parentKey) return;
+    trail.pop(); setHTML("#chat", ""); format(parentKey);
+  }
+  window.format = format; window.goback = goback;
+
+  // ===== Boot =====
+  function loadParams(){
+    var params = new URLSearchParams(location.search);
+    var qLang = params.get("lang");
+    var notitle = params.get("notitle");
+    if(qLang && translate[qLang]) lang = qLang;
+    if(notitle === "true"){
+      document.querySelectorAll(".brand, .toolbar, .accent-line").forEach(function(h){ h.classList.add("visually-hidden"); });
+    }
+  }
+  async function boot(){
+    loadParams();
+    try{
+      var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
+      papago = await res.json();
+      show($("#buttons"));
+      format("0"); // pas de “...” avant la 1ʳᵉ question
+    }catch(e){
+      console.error(e);
+      var wrap = addAssistantBubble();
+      wrap.querySelector('.text').innerHTML =
+        '<div class="alert alert-danger mb-0" role="alert">'+
+        '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +'</div>';
+      show($("#buttons")); hide($("#back")); show($("#restart"));
+    }
+  }
+  document.addEventListener("DOMContentLoaded", boot);
+  </script>
+</body>
+</html>
