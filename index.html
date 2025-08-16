@@ -3,267 +3,203 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Doggygo · AssistSR2 (Hyper)</title>
+<title>Doggygo · AssistSR2</title>
 
 <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<!-- Bootstrap (pour utilitaires) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- Bootstrap (utilitaires) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
 /* ================================
-   THEME — HYPER NEON / GLASS / CHAT
+   Thème sobre — proche ChatGPT
    ================================ */
 :root{
-  --radius: 18px;
-  --radius-lg: 22px;
-  --ink: #e8eeff;
-  --muted: #9bb0ff;
-  --bg-1: #070a16;
-  --bg-2: #0b0e1e;
-  --brand-1: #7a2cff;   /* violet */
-  --brand-2: #00e6ff;   /* cyan */
-  --brand-3: #ff3db6;   /* magenta */
-  --glass: rgba(255,255,255,.07);
-  --stroke: rgba(255,255,255,.12);
-  --shadow: 0 28px 90px rgba(0,0,0,.45);
-  --ring: 0 0 0 .25rem rgba(122,44,255,.28);
-  --speed: 0.25s;
+  color-scheme: light dark;
+  --radius: 12px;
+  --radius-lg: 14px;
+
+  /* Light */
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --text: #0b0f19;
+  --muted: #6b7280;
+  --border: #e6e6e8;
+  --bubble-assistant: #ffffff;
+  --bubble-user: #f2f4f7;
+  --chip: #f3f4f6;
+  --accent: #10a37f; /* vert OpenAI */
 }
-@media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; }
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0e0f13;
+    --panel: #0f1116;
+    --text: #e6e8ee;
+    --muted: #9aa3af;
+    --border: #23262d;
+    --bubble-assistant: #1a1f26;
+    --bubble-user: #161b22;
+    --chip: #151a21;
+    --accent: #10a37f;
+  }
 }
 
-/* ===== Background : néon dynamique + grid ===== */
 html,body{ height:100%; }
 body{
-  margin:0; color:var(--ink); background: var(--bg-1);
+  margin:0; background: var(--bg); color: var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  overflow-x: hidden;
-}
-body::before{
-  content:""; position:fixed; inset:-20% -20% -20% -20%;
-  background:
-    radial-gradient(45vw 45vw at 10% -5%, rgba(122,44,255,.18), transparent 55%),
-    radial-gradient(50vw 50vw at 110% 20%, rgba(0,230,255,.2), transparent 60%),
-    radial-gradient(55vw 55vw at 60% 120%, rgba(255,61,182,.22), transparent 60%),
-    conic-gradient(from 180deg at 70% 30%, rgba(122,44,255,.15), rgba(0,230,255,.15), rgba(255,61,182,.10), rgba(122,44,255,.15));
-  filter: blur(30px) saturate(120%);
-  animation: pan 45s ease-in-out infinite alternate;
-  z-index:0; pointer-events:none;
-  transform: translateZ(0);
-}
-body::after{
-  content:""; position: fixed; inset: 0;
-  background:
-    radial-gradient(1000px 600px at 50% -20%, rgba(255,255,255,.12), transparent 60%) no-repeat,
-    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 120px),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 120px);
-  mix-blend-mode: overlay; opacity:.25; pointer-events:none; z-index:0;
-}
-@keyframes pan{
-  0%{ transform: translate3d(-2%, -2%, 0) rotate(0.001deg); }
-  100%{ transform: translate3d(2%, 2%, 0) rotate(0.001deg); }
 }
 
-/* ===== App shell ===== */
 .app-shell{
-  position: relative; z-index:1;
-  max-width: 920px; margin: 0 auto; padding: clamp(18px, 3.5vw, 32px);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(12px, 3.2vw, 24px);
 }
 
-/* ===== Hero compact ===== */
-.hero{
-  border-radius: var(--radius-lg);
-  padding: clamp(12px, 2.2vw, 18px);
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(10px) saturate(140%);
-  display:flex; align-items:center; justify-content:space-between; gap: 14px;
+/* En-tête très sobre */
+.header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding: 10px 0 6px 0;
 }
 .brand{
-  display:flex; align-items:center; gap:14px;
+  display:flex; align-items:center; gap:10px;
 }
 .logo{
-  width:72px; height:72px; border-radius: 18px; object-fit: cover;
-  border: 6px solid rgba(255,255,255,.8);
-  box-shadow: 0 16px 40px rgba(122,44,255,.3);
+  width:36px; height:36px; border-radius: 8px; object-fit: cover;
 }
-.brand h1{
-  margin:0; font-weight:800; letter-spacing:.2px; line-height: 1.1;
-  font-family: "Space Grotesk", Inter, sans-serif;
-}
-.brand .sub{ margin:.25rem 0 0; color: var(--muted); }
-.brand-chip{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:.45rem .9rem; border-radius:999px; font-weight:800; letter-spacing:.2px;
-  color:#081023; background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
-  box-shadow: 0 16px 44px rgba(0,230,255,.25);
-}
+.h-title{ margin:0; font-weight:800; font-size: 16px; letter-spacing:.2px; }
+.h-sub{ margin:0; color: var(--muted); font-size: 13px; }
 
-/* ===== Toolbar (Back / Restart) ===== */
 .toolbar{ display:flex; gap:.5rem; }
 .toolbar .btn{
-  border-radius: 999px; padding:.55rem .9rem; font-weight:700;
-  background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
-  color: var(--ink);
+  border-radius: 999px; padding:.5rem .85rem; font-weight:600; font-size: 14px;
+  color: inherit; background: transparent; border: 1px solid var(--border);
 }
-.toolbar .btn:hover{ background: rgba(255,255,255,.14); }
-.toolbar .btn:focus{ box-shadow: var(--ring); }
+.toolbar .btn:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.2); }
 
-/* ===== Chat container ===== */
+/* Panneau de chat */
 .chat-wrap{
-  margin-top: 16px;
+  margin-top: 10px;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px) saturate(150%);
-  overflow: clip;
+  background: var(--panel);
 }
+
+/* Fil d’Ariane (discret) */
 .progress-chips{
-  display:flex; gap:.4rem; align-items:center; flex-wrap:wrap;
-  padding: 10px 12px; border-bottom: 1px dashed rgba(255,255,255,.14);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  display:flex; gap:.35rem; align-items:center; flex-wrap:wrap;
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
 }
 .chip{
-  width:26px; height:26px; border-radius: 999px; font-weight:800; font-size:.85rem;
+  width:22px; height:22px; border-radius: 999px; font-weight:700; font-size:12px;
   display:inline-flex; align-items:center; justify-content:center;
-  color:#0b0f23;
-  background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
-  border: 1px solid rgba(255,255,255,.28);
+  color: var(--muted); background: transparent; border: 1px solid var(--border);
 }
-.chip.muted{
-  color: var(--muted);
-  background: transparent; border: 1px dashed rgba(255,255,255,.2);
-}
+.chip:last-child{ color: var(--text); border-color: var(--text); }
 
 /* Messages */
-#chat{ padding: clamp(12px, 2vw, 18px); }
-.msg{
-  display:flex; align-items:flex-start; gap:10px; margin: 10px 0;
-  transform: translateY(6px); opacity: 0; animation: pop .25s ease-out forwards;
-}
-@keyframes pop{
-  to{ transform: translateY(0); opacity:1; }
-}
+#chat{ padding: 8px 12px 12px 12px; }
+.msg{ display:flex; align-items:flex-start; gap:10px; margin: 10px 0; }
 .msg .avatar{
-  width:36px; height:36px; border-radius:12px; flex: 0 0 auto;
-  display:flex; align-items:center; justify-content:center; font-weight:800;
-  background: linear-gradient(135deg, var(--brand-1), var(--brand-3)); color:#fff;
-  box-shadow: 0 12px 28px rgba(122,44,255,.35);
+  width:28px; height:28px; border-radius: 6px; flex: 0 0 auto;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 14px;
+  background: #ffd2e1; color:#581b39;
 }
-.msg.user{ justify-content: flex-end; }
-.msg.user .avatar{ display:none; }
+.msg.assistant .avatar{ background: #d1fae5; color: #065f46; } /* discret vert */
 .msg .bubble{
-  max-width: 78%;
-  border-radius: 16px;
+  max-width: 760px;
+  border-radius: var(--radius);
   padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: var(--bubble-assistant);
+  line-height: 1.5;
 }
-.msg.assistant .bubble{
-  color: var(--ink);
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border: 1px solid rgba(255,255,255,.16);
-}
-.msg.user .bubble{
-  color:#07102b; font-weight:700;
-  background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
-  border: 1px solid rgba(255,255,255,.35);
-  box-shadow: 0 10px 26px rgba(0,230,255,.25);
-}
-.typing{
-  display:inline-flex; gap:6px; align-items:center;
-}
-.dot{
-  width:6px; height:6px; border-radius:999px;
-  background: rgba(255,255,255,.9);
-  animation: blink 1s ease-in-out infinite;
-}
-.dot:nth-child(2){ animation-delay: .15s; }
-.dot:nth-child(3){ animation-delay: .3s; }
-@keyframes blink{
-  0%, 80%, 100%{ opacity:.25; transform:translateY(0); }
-  30%{ opacity:1; transform:translateY(-2px); }
-}
+.msg.user .bubble{ background: var(--bubble-user); }
+.msg .bubble .title{ font-weight: 700; margin-bottom: 6px; }
 
-/* Quick replies / options */
+/* Options (chips sobres) */
 .choices{
-  display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem;
+  display:flex; flex-direction: column; gap: .5rem; margin-top:.6rem;
 }
 .chip-btn{
-  --delay: 0;
-  border-radius:999px; padding:.55rem .9rem; font-weight:700;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.18);
-  color:var(--ink); text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;
-  transform: translateY(6px); opacity:0;
-  animation: rise .22s ease-out forwards; animation-delay: calc(var(--delay) * .03s);
+  display:flex; align-items:center; gap:.6rem; padding:.65rem .9rem; text-decoration:none;
+  border-radius: 999px; background: var(--chip);
+  border: 1px solid var(--border); color: inherit; font-weight: 700;
 }
-.chip-btn:hover{ background: rgba(255,255,255,.16); }
-.chip-btn:focus{ outline:none; box-shadow: var(--ring); }
-@keyframes rise{ to{ transform: translateY(0); opacity:1; }}
+.chip-btn i{ color: var(--muted); }
+.chip-btn:hover{ background: transparent; }
 
-/* Contact card (assistant) */
+/* Actions en bas de bulle */
+.bottom-actions{
+  display:flex; gap:.5rem; flex-wrap: wrap; margin-top: .75rem;
+}
+.btn-ghost{
+  border-radius: 999px; padding:.45rem .8rem; font-weight:600; font-size: 14px;
+  background: transparent; border: 1px solid var(--border); color: inherit; text-decoration:none;
+}
+.btn-accent{
+  border-radius: 999px; padding:.55rem 1rem; font-weight:700; font-size: 14px;
+  background: var(--accent); color: #fff; border: 1px solid transparent; text-decoration:none;
+}
+.btn-ghost:focus, .btn-accent:focus{ box-shadow: 0 0 0 .2rem rgba(16,163,127,.2); }
+
+/* Carte contact (sobre + responsive) */
 .contact-card{
   display:grid; grid-template-columns: auto 1fr auto; gap:12px; align-items:center;
-  border-radius: 16px; padding: 12px; margin-top: 6px;
-  background: linear-gradient(135deg, rgba(122,44,255,.12), rgba(0,230,255,.12));
-  border: 1px solid rgba(255,255,255,.22);
+  border-radius: var(--radius);
+  padding: 12px; margin-top: 8px;
+  border: 1px solid var(--border); background: var(--bubble-user);
+  min-width: 0; /* empêche le débordement */
 }
 .contact-card .avatar{
-  width:56px; height:56px; border-radius: 16px;
-  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
-  color:#fff; display:flex; align-items:center; justify-content:center;
-  font-size:1.25rem; font-weight:800;
-  box-shadow: 0 10px 26px rgba(122,44,255,.35);
+  width:44px; height:44px; border-radius: 8px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; background: #e5f5ef; color:#065f46;
 }
-.contact-card .meta{ color: var(--muted); font-size:.95rem; }
-.contact-card .btn{
-  border-radius:999px; padding:.6rem 1rem; font-weight:800; letter-spacing:.2px;
-  background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
-  border:none; color:#07102b;
-  box-shadow: 0 14px 36px rgba(0,230,255,.28);
-}
-.contact-card .btn:focus{ box-shadow: var(--ring); }
+.contact-card .name{ font-weight:800; }
+.contact-card .meta{ color: var(--muted); font-size: 14px; word-break: break-word; }
+.contact-card .btn-accent{ min-width: 0; }
 
-/* Sub-note */
+/* Mobile: on passe en pile + boutons plein largeur */
+@media (max-width: 640px){
+  .contact-card{ grid-template-columns: 1fr; }
+  .contact-card .btn-accent{ width: 100%; }
+}
+
+/* Note en bas du panneau */
 .note{
-  color: var(--muted); font-size:.95rem; padding: 10px 14px; border-top: 1px dashed rgba(255,255,255,.16);
+  color: var(--muted); font-size: 13px; padding: 10px 12px; border-top: 1px solid var(--border);
 }
 
-/* Accessibility helpers */
+/* Accessibilité */
 .visually-hidden{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
 </style>
 </head>
 
 <body>
   <main class="app-shell">
-    <!-- HERO -->
-    <section class="hero">
+    <!-- En-tête -->
+    <header class="header">
       <div class="brand">
         <img src="doggygo.png" alt="" class="logo" />
         <div>
-          <span class="brand-chip"><i class="fa-solid fa-bolt"></i> Doggygo Hyper</span>
-          <h1 class="h4">Votre assistant survolté</h1>
-          <p class="sub">Des réponses instantanées. Nous vous indiquons qui contacter au Service de la recherche.</p>
+          <p class="h-title">Doggygo</p>
+          <p class="h-sub">Assistant du Service de la recherche</p>
         </div>
       </div>
       <div class="toolbar" id="buttons" style="display:none">
-        <a id="back" href="javascript:goback();" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
+        <a id="back" href="javascript:goback();" class="btn" style="display:none; text-decoration:none">
           <i class="fa-solid fa-chevron-left"></i> Retour
         </a>
-        <a id="restart" href="javascript:location.reload()" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
+        <a id="restart" href="javascript:location.reload()" class="btn" style="display:none; text-decoration:none">
           <i class="fa-solid fa-rotate-left"></i> Recommencer
         </a>
       </div>
-    </section>
+    </header>
 
-    <!-- CHAT PANEL -->
-    <section class="chat-wrap mt-3">
+    <!-- Panneau "Chat" -->
+    <section class="chat-wrap">
       <div id="progress" class="progress-chips" aria-live="polite"></div>
       <div id="chat" aria-live="polite" aria-label="Flux de conversation"></div>
       <div class="note">
@@ -272,18 +208,16 @@ body::after{
     </section>
   </main>
 
-  <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
   /* ======================================================
-     LOGIQUE — même API (format/goback) + UX type ChatGPT
+     Logique : sobre + streaming rapide, avec "Retour" & "Recommencer"
      ====================================================== */
 
-  // ------- Données (non modifiées) -------
+  // ===== Données (inchangées) =====
   var lang = "fr";
   var papagoUrl = "./trees/";
-
   var persons = {
     "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
     "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
@@ -299,7 +233,6 @@ body::after{
     "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
     "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
   };
-
   var translate = { 
     "fr" : {
         "contact": "Contacter",
@@ -313,13 +246,15 @@ body::after{
     }
   };
 
-  // ------- État -------
+  // ===== État =====
   var papago = {};
-  var parent = "", oldItem = "", jList = "", sheet = "";
-  var trail = []; // fil d’Ariane (clés)
-  var historyResetOnBack = true; // on repart proprement lors du "Retour"
+  var currentKey = "";           // clé de la question affichée
+  var parentKey = "";            // parent de currentKey
+  var trail = [];                // pour les pastilles de progression
+  var backTargetFromContact = ""; // où retourner quand on est sur la carte contact
+  var atContact = false;
 
-  // ------- Helpers DOM -------
+  // ===== Helpers DOM =====
   function $(sel){ return document.querySelector(sel); }
   function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
   function show(el){ el.style.display = ""; }
@@ -331,13 +266,10 @@ body::after{
   }
   function initials(name){
     if(!name) return "?";
-    var parts = name.trim().split(/\s+/);
-    var a = parts[0] ? parts[0][0] : "";
-    var b = parts[1] ? parts[1][0] : "";
-    return (a+b).toUpperCase();
+    var p = name.trim().split(/\s+/);
+    return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase() || "?";
   }
   function scrollToBottom(){
-    // petit scroll fluide vers le bas
     requestAnimationFrame(function(){
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     });
@@ -347,18 +279,18 @@ body::after{
     if(!progressEl) return;
     if(trail.length === 0){ progressEl.innerHTML = ""; return; }
     var chips = trail.map(function(_, idx){
-      return '<span class="chip'+(idx === trail.length-1 ? '' : ' muted')+'">'+ (idx+1) +'</span>';
+      return '<span class="chip">'+ (idx+1) +'</span>';
     }).join('');
     progressEl.innerHTML = chips;
   }
 
-  // ------- Briques "chat" -------
+  // ===== Messages =====
   function addAssistantBubble(){
     var wrap = document.createElement('div');
     wrap.className = "msg assistant";
     wrap.innerHTML =
       '<div class="avatar" aria-hidden="true">🐾</div>'+
-      '<div class="bubble"><div class="text"></div><div class="choices" role="group" aria-label="Réponses rapides"></div></div>';
+      '<div class="bubble"><div class="text"></div><div class="choices" role="group" aria-label="Options"></div></div>';
     $("#chat").appendChild(wrap);
     scrollToBottom();
     return wrap;
@@ -366,71 +298,69 @@ body::after{
   function addUserBubble(text){
     var wrap = document.createElement('div');
     wrap.className = "msg user";
-    wrap.innerHTML = '<div class="bubble">'+ escapeHTML(text) +'</div>';
+    wrap.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="bubble">'+ escapeHTML(text) +'</div>';
     $("#chat").appendChild(wrap);
     scrollToBottom();
     return wrap;
   }
-  function addTypingIndicator(parentBubble){
-    var t = document.createElement('div');
-    t.className = "typing";
-    t.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-    parentBubble.querySelector('.text').appendChild(t);
-    return t;
-  }
-  function remove(el){ if(el && el.parentNode) el.parentNode.removeChild(el); }
 
-  // Typage rapide "façon ChatGPT"
+  // Typage rapide (sans “...” initial pour éviter le bug visuel)
   function typeStream(el, text, speed){
     return new Promise(function(resolve){
       var i = 0, len = text.length;
-      var loop = function(){
+      (function loop(){
         if(i < len){
           el.textContent += text.charAt(i++);
-          // Accélération légère sur les espaces et ponctuation
-          var ch = el.textContent.slice(-1);
-          var s = (ch === ' ' || ch === '\n') ? speed * 0.6 : speed;
-          setTimeout(loop, s);
+          setTimeout(loop, speed);
           scrollToBottom();
-        }else{
-          resolve();
-        }
-      };
-      loop();
+        }else{ resolve(); }
+      })();
     });
   }
-
-  // Création + typage d'un message assistant
   async function streamAssistantMessage(text){
     var bubble = addAssistantBubble();
-    var typing = addTypingIndicator(bubble);
-    // petite latence pour la sensation
-    await new Promise(r => setTimeout(r, 60));
-    remove(typing);
-    await typeStream(bubble.querySelector('.text'), text, 11); // très rapide
+    await typeStream(bubble.querySelector('.text'), text, 14); // rapide mais sobre
     return bubble;
   }
 
-  // ------- API "format/goback" (reconstruite façon chat) -------
+  function addBottomActions(bubble, opts){
+    var actions = document.createElement('div');
+    actions.className = "bottom-actions";
+    if(opts.showBack){
+      var backBtn = document.createElement('a');
+      backBtn.href = "javascript:goback()";
+      backBtn.className = "btn-ghost";
+      backBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i> Retour';
+      actions.appendChild(backBtn);
+    }
+    if(opts.showRestart){
+      var restartBtn = document.createElement('a');
+      restartBtn.href = "javascript:location.reload()";
+      restartBtn.className = "btn-ghost";
+      restartBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Recommencer';
+      actions.appendChild(restartBtn);
+    }
+    bubble.querySelector('.bubble').appendChild(actions);
+  }
+
+  // ===== Rendu des étapes =====
   async function renderOptions(key){
     var node = papago[key] || {};
     var label = String(node.label || "");
-    parent = node.parent || "";
-    oldItem = key;
+    parentKey = node.parent || "";
+    currentKey = key;
+    atContact = false;
 
     if(trail[trail.length-1] !== key){ trail.push(key); }
     renderProgress();
 
-    // Ajoute message assistant "streamé"
     var bubble = await streamAssistantMessage(label);
 
-    // Injecte les options en cascade
     var choices = bubble.querySelector('.choices');
-    (node.options || []).forEach(function(opt, idx){
+    (node.options || []).forEach(function(opt){
       var btn = document.createElement('a');
       btn.href = "javascript:void(0)";
       btn.className = "chip-btn";
-      btn.style.setProperty('--delay', idx);
       btn.innerHTML = '<i class="fa-solid fa-bolt"></i> '+ escapeHTML(opt.option);
       btn.onclick = function(){
         chooseOption(opt.value, opt.option, bubble);
@@ -438,7 +368,10 @@ body::after{
       choices.appendChild(btn);
     });
 
-    // Affiche la toolbar
+    // Actions bas de bulle
+    addBottomActions(bubble, { showBack: !!node.parent, showRestart: false });
+
+    // Toolbar top
     show($("#buttons"));
     if(node.parent){ show($("#back")); } else { hide($("#back")); }
     hide($("#restart"));
@@ -446,7 +379,7 @@ body::after{
   }
 
   async function renderContact(item){
-    // "Contacter CODE" => libellé + lookup
+    // Ex.: "Contacter CODE"
     var clean = item.replace("Contacter", translate[lang]["contact"]);
     var parts = clean.split(" ");
     var code = parts[1];
@@ -454,51 +387,56 @@ body::after{
     var name = p.name || code || "Contact";
     var url = p.url || "#";
 
+    // On mémorise la clé pour "Retour" depuis la carte contact
+    backTargetFromContact = currentKey;
+    atContact = true;
+
     if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
     renderProgress();
 
     var bubble = await streamAssistantMessage(translate[lang]["text"]);
-    var textEl = bubble.querySelector('.text');
 
-    // Carte contact
     var card = document.createElement('div');
     card.className = "contact-card";
     card.innerHTML =
       '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
       '<div>'+
-        '<div style="font-weight:800">'+ escapeHTML(name) +'</div>'+
+        '<div class="name">'+ escapeHTML(name) +'</div>'+
         '<div class="meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</div>'+
       '</div>'+
       '<div>'+
-        '<a class="btn" target="_blank" rel="noopener" href="'+ url +'">'+
+        '<a class="btn-accent" target="_blank" rel="noopener" href="'+ url +'">'+
           '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
         '</a>'+
       '</div>';
-    textEl.appendChild(card);
+    bubble.querySelector('.text').appendChild(card);
 
+    // Actions bas de bulle : Retour + Recommencer (à la fin)
+    addBottomActions(bubble, { showBack: true, showRestart: true });
+
+    // Toolbar top (on garde aussi les boutons)
     show($("#buttons"));
-    hide($("#back"));
+    show($("#back"));
     show($("#restart"));
     scrollToBottom();
   }
 
-  // Lorsqu’un utilisateur choisit une option
   function chooseOption(value, text, currentBubble){
-    // 1) Afficher le choix comme message "user"
+    // Affiche le choix utilisateur
     addUserBubble(text);
 
-    // 2) Désactiver les options précédentes (évite double‑clic)
+    // Désactive les options précédentes
     var choices = currentBubble.querySelectorAll('.chip-btn');
-    choices.forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .45; });
+    choices.forEach(function(c){ c.style.pointerEvents = "none"; c.style.opacity = .6; });
 
-    // 3) Poursuivre le flux
+    // Enchaîne
     setTimeout(function(){
       if(String(value).substr(0,9) === "Contacter"){ renderContact(String(value)); }
       else{ renderOptions(String(value)); }
-    }, 80);
+    }, 60);
   }
 
-  // Raccourcis publics (compatibilité)
+  // API publique (compat)
   function format(item){
     if(item.substr(0,9) === "Contacter"){
       renderContact(item);
@@ -506,51 +444,52 @@ body::after{
       renderOptions(item);
     }
   }
+
   function goback(){
-    if(!parent) return;
-    // On repart “propre” depuis le parent
-    if(historyResetOnBack){
+    // Retour contextuel : si on est sur la carte contact -> revenir à la question précédente
+    if(atContact && backTargetFromContact){
+      // Retire l’empreinte "contact:*" du trail
+      if(trail[trail.length-1] && String(trail[trail.length-1]).startsWith("contact:")) trail.pop();
+      // Nettoie l’historique visuel et réaffiche la question précédente
       setHTML("#chat", "");
-      // on retire la dernière empreinte (courante) et on rend le parent
-      trail.pop();
+      format(backTargetFromContact);
+      return;
     }
-    format(parent);
+    // Sinon on remonte d'un cran dans l'arbre
+    if(!parentKey) return;
+    trail.pop(); // on retire la clé courante
+    setHTML("#chat", "");
+    format(parentKey);
   }
+
   window.format = format;
   window.goback = goback;
 
-  // ------- Boot / chargement du tree -------
+  // ===== Démarrage =====
   function loadParams(){
     var params = new URLSearchParams(location.search);
     var qLang = params.get("lang");
     var notitle = params.get("notitle");
     if(qLang && translate[qLang]) lang = qLang;
     if(notitle === "true"){
-      document.querySelectorAll("h1,.h4,.brand-chip").forEach(function(h){ h.classList.add("visually-hidden"); });
+      document.querySelectorAll(".brand, .toolbar").forEach(function(h){ h.classList.add("visually-hidden"); });
     }
-  }
-  function showLoader(){
-    var b = addAssistantBubble();
-    var t = addTypingIndicator(b);
-    // stocker pour éventuelle suppression (mais ici on repartira par dessus)
   }
 
   async function boot(){
     loadParams();
-    showLoader();
     try{
       var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
       papago = await res.json();
+      // Affiche la première question directement (PAS de “...” avant, pour éviter le bug visuel)
       show($("#buttons"));
       format("0");
     }catch(e){
       console.error(e);
-      var b = addAssistantBubble();
-      var textEl = b.querySelector('.text');
-      textEl.innerHTML =
+      var wrap = addAssistantBubble();
+      wrap.querySelector('.text').innerHTML =
         '<div class="alert alert-danger mb-0" role="alert">'+
-          '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +
-        '</div>';
+        '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +'</div>';
       show($("#buttons"));
       hide($("#back"));
       show($("#restart"));
