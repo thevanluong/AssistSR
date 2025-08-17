@@ -3,59 +3,59 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Doggygo · Neon Aurora</title>
+<title>Doggygo · Luxe Porcelain</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================
-   NEON AURORA — couleurs folles + verre sombre (mobile-first)
-   - 1 colonne (mobile & desktop)
-   - Multi‑ligne propre sur smartphone (aucune césure)
-   - Apparition en cascade des cartes
+   LUXE PORCELAIN — sobre, premium, “wow” sans extravagance
+   - 1 colonne (mobile & desktop, style ChatGPT)
+   - Aucune césure sur smartphone (wrap multi‑ligne propre)
+   - Cartes en cascade (sans typing → iOS safe)
    ========================================================== */
 :root{
-  /* Fond & texte */
-  --bg: #080d1e;             /* marine très sombre */
-  --ink: #eaf2ff;            /* texte principal */
-  --muted: #a3b2d1;          /* texte secondaire */
-  --line: rgba(255,255,255,.14);
+  /* Couleurs */
+  --ink: #0b1b2a;         /* texte principal */
+  --muted: #667487;       /* texte secondaire */
+  --line: #e6edf3;        /* bordures */
+  --panel: #ffffff;       /* surface */
+  --bg-1: #f7fafc;        /* fond */
+  --bg-2: #f5f9ff;        /* fond */
+  --accent-1: #008ccc;    /* UNIL blue */
+  --accent-2: #9edcff;    /* light halo */
+  --accent-3: #dfefff;    /* inner highlight */
 
-  /* Accents néon */
-  --a1: #ff4d9d;  /* rose */
-  --a2: #7b5cff;  /* violet */
-  --a3: #22f0b5;  /* menthe */
-  --a4: #ffd166;  /* ambre */
-  --a5: #40d4ff;  /* cyan */
-
-  /* Verre + rayons */
-  --panel: rgba(14,18,36,.72);
+  /* Rayons & ombres */
   --r: 14px; --r-lg: 18px;
-  --shadow-1: 0 12px 28px rgba(2,6,20,.45);
-  --shadow-2: 0 28px 80px rgba(2,6,20,.55);
+  --shadow-1: 0 10px 28px rgba(12,27,42,.06);
+  --shadow-2: 0 26px 64px rgba(12,27,42,.10);
 
+  /* Typo */
   --fs-14: clamp(13.5px, 1vw, 14px);
   --fs-16: clamp(14px, 1.05vw, 16px);
   --fs-18: clamp(16px, 1.25vw, 18px);
   --fs-20: clamp(17px, 1.45vw, 20px);
 }
 
-*{ box-sizing:border-box; }
+*{ box-sizing: border-box; }
 html,body{ height:100%; }
 body{
   margin:0; color:var(--ink);
-  font:400 var(--fs-16)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font: 400 var(--fs-16)/1.6 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+
+  /* Fond porcelaine — subtil & lumineux */
   background:
-    radial-gradient(70vw 60vh at -10% -10%, rgba(123,92,255,.28), transparent 60%),
-    radial-gradient(60vw 50vh at 110% 10%, rgba(64,212,255,.22), transparent 60%),
-    radial-gradient(70vw 60vh at 20% 100%, rgba(255,77,157,.18), transparent 60%),
-    linear-gradient(180deg, #0a1030 0%, #061127 40%, #050a1e 100%),
-    var(--bg);
+    radial-gradient(60vw 40vh at -10% -10%, rgba(0,140,204,.06), transparent 60%),
+    radial-gradient(50vw 40vh at 110% 0%, rgba(158,220,255,.12), transparent 60%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-2));
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
 
+/* ===== Shell (une colonne) ===== */
 .container{
-  max-width: 920px;           /* 1 colonne confort, style ChatGPT */
+  max-width: 920px;     /* largeur généreuse & lisible */
   margin: 0 auto;
   padding: clamp(12px, 3vw, 24px);
 }
@@ -63,153 +63,161 @@ body{
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow-1); }
+.logo{ width:46px; height:46px; border-radius:13px; object-fit:cover; box-shadow: var(--shadow-1); }
 .title{ margin:0; font-weight:800; font-size:var(--fs-20); letter-spacing:.2px; }
 .sub{ margin:2px 0 0; color:var(--muted); font-size:var(--fs-14); }
 
 .tools{ display:flex; gap:.55rem; }
 .tools a{
-  text-decoration:none; color:var(--ink);
-  border:1px solid var(--line);
-  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-14);
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  backdrop-filter: blur(6px) saturate(140%);
+  text-decoration:none; color:inherit; font-weight:700; font-size:var(--fs-14);
+  padding:.55rem .9rem; border-radius:999px;
+  background: linear-gradient(180deg, #fff, #fbfdff);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 10px rgba(12,27,42,.05);
 }
-.tools a:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(123,92,255,.28); }
+.tools a:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
 
-/* ===== Chat panel (verre + bordure arc‑en‑ciel) ===== */
+/* ===== Chat panel — double liseré + verre doux ===== */
 .chat{
-  margin-top:12px; border-radius:var(--r-lg);
+  margin-top: 14px; border-radius: var(--r-lg);
   background:
-    linear-gradient(var(--panel),var(--panel)) padding-box,
-    linear-gradient(120deg, var(--a1), var(--a2), var(--a3), var(--a4), var(--a5)) border-box;
-  border:1px solid transparent; box-shadow:var(--shadow-2); overflow:clip;
-  backdrop-filter: blur(8px) saturate(140%);
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(120deg, rgba(158,220,255,.7), rgba(255,255,255,.8), rgba(0,140,204,.65)) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-2);
+  overflow: clip;
+}
+.chat::after{ /* ligne décorative intérieure */
+  content:""; display:block; height: 1px;
+  background: linear-gradient(90deg, rgba(0,140,204,.25), rgba(255,255,255,.4), rgba(0,140,204,.25));
+  opacity:.6;
 }
 
 .bar{
   display:flex; gap:.4rem; align-items:center; padding:10px 12px;
-  border-bottom:1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-bottom: 1px solid var(--line);
 }
 .dot{
   width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
-  font:700 var(--fs-14)/1 Inter,sans-serif; color:var(--ink);
-  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-  border:1px solid var(--line);
+  font:800 var(--fs-14)/1 Inter, sans-serif; color:#0d4b6d; background:#f3f9ff;
+  border:1px solid #d9eaf6;
 }
 .dot:last-child{
-  color:var(--ink);
-  border-image: linear-gradient(120deg, var(--a3), var(--a2)) 1; border-width:1px; border-style:solid;
+  color:#073a59; border-image: linear-gradient(120deg, var(--accent-1), var(--accent-2)) 1; border-width:1px; border-style:solid;
 }
 
-.feed{ padding:12px; }
+.feed{ padding: 12px; }
 
 /* ===== Messages ===== */
-.msg{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
+.msg{ display:flex; align-items:flex-start; gap:10px; margin: 12px 0; }
 .avatar{
-  width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;
-  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
-  color:#9cecff; border:1px solid var(--line); font-size:15px; flex:0 0 auto;
+  width:28px; height:28px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800;
+  background: linear-gradient(180deg, #eaf6ff, #f7fbff); color:#0a6ea0; border:1px solid var(--line); font-size:15px; flex:0 0 auto;
 }
-.msg.user .avatar{ background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06)); color:#e1e7ff; }
+.msg.user .avatar{ background: linear-gradient(180deg, #f6f8fb, #fff); color:#24313b; }
 
-/* Bulle verre sombre */
+/* Bulle porcelaine (plein largeur) */
 .bubble{
   width:100%; max-width:100%;
-  border-radius:var(--r);
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border:1px solid var(--line);
-  box-shadow: 0 1px 0 rgba(0,0,0,.35);
-  padding:12px 14px; line-height:1.6; font-size:var(--fs-16);
+  border-radius: var(--r);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--accent-3), 0 1px 0 rgba(12,27,42,.03);
+  padding: 12px 14px; line-height: 1.6; font-size: var(--fs-16);
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size:var(--fs-18); }
 
-/* ===== Options (pile verticale, 1 colonne) ===== */
+/* ===== Options (pile verticale) ===== */
 .list{ margin-top:10px; }
-.stack{ display:flex; flex-direction:column; gap:10px; }
+.stack{ display:flex; flex-direction:column; gap:10px; }  /* 1 colonne toujours */
 
-/* Carte : verre + filet néon à gauche (couleur cyclée) */
+/* Carte premium : filet gradient, légère embossure */
 .card{
-  position:relative;
-  display:grid;
+  position: relative;
+  display: grid;
   grid-template-columns: auto minmax(0,1fr) auto; /* icône | texte | chevron */
-  align-items:center; column-gap:12px;
-  border-radius:14px; padding:14px 16px; min-height:56px;
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border:1px solid var(--line);
-  text-decoration:none; color:var(--ink); font-weight:800; font-size:var(--fs-16);
-  transform:translateY(6px); opacity:0; will-change:transform,opacity;
+  align-items: center; column-gap: 12px;
+  border-radius: 16px; padding: 14px 16px; min-height: 58px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(12,27,42,.02);
+  text-decoration: none; color: inherit; font-weight: 800; font-size: var(--fs-16);
+  transform: translateY(6px); opacity: 0; will-change: transform, opacity;
   overflow: hidden;
 }
-.card::before{
-  content:""; position:absolute; left:-1px; top:-1px; bottom:-1px; width:5px; border-radius:12px;
-  background: linear-gradient(180deg, var(--a1), var(--a2), var(--a3), var(--a4), var(--a5));
-  filter: saturate(140%);
+.card::before{ /* liseré gauche */
+  content:""; position:absolute; left:-1px; top:-1px; bottom:-1px; width:6px; border-radius: 16px 0 0 16px;
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  opacity:.85;
 }
-.card.reveal{ opacity:1; transform:translateY(0); transition:transform .16s ease, opacity .16s ease; }
-.card:hover{ box-shadow:var(--shadow-1); transform:translateY(-1px); transition:transform .16s ease, box-shadow .16s ease; }
-.card:active{ transform:translateY(0); }
+.card.reveal{ opacity:1; transform: translateY(0); transition: transform .16s ease, opacity .16s ease; }
+.card:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(12,27,42,.08);
+  border-color: #d8e9f6;
+}
+.card:active{ transform: translateY(0); }
 
-/* Couleurs d’icône cyclées */
 .ic{
-  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--line); flex:0 0 auto; color:var(--ink);
-  background: radial-gradient(closest-side, rgba(127,255,212,.25), rgba(255,255,255,.08));
-  filter: drop-shadow(0 6px 14px rgba(64,212,255,.25));
+  width:36px; height:36px; border-radius: 11px; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, #eff8ff, #ffffff);
+  border: 1px solid #deebf5; color:#0a6ea0;
+  box-shadow: inset 0 1px 0 #ffffff, 0 6px 16px rgba(0,140,204,.10);
 }
-.card:nth-child(5n+1) .ic{ background: radial-gradient(closest-side, rgba(255,77,157,.30), rgba(255,255,255,.08)); color:#ffd7eb; }
-.card:nth-child(5n+2) .ic{ background: radial-gradient(closest-side, rgba(123,92,255,.30), rgba(255,255,255,.08)); color:#e0d6ff; }
-.card:nth-child(5n+3) .ic{ background: radial-gradient(closest-side, rgba(34,240,181,.30), rgba(255,255,255,.08)); color:#c7fff0; }
-.card:nth-child(5n+4) .ic{ background: radial-gradient(closest-side, rgba(255,209,102,.34), rgba(255,255,255,.08)); color:#fff0c9; }
-.card:nth-child(5n+5) .ic{ background: radial-gradient(closest-side, rgba(64,212,255,.30), rgba(255,255,255,.08)); color:#d9f6ff; }
 
-/* Libellé multi‑ligne, sans césure (smartphone OK) */
+/* Libellé multi‑ligne, sans césure automatique (iOS/Android) */
 .label, .label > span{
   min-width:0; display:block;
   white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;   /* coupe seulement si un mot est trop long */
-  -webkit-hyphens: manual; hyphens: manual; /* pas de césure auto */
-  line-height:1.35;
+  word-break: normal;         /* coupe uniquement entre espaces */
+  overflow-wrap: break-word;  /* casse seulement si un mot est monstrueusement long */
+  -webkit-hyphens: manual; hyphens: manual;
+  line-height: 1.35;
 }
 
 .arr{ color: var(--muted); justify-self: end; }
 
 /* ===== Actions ===== */
-.actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:10px; }
+.actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top: 10px; }
 .btn{
-  text-decoration:none; color:var(--ink); border:1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
-  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-14);
+  text-decoration:none; color:inherit; font-weight:700; font-size:var(--fs-14);
+  padding:.5rem .9rem; border-radius:999px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border:1px solid var(--line);
+  box-shadow: 0 4px 10px rgba(12,27,42,.05);
 }
-.btn:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(34,240,181,.28); }
+.btn:focus{ outline:none; box-shadow: 0 0 0 .28rem rgba(0,140,204,.22); }
 
 /* ===== Contact ===== */
 .contact{
   display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
-  border:1px solid var(--line); border-radius:14px; padding:14px; margin-top:12px;
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  box-shadow:0 16px 36px rgba(0,0,0,.45);
+  border:1px solid var(--line); border-radius:16px; padding:14px; margin-top:12px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  box-shadow: 0 14px 32px rgba(12,27,42,.08);
 }
 .contact .ava{
-  width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(180deg, var(--a2), var(--a3)); color:#081226; font-weight:900; border:1px solid rgba(255,255,255,.08); font-size:18px;
+  width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  color:#fff; font-weight:900; border:1px solid rgba(0,0,0,.02); font-size:18px;
+  box-shadow: 0 10px 20px rgba(0,140,204,.20);
 }
 .contact .name{ font-weight:800; font-size:var(--fs-16); }
 .contact .meta{ color:var(--muted); font-size:var(--fs-14); }
 .contact .cta{
-  text-decoration:none; color:#081226;
-  background: linear-gradient(90deg, var(--a3), var(--a4));
+  text-decoration:none; color:#003a57;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
   padding:.65rem 1rem; border-radius:999px; font-weight:900; font-size:var(--fs-14); border:0;
-  box-shadow: 0 12px 26px rgba(34,240,181,.28);
+  box-shadow: 0 12px 24px rgba(0,140,204,.24);
 }
 @media (max-width:640px){ .contact{ grid-template-columns:1fr; } .contact .cta{ width:100%; text-align:center; } }
 
 /* Note */
-.note{ color:var(--muted); font-size:var(--fs-14); padding:10px 12px; border-top:1px solid var(--line); }
+.note{ color:var(--muted); font-size:var(--fs-14); padding: 10px 12px; border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+}
 
-/* Accessibilité / motion */
+/* Motion reduce */
 @media (prefers-reduced-motion: reduce){
   .card{ transition:none !important; transform:none !important; opacity:1 !important; }
 }
@@ -241,11 +249,11 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide (1 colonne, stable iOS)
+   JS — dynamique rapide (1 colonne, iOS-safe)
    - question/réponse : frappe par caractères
-   - cartes : apparition en cascade (sans typing dans les cartes)
+   - cartes : apparition en cascade (pas de typing → pas de césure)
    ========================================================== */
-const SPEED = { CHAR_MS: 7, STAGGER_MS: 28 };
+const SPEED = { CHAR_MS: 7, STAGGER_MS: 26 };
 
 var lang="fr", papagoUrl="./trees/";
 var persons={
@@ -409,7 +417,7 @@ async function boot(){
     show($("#top-tools")); format("0");
   }catch(e){
     console.error(e);
-    const msg=addAssistantBubble(); msg.querySelector('.text').innerHTML=`<div role="alert" style="color:#ffb3b3;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
+    const msg=addAssistantBubble(); msg.querySelector('.text').innerHTML=`<div role="alert" style="color:#b42318;font-weight:700;margin:0">⚠ ${translate[lang]['error']}</div>`;
     show($("#top-tools")); hide($("#back")); show($("#restart"));
   }
 }
