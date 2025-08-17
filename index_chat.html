@@ -8,9 +8,9 @@
 
 <style>
 /* ==========================================================
-   UNIL CRISP v3 — Blanc net, accents #008CCC / #B3DDEF
-   • Fix smartphone : aucune césure + ellipsis en très petit
-   • Desktop : bulles pleine largeur + grille 1→2→3 colonnes
+   UNIL CRISP v4 — Blanc net, accents #008CCC / #B3DDEF
+   • iOS: single-line + ellipsis garanti (span animé inclus)
+   • Desktop: 1→2→3 colonnes, bulles pleine largeur
    ========================================================== */
 :root{
   --brand-1:#008ccc; --brand-2:#b3ddef;
@@ -84,10 +84,9 @@ body{
 }
 .msg.user .avatar{ background:#eef1f5; color:#2a3a44; }
 
-/* >>> Bulle pleine largeur pour occuper l’espace desktop <<< */
+/* Bulle pleine largeur */
 .bubble{
-  width: 100%;
-  max-width: 100%;
+  width:100%; max-width:100%;
   border-radius:var(--r); background:#fff; border:1px solid var(--line);
   box-shadow:0 1px 0 rgba(10,31,48,.03); padding:12px 14px; line-height:1.6; font-size:var(--fs-16);
 }
@@ -96,7 +95,7 @@ body{
 /* ===== Options ===== */
 .list{ margin-top:10px; }
 
-/* Grille responsive : 1 → 2 → 3 colonnes */
+/* Grille: 1 → 2 → 3 colonnes */
 .grid{ display:grid; gap:10px; grid-template-columns: 1fr; }
 @media (min-width: 820px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1140px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
@@ -107,8 +106,7 @@ body{
              linear-gradient(180deg, rgba(0,140,204,.20), rgba(179,221,239,.25)) border-box;
   border:1px solid transparent; text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
   transform:translateY(6px) scale(.985); opacity:0; will-change:transform,opacity;
-  min-height: 60px;
-  touch-action: manipulation;
+  min-height:60px; touch-action:manipulation;
 }
 .card.reveal{ opacity:1; transform:translateY(0) scale(1); transition:transform .16s ease, opacity .16s ease; }
 .card:hover{ box-shadow:var(--shadow-1); transform:translateY(-1px); transition:transform .16s ease, box-shadow .16s ease; }
@@ -119,23 +117,36 @@ body{
   background:#eef7fd; color:#0b6fa3; border:1px solid var(--line); flex:0 0 auto;
 }
 
-/* Texte des cartes : 
-   - par défaut multi-ligne propre (jamais de césure)
-   - en très petit écran → une seule ligne + ellipsis
+/* ==== Texte des cartes (clé du fix iOS) ====
+   • Le texte animé est dans .txt > span
+   • On met l'ELLIPSIS directement sur le SPAN en mobile
+   • On empêche toute césure WebKit
 */
-.txt, .txt span{
-  flex:1 1 auto; min-width:0;
+.txt{
+  flex:1 1 0%; min-width:0;   /* autorise la réduction dans un flex */
+  line-height:1.35;
+}
+.txt > span{
+  display:block;              /* obligatoire pour text-overflow sur iOS */
+}
+
+/* Desktop / grands écrans : multi‑ligne propre */
+.txt, .txt > span{
   white-space: normal;
   word-break: normal;
   overflow-wrap: break-word;
-  -webkit-hyphens: none; hyphens: none;   /* iOS: pas de césure */
-  line-height:1.35;
+  -webkit-hyphens: none; hyphens: none;
 }
-@media (max-width: 420px){
-  .txt, .txt span{
+
+/* Smartphones (≤ 768px) : 1 ligne + ellipsis (jamais de coupure) */
+@media (max-width: 768px){
+  .txt, .txt > span{
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    -webkit-hyphens: none !important; hyphens: none !important;
   }
 }
 
@@ -206,7 +217,8 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide (UNIL CRISP v3)
+   JS — dynamique rapide (questions/réponses par caractères,
+   cartes par mots + stagger)
    ========================================================== */
 const SPEED = { CHAR_MS: 7, WORD_MS: 24, STAGGER_MS: 22 };
 
