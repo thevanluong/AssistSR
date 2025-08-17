@@ -8,9 +8,10 @@
 
 <style>
 /* ==========================================================
-   UNIL CRISP v4 — Blanc net, accents #008CCC / #B3DDEF
-   • iOS: single-line + ellipsis garanti (span animé inclus)
-   • Desktop: 1→2→3 colonnes, bulles pleine largeur
+   UNIL · Chat Standard
+   - Une colonne (mobile & desktop)
+   - Aucune césure sur smartphone (iOS/Android)
+   - Couleurs UNIL sobres
    ========================================================== */
 :root{
   --brand-1:#008ccc; --brand-2:#b3ddef;
@@ -18,9 +19,7 @@
   --panel:#fff; --r:14px; --r-lg:18px;
   --shadow-1:0 8px 24px rgba(10,31,48,.06);
   --shadow-2:0 18px 48px rgba(10,31,48,.08);
-
-  --fs-13: clamp(12.5px, .85vw, 13.5px);
-  --fs-15: clamp(13.5px, 1vw, 15px);
+  --fs-14: clamp(13.5px, 1vw, 14px);
   --fs-16: clamp(14px, 1.05vw, 16px);
   --fs-18: clamp(16px, 1.25vw, 18px);
   --fs-20: clamp(17px, 1.45vw, 20px);
@@ -31,6 +30,7 @@ html,body{ height:100%; }
 body{
   margin:0; color:var(--ink);
   font:400 var(--fs-16)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Inter,Roboto,Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
   background:
     radial-gradient(60vw 60vw at -10% -10%, #e6f3fb 0%, rgba(255,255,255,0) 58%),
     radial-gradient(60vw 60vw at 110% 30%, #eff7fb 0%, rgba(255,255,255,0) 58%),
@@ -38,19 +38,23 @@ body{
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
 
-.container{ max-width:1280px; margin:0 auto; padding:clamp(12px,3.2vw,24px); }
+/* ===== Shell (une colonne, largeur confortable) ===== */
+.container{
+  max-width: 920px;   /* même esprit que ChatGPT, très lisible */
+  margin: 0 auto;
+  padding: clamp(12px, 3vw, 24px);
+}
 
 /* ===== Header ===== */
 .header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand{ display:flex; align-items:center; gap:12px; }
-.logo{ width:48px; height:48px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow-1); }
+.logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow-1); }
 .title{ margin:0; font-weight:800; font-size:var(--fs-20); letter-spacing:.2px; }
-.sub{ margin:2px 0 0; color:var(--muted); font-size:var(--fs-15); }
-
+.sub{ margin:2px 0 0; color:var(--muted); font-size:var(--fs-14); }
 .tools{ display:flex; gap:.55rem; }
 .tools a{
   text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
-  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-15);
+  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-14);
   touch-action: manipulation;
 }
 .tools a:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(0,140,204,.22); }
@@ -64,19 +68,19 @@ body{
   border:1px solid transparent; box-shadow:var(--shadow-2); overflow:clip;
 }
 .bar{
-  display:flex; gap:.4rem; align-items:center; flex-wrap:wrap; padding:10px 12px;
+  display:flex; gap:.4rem; align-items:center; padding:10px 12px;
   border-bottom:1px solid var(--line);
   background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.03));
 }
 .dot{
   width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
-  font:700 var(--fs-13)/1 Inter,sans-serif; color:var(--muted); background:#fff; border:1px solid var(--line);
+  font:700 var(--fs-14)/1 Inter,sans-serif; color:var(--muted); background:#fff; border:1px solid var(--line);
 }
 .dot:last-child{ color:var(--ink); border-image:linear-gradient(120deg,var(--brand-1),var(--brand-2)) 1; }
 
 .feed{ padding:12px; }
 
-/* ===== Messages ===== */
+/* ===== Messages (1 colonne) ===== */
 .msg{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
 .avatar{
   width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;
@@ -84,7 +88,6 @@ body{
 }
 .msg.user .avatar{ background:#eef1f5; color:#2a3a44; }
 
-/* Bulle pleine largeur */
 .bubble{
   width:100%; max-width:100%;
   border-radius:var(--r); background:#fff; border:1px solid var(--line);
@@ -92,23 +95,19 @@ body{
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size:var(--fs-18); }
 
-/* ===== Options ===== */
+/* ===== Options (une seule colonne, empilées) ===== */
 .list{ margin-top:10px; }
-
-/* Grille: 1 → 2 → 3 colonnes */
-.grid{ display:grid; gap:10px; grid-template-columns: 1fr; }
-@media (min-width: 820px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1140px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+.stack{ display:flex; flex-direction:column; gap:10px; } /* jamais de grille */
 
 .card{
-  display:flex; align-items:center; gap:12px; border-radius:14px; padding:14px 16px;
-  background:linear-gradient(180deg,#fff,#fff) padding-box,
-             linear-gradient(180deg, rgba(0,140,204,.20), rgba(179,221,239,.25)) border-box;
-  border:1px solid transparent; text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
-  transform:translateY(6px) scale(.985); opacity:0; will-change:transform,opacity;
-  min-height:60px; touch-action:manipulation;
+  display:flex; align-items:center; gap:12px;
+  border-radius:14px; padding:14px 16px; min-height:56px;
+  background:#fff; border:1px solid var(--line);
+  text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
+  transform:translateY(6px); opacity:0; will-change:transform,opacity;
+  touch-action: manipulation;
 }
-.card.reveal{ opacity:1; transform:translateY(0) scale(1); transition:transform .16s ease, opacity .16s ease; }
+.card.reveal{ opacity:1; transform:translateY(0); transition:transform .16s ease, opacity .16s ease; }
 .card:hover{ box-shadow:var(--shadow-1); transform:translateY(-1px); transition:transform .16s ease, box-shadow .16s ease; }
 .card:active{ transform:translateY(0); }
 
@@ -117,36 +116,22 @@ body{
   background:#eef7fd; color:#0b6fa3; border:1px solid var(--line); flex:0 0 auto;
 }
 
-/* ==== Texte des cartes (clé du fix iOS) ====
-   • Le texte animé est dans .txt > span
-   • On met l'ELLIPSIS directement sur le SPAN en mobile
-   • On empêche toute césure WebKit
-*/
-.txt{
-  flex:1 1 0%; min-width:0;   /* autorise la réduction dans un flex */
-  line-height:1.35;
-}
-.txt > span{
-  display:block;              /* obligatoire pour text-overflow sur iOS */
-}
-
-/* Desktop / grands écrans : multi‑ligne propre */
-.txt, .txt > span{
+/* >>> Texte des cartes — anti‑coupure smartphone :
+   - pas de césure, pas de coupure au milieu d’un mot
+   - wrap seulement entre espaces, sinon ellipsis */
+.label, .label > span{
+  flex:1 1 0%; min-width:0;
+  display:block;                /* indispensable pour ellipsis fiable iOS */
   white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;
+  word-break: keep-all;         /* coupe uniquement aux espaces */
+  overflow-wrap: normal;
   -webkit-hyphens: none; hyphens: none;
 }
-
-/* Smartphones (≤ 768px) : 1 ligne + ellipsis (jamais de coupure) */
 @media (max-width: 768px){
-  .txt, .txt > span{
+  .label, .label > span{
     white-space: nowrap !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    word-break: keep-all !important;
-    overflow-wrap: normal !important;
-    -webkit-hyphens: none !important; hyphens: none !important;
+    text-overflow: ellipsis !important;   /* … en mobile si trop long */
   }
 }
 
@@ -156,7 +141,7 @@ body{
 .actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:10px; }
 .btn{
   text-decoration:none; color:inherit; border:1px solid var(--line); background:#fff;
-  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-15);
+  padding:.5rem .9rem; border-radius:999px; font-weight:700; font-size:var(--fs-14);
 }
 .btn:focus{ outline:none; box-shadow:0 0 0 .28rem rgba(0,140,204,.22); }
 
@@ -171,21 +156,16 @@ body{
   background:linear-gradient(180deg,var(--brand-1),var(--brand-2)); color:#fff; font-weight:800; border:1px solid rgba(0,0,0,.02); font-size:18px;
 }
 .contact .name{ font-weight:800; font-size:var(--fs-16); }
-.contact .meta{ color:var(--muted); font-size:var(--fs-15); }
+.contact .meta{ color:var(--muted); font-size:var(--fs-14); }
 .contact .cta{
   text-decoration:none; color:#fff; background:linear-gradient(90deg,var(--brand-1),var(--brand-2));
-  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size:var(--fs-15); border:0; box-shadow:0 12px 26px rgba(0,140,204,.18);
+  padding:.65rem 1rem; border-radius:999px; font-weight:800; font-size:var(--fs-14); border:0; box-shadow:0 12px 26px rgba(0,140,204,.18);
 }
-@media (max-width:640px){
-  .container{ padding:12px; }
-  .contact{ grid-template-columns:1fr; }
-  .contact .cta{ width:100%; text-align:center; }
-}
+@media (max-width:640px){ .contact{ grid-template-columns:1fr; } .contact .cta{ width:100%; text-align:center; } }
 
 /* Note */
-.note{ color:var(--muted); font-size:var(--fs-15); padding:10px 12px; border-top:1px solid var(--line); }
+.note{ color:var(--muted); font-size:var(--fs-14); padding:10px 12px; border-top:1px solid var(--line); }
 
-/* Accessibilité */
 @media (prefers-reduced-motion: reduce){
   .card{ transition:none !important; transform:none !important; opacity:1 !important; }
 }
@@ -217,10 +197,11 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide (questions/réponses par caractères,
-   cartes par mots + stagger)
+   JS — dynamique rapide & stable (1 colonne)
+   - question/réponse : frappe par caractères
+   - cartes : apparition en cascade (pas de typing → pas de bugs iOS)
    ========================================================== */
-const SPEED = { CHAR_MS: 7, WORD_MS: 24, STAGGER_MS: 22 };
+const SPEED = { CHAR_MS: 7, STAGGER_MS: 28 };
 
 var lang="fr", papagoUrl="./trees/";
 var persons={
@@ -277,7 +258,7 @@ function addUserBubble(){
   $("#feed").appendChild(item); scrollToBottom(); return item;
 }
 
-/* Typing */
+/* Typing par caractères (rapide) */
 function typeChars(el,text,ms){
   if(reduced()){ el.textContent=text; return Promise.resolve(); }
   return new Promise(res=>{
@@ -285,27 +266,25 @@ function typeChars(el,text,ms){
     let i=0; (function loop(){ if(i<text.length){ span.textContent+=text.charAt(i++); setTimeout(loop,ms); scrollToBottom(); } else res(); })();
   });
 }
-function typeWords(el,text,ms){
-  if(reduced()){ el.textContent=text; return Promise.resolve(); }
-  const tokens=text.match(/\S+\s*/g)||[];
-  return new Promise(res=>{
-    const span=document.createElement('span'); el.appendChild(span);
-    let i=0; (function loop(){ if(i<tokens.length){ span.textContent+=tokens[i++]; setTimeout(loop,ms); scrollToBottom(); } else res(); })();
-  });
-}
 
-/* Options */
+/* Options (une colonne, apparition en cascade) */
 function createCard(opt){
   const a=document.createElement('a');
-  a.href="javascript:void(0)"; a.className="card"; a.title=opt.option; a.setAttribute('aria-label',opt.option);
-  a.innerHTML=`<div class="ic"><i class="fa-solid fa-bolt"></i></div><div class="txt"></div><div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
+  a.href="javascript:void(0)";
+  a.className="card";
+  a.setAttribute('title', opt.option);
+  a.setAttribute('aria-label', opt.option);
+  a.innerHTML=`
+    <div class="ic"><i class="fa-solid fa-bolt"></i></div>
+    <div class="label"><span>${escapeHTML(opt.option)}</span></div>
+    <div class="arr"><i class="fa-solid fa-chevron-right"></i></div>`;
   a.onclick=()=> choose(opt.value,opt.option,a);
   return a;
 }
-function revealAndTypeCards(grid, options){
+function revealCards(stack, options){
   options.forEach((opt,idx)=>{
-    const card=createCard(opt); grid.appendChild(card);
-    setTimeout(()=>{ card.classList.add('reveal'); typeWords(card.querySelector('.txt'), opt.option, SPEED.WORD_MS); }, idx*SPEED.STAGGER_MS);
+    const card=createCard(opt); stack.appendChild(card);
+    setTimeout(()=> card.classList.add('reveal'), idx*SPEED.STAGGER_MS);
   });
 }
 
@@ -313,16 +292,20 @@ function revealAndTypeCards(grid, options){
 async function renderOptions(key){
   const node=papago[key]||{}; const label=String(node.label||"");
   parentKey=node.parent||""; currentKey=key; atContact=false;
+
   if(trail[trail.length-1]!==key) trail.push(key); renderProgress();
 
-  const msg=addAssistantBubble(); await typeChars(msg.querySelector('.text'), label, SPEED.CHAR_MS);
+  const msg=addAssistantBubble();
+  await typeChars(msg.querySelector('.text'), label, SPEED.CHAR_MS);
 
-  const grid=document.createElement('div'); grid.className="grid";
-  msg.querySelector('.list').appendChild(grid);
-  revealAndTypeCards(grid, node.options||[]);
+  const stack=document.createElement('div'); stack.className="stack";
+  msg.querySelector('.list').appendChild(stack);
+  revealCards(stack, node.options||[]);
 
   const actions=document.createElement('div'); actions.className="actions";
-  if(node.parent){ const back=document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back); }
+  if(node.parent){
+    const back=document.createElement('a'); back.className="btn"; back.href="javascript:goback()"; back.textContent="← Retour"; actions.appendChild(back);
+  }
   msg.querySelector('.bubble').appendChild(actions);
 
   show($("#top-tools")); node.parent?show($("#back")):hide($("#back")); hide($("#restart")); scrollToBottom();
@@ -355,8 +338,10 @@ async function renderContact(value){
 
 /* Choix */
 async function choose(value,label,card){
-  const grid=card.parentElement; Array.from(grid.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
+  const stack=card.parentElement; Array.from(stack.children).forEach(c=>{ c.style.pointerEvents="none"; c.style.opacity=.65; });
+
   const user=addUserBubble(); await typeChars(user.querySelector('.typed'), label, SPEED.CHAR_MS);
+
   setTimeout(()=>{ (String(value).substr(0,9)==="Contacter")?renderContact(String(value)):renderOptions(String(value)); }, 40);
 }
 
