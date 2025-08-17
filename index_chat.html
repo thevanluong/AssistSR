@@ -8,10 +8,10 @@
 
 <style>
 /* ==========================================================
-   UNIL · Chat Standard
-   - Une colonne (mobile & desktop)
-   - Aucune césure sur smartphone (iOS/Android)
-   - Couleurs UNIL sobres
+   UNIL · Chat Standard v2
+   - 1 colonne (mobile & desktop)
+   - Options multi‑ligne sur smartphone (aucune ellipse)
+   - Pas de césure automatique (iOS/Android)
    ========================================================== */
 :root{
   --brand-1:#008ccc; --brand-2:#b3ddef;
@@ -38,9 +38,9 @@ body{
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
 
-/* ===== Shell (une colonne, largeur confortable) ===== */
+/* ===== Shell : une colonne ===== */
 .container{
-  max-width: 920px;   /* même esprit que ChatGPT, très lisible */
+  max-width: 920px;
   margin: 0 auto;
   padding: clamp(12px, 3vw, 24px);
 }
@@ -80,7 +80,7 @@ body{
 
 .feed{ padding:12px; }
 
-/* ===== Messages (1 colonne) ===== */
+/* ===== Messages ===== */
 .msg{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
 .avatar{
   width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;
@@ -95,12 +95,16 @@ body{
 }
 .bubble .title{ font-weight:800; margin-bottom:8px; font-size:var(--fs-18); }
 
-/* ===== Options (une seule colonne, empilées) ===== */
+/* ===== Options (pile verticale, jamais de grille) ===== */
 .list{ margin-top:10px; }
-.stack{ display:flex; flex-direction:column; gap:10px; } /* jamais de grille */
+.stack{ display:flex; flex-direction:column; gap:10px; }
 
+/* --- Carte option : grille 3 colonnes pour un wrap parfait --- */
 .card{
-  display:flex; align-items:center; gap:12px;
+  display:grid;
+  grid-template-columns: auto minmax(0,1fr) auto; /* icône | texte fluide | chevron */
+  align-items:center;
+  column-gap:12px;
   border-radius:14px; padding:14px 16px; min-height:56px;
   background:#fff; border:1px solid var(--line);
   text-decoration:none; color:inherit; font-weight:800; font-size:var(--fs-16);
@@ -113,29 +117,21 @@ body{
 
 .ic{
   width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-  background:#eef7fd; color:#0b6fa3; border:1px solid var(--line); flex:0 0 auto;
+  background:#eef7fd; color:#0b6fa3; border:1px solid var(--line);
 }
 
-/* >>> Texte des cartes — anti‑coupure smartphone :
-   - pas de césure, pas de coupure au milieu d’un mot
-   - wrap seulement entre espaces, sinon ellipsis */
+/* >>> Libellé multi‑ligne, sans césure automatique (Safari iOS) */
 .label, .label > span{
-  flex:1 1 0%; min-width:0;
-  display:block;                /* indispensable pour ellipsis fiable iOS */
+  min-width:0;        /* indispensable pour permettre le wrap en grid */
+  display:block;      /* text-overflow reste correct si jamais */
   white-space: normal;
-  word-break: keep-all;         /* coupe uniquement aux espaces */
-  overflow-wrap: normal;
-  -webkit-hyphens: none; hyphens: none;
-}
-@media (max-width: 768px){
-  .label, .label > span{
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;   /* … en mobile si trop long */
-  }
+  word-break: normal;         /* coupe seulement entre espaces */
+  overflow-wrap: break-word;  /* casse des très longs tokens si besoin */
+  -webkit-hyphens: manual; hyphens: manual; /* jamais de césure auto */
+  line-height:1.35;
 }
 
-.arr{ color:var(--muted); flex:0 0 auto; }
+.arr{ color:var(--muted); justify-self:end; }
 
 /* ===== Actions ===== */
 .actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:10px; }
@@ -197,9 +193,9 @@ body{
 
 <script>
 /* ==========================================================
-   JS — dynamique rapide & stable (1 colonne)
-   - question/réponse : frappe par caractères
-   - cartes : apparition en cascade (pas de typing → pas de bugs iOS)
+   JS — dynamique rapide (1 colonne)
+   - question/réponse : frappe par caractères (rapide)
+   - cartes : apparition en cascade (sans typing → pas de bug iOS)
    ========================================================== */
 const SPEED = { CHAR_MS: 7, STAGGER_MS: 28 };
 
@@ -267,7 +263,7 @@ function typeChars(el,text,ms){
   });
 }
 
-/* Options (une colonne, apparition en cascade) */
+/* Options (pile + cascade) */
 function createCard(opt){
   const a=document.createElement('a');
   a.href="javascript:void(0)";
