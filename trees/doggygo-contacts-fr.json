@@ -18,27 +18,13 @@
   "1": {
     "label": "Financements – précisez",
     "options": [
-      { "option": "FNS – Carrières & Programmes (projets nationaux, comm. scientifique, mesures complémentaires…)", "value": "2" },
-      { "option": "FNS – Lead Agency / WEAVE / Co‑investigator / Bilaterals / BRIDGE / COST", "value": "3" },
+      { "option": "FNS – Carrières & Programmes (projets nationaux, comm. scientifique, mesures complémentaires…)", "value": "Contacter RT" },
+      { "option": "FNS – Lead Agency / WEAVE / Co‑investigator / Bilaterals / BRIDGE / COST", "value": "Contacter EAM" },
       { "option": "Europe – projets individuels (Horizon Europe, mesures de transition)", "value": "Contacter AEDC" },
       { "option": "Europe – projets collaboratifs (Horizon Europe)", "value": "Contacter AB" },
       { "option": "Autres fonds / fondations / US / ONG / académies", "value": "Contacter CA" }
     ],
     "parent": "0"
-  },
-  "2": {
-    "label": "FNS – Carrières & Programmes",
-    "options": [
-      { "option": "Prendre contact", "value": "Contacter RT" }
-    ],
-    "parent": "1"
-  },
-  "3": {
-    "label": "FNS – Lead Agency, WEAVE, Co‑investigator, Bilaterals, BRIDGE, COST",
-    "options": [
-      { "option": "Prendre contact", "value": "Contacter EAM" }
-    ],
-    "parent": "1"
   },
 
   "5": {
