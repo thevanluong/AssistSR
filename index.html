@@ -221,7 +221,7 @@
     </section>
   </main>
 
-  <!-- Fallback JSON inline (peut rester vide si vous servez via HTTP) -->
+  <!-- Fallback JSON inline (peut rester vide) -->
   <script id="tree-inline-fr" type="application/json">{}</script>
 
   <!-- Bootstrap JS (bundle) -->
@@ -353,7 +353,7 @@
     }
     function initials(name){
       if(!name) return "?";
-      var parts = name.split(" ");
+      var parts = String(name).split(" ");
       var a = parts[0] ? parts[0][0] : "";
       var b = parts[1] ? parts[1][0] : "";
       return (a+b).toUpperCase();
@@ -416,7 +416,7 @@
             '<a class="btn" target="_blank" rel="noopener" href="'+ url +'">'+
               '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(t("contact")) +
             '</a>'+
-          '</div>'+
+          </div>'+
         '</div>';
 
       setHTML("#question", html);
@@ -424,7 +424,7 @@
 
       // 👉 Boutons : montrer aussi "Revenir" sur la fiche contact
       show($("#buttons"));
-      show($("#back"));      // <— demandé
+      show($("#back"));
       show($("#restart"));
       applyI18n();
     }
@@ -438,14 +438,12 @@
       }
     }
     function goback(){
-      // si on est sur une fiche contact, revenir à la dernière question (oldItem)
       var last = trail[trail.length-1] || "";
       if(typeof last === "string" && last.indexOf("contact:") === 0){
-        trail.pop(); // enlever la fiche contact de la trace
+        trail.pop();
         format(oldItem);
         return;
       }
-      // sinon : remonter dans l'arbre
       if(!parent) return;
       trail.pop();
       format(parent);
@@ -454,6 +452,15 @@
     window.goback = goback;
 
     // ======== Init ========
+    var isFile = location.protocol === 'file:';
+    function parseJSONC(txt){
+      // JSONC -> JSON strict
+      return JSON.parse(
+        String(txt)
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/^\s*\/\/.*$/mg, '')
+      );
+    }
     function loadParams(){
       var params = new URLSearchParams(location.search);
       var qLang = params.get("lang");
@@ -471,28 +478,26 @@
     }
 
     async function loadTree(){
+      const url = treeBase + treeName;
       try{
-        var url = treeBase + treeName;
-        var res = await fetch(url, {cache:"no-store"});
-        if(res.ok){
-          var data = await res.json();
-          return data;
-        }
+        const res = await fetch(url, { cache: "no-store" });
+        if(!res.ok) throw new Error("HTTP "+res.status+" sur "+url);
+        const txt = await res.text();
+        return parseJSONC(txt);
       }catch(e){
         console.warn("[DoggyGo] fetch error:", e);
-      }
-      // Fallback inline (utile en file://)
-      var inline = document.getElementById("tree-inline-fr");
-      if(inline && inline.textContent.trim()){
-        try{
-          var parsed = JSON.parse(inline.textContent);
-          show($("#warn-file"));
-          return parsed;
-        }catch(e){
-          console.error("JSON inline invalide:", e);
+        // Fallback inline (utile en file://)
+        const inline = document.getElementById("tree-inline-" + lang) || document.getElementById("tree-inline-fr");
+        if(inline && inline.textContent.trim()){
+          try{
+            if(isFile) show($("#warn-file"));
+            return parseJSONC(inline.textContent);
+          }catch(e2){
+            console.error("JSON inline invalide:", e2);
+          }
         }
+        throw new Error("Impossible de charger le JSON.");
       }
-      throw new Error("Impossible de charger le JSON.");
     }
 
     async function boot(){
@@ -501,7 +506,9 @@
       showLoader();
       try{
         tree = await loadTree();
-        if(!tree["0"]) throw new Error('Le JSON ne contient pas la clé "0".');
+        if(!tree || !Object.prototype.hasOwnProperty.call(tree, "0")){
+          throw new Error('Le JSON ne contient pas la clé "0".');
+        }
         show($("#buttons"));
         format("0");
       }catch(e){
