@@ -1,204 +1,170 @@
 {
   "0": {
-    "label": "Sur quel sujet souhaitez-vous échanger ?",
+    "label": "De quoi avez-vous besoin ?",
     "options": [
-      { "option": "Financements (FNS, UE, fondations…)", "value": "1" },
-      { "option": "Contrats & valorisation (brevets, licences, PI) – PACTT", "value": "8" },
-      { "option": "Données de recherche, Records management & archives – UNIRIS", "value": "13" },
-      { "option": "Éthique, Open Science & outils/IA", "value": "6" },
-      { "option": "Formations & doctorat – Graduate Campus", "value": "10" },
-      { "option": "Marchés publics & achats (SR)", "value": "5" },
-      { "option": "Recherche‑action / collaborative (RACP) – ColLaboratoire", "value": "12" },
-      { "option": "Administration du Service de la recherche (SR)", "value": "7" },
-      { "option": "Je ne sais pas / autre (Secrétariat SR)", "value": "Contacter SRSEC" }
-    ],
-    "parent": ""
+      { "option": "Service de la recherche (SR) – financements, marchés publics, éthique, open science, outils, formations", "value": "SR" },
+      { "option": "Graduate Campus – doctorat, carrière, formations, supervision", "value": "GC" },
+      { "option": "PACTT – valorisation, propriété intellectuelle, contrats avec l’industrie", "value": "PACTT" },
+      { "option": "UNIRIS – données de recherche, records management / GEDUnil, archives, veille", "value": "UNIRIS" },
+      { "option": "ColLaboratoire – recherche‑action, collaborative et participative (RACP)", "value": "COL" },
+      { "option": "Je ne sais pas / besoin d’orientation", "value": "Contacter SRSEC" }
+    ]
   },
 
-  "1": {
-    "label": "Financements – précisez",
+  /* =========================
+     SR — Service de la recherche
+     ========================= */
+  "SR": {
+    "parent": "0",
+    "label": "SR · Quel sujet ?",
     "options": [
-      { "option": "FNS – Carrières & Programmes (projets nationaux, comm. scientifique, mesures complémentaires…)", "value": "Contacter RT" },
-      { "option": "FNS – Lead Agency / WEAVE / Co‑investigator / Bilaterals / BRIDGE / COST", "value": "Contacter EAM" },
-      { "option": "Europe – projets individuels (Horizon Europe, mesures de transition)", "value": "Contacter AEDC" },
-      { "option": "Europe – projets collaboratifs (Horizon Europe)", "value": "Contacter AB" },
-      { "option": "Autres fonds / fondations / US / ONG / académies", "value": "Contacter CA" }
-    ],
-    "parent": "0"
+      { "option": "Financements et bailleurs", "value": "SR-FIN" },
+      { "option": "Marchés publics (achats liés à un projet)", "value": "SR-MP" },
+      { "option": "Éthique de la recherche", "value": "Contacter PAD" },
+      { "option": "Open Science (Open Access / données)", "value": "SR-OS" },
+      { "option": "Outils informatiques pour la recherche (IA, ORCID, IRIS)", "value": "Contacter TVL" },
+      { "option": "Formations liées à la recherche", "value": "Contacter VL" },
+      { "option": "Plateformes de recherche (répondante UNIL)", "value": "Contacter ACB" },
+      { "option": "Communication & communauté (SR)", "value": "Contacter MD" },
+      { "option": "Question générale (Secrétariat SR)", "value": "Contacter SRSEC" }
+    ]
   },
 
-  "5": {
-    "label": "Marchés publics & achats (SR)",
+  "SR-FIN": {
+    "parent": "SR",
+    "label": "Financements · Quel type ?",
     "options": [
-      { "option": "Question générale (e‑mail Marchés publics recherche)", "value": "Contacter MP" },
-      { "option": "Marchés publics – interlocutrice SR", "value": "Contacter ZEM" },
-      { "option": "Plateformes de recherche", "value": "Contacter ACB" },
-      { "option": "Reporting financier UE (post‑award)", "value": "Contacter EAM" }
-    ],
-    "parent": "0"
+      { "option": "FNS – Projets (Lead Agency, WEAVE, Co‑investigator, Bilateral), BRIDGE, Actions COST", "value": "Contacter EAM" },
+      { "option": "FNS – Programmes nationaux, Carrières, Programmes, Communication scientifique, Mesures complémentaires", "value": "Contacter RT" },
+      { "option": "Programmes européens – Euresearch (UNIL‑CHUV)", "value": "SR-EU" },
+      { "option": "Fondations / Financement US / Académies / Associations / ONG / Programmes internationaux", "value": "Contacter CA" },
+      { "option": "Je ne sais pas", "value": "Contacter SRSEC" }
+    ]
   },
 
-  "6": {
-    "label": "Éthique, Open Science & outils/IA (SR)",
+  "SR-EU": {
+    "parent": "SR-FIN",
+    "label": "Euresearch · À qui voulez‑vous vous adresser ?",
     "options": [
-      { "option": "Éthique de la recherche (commissions, procédures)", "value": "Contacter PAD" },
-      { "option": "Open Access / Open Science", "value": "Contacter MC" },
-      { "option": "Outils informatiques pour la recherche, IA, ORCID, IRIS", "value": "Contacter TVL" },
-      { "option": "Communication & coordination du réseau de soutien à la recherche", "value": "Contacter MD" },
-      { "option": "Formations (catalogue SR)", "value": "Contacter VL" }
-    ],
-    "parent": "0"
+      { "option": "Responsable Euresearch (UNIL‑CHUV)", "value": "Contacter AEDC" },
+      { "option": "Conseillère Euresearch", "value": "Contacter AB" }
+    ]
   },
 
-  "7": {
-    "label": "Administration du Service de la recherche (SR)",
+  "SR-MP": {
+    "parent": "SR",
+    "label": "Marchés publics · Que souhaitez‑vous ?",
     "options": [
-      { "option": "Assistante de direction / projets", "value": "Contacter LC" },
-      { "option": "Cheffe de service adjointe", "value": "Contacter MC" },
-      { "option": "Chef de service", "value": "Contacter JR" },
-      { "option": "Secrétariat (prise de rendez‑vous)", "value": "Contacter SRSEC" }
-    ],
-    "parent": "0"
+      { "option": "Être conseillé·e par la personne en charge (SR)", "value": "Contacter ZEM" },
+      { "option": "Écrire à l’adresse générique", "value": "Contacter MP" }
+    ]
   },
 
-  "8": {
-    "label": "PACTT – que cherchez‑vous ?",
+  "SR-OS": {
+    "parent": "SR",
+    "label": "Open Science · Quel sujet ?",
     "options": [
-      { "option": "Déclarer une invention / Brevets / Licences / Propriété intellectuelle", "value": "9" },
-      { "option": "Contrats de collaboration / MTAs / aspects juridiques", "value": "82" },
-      { "option": "Programmes InnoPACTT (InnoTREK, InnoSTEP, InnoDIGITAL)", "value": "Contacter PACTTINFO" },
-      { "option": "Question générale PACTT", "value": "Contacter PACTTINFO" }
-    ],
-    "parent": "0"
-  },
-  "9": {
-    "label": "Invention & valorisation – choisissez un premier contact",
-    "options": [
-      { "option": "Premier contact / déclaration d’invention (e‑mail)", "value": "Contacter PACTTLIC" },
-      { "option": "Première personne de contact (valorisation)", "value": "Contacter FG" },
-      { "option": "Deuxième personne de contact (valorisation)", "value": "Contacter ARL" },
-      { "option": "Troisième personne de contact (valorisation)", "value": "Contacter JP" },
-      { "option": "Quatrième personne de contact (valorisation)", "value": "Contacter PH" }
-    ],
-    "parent": "8"
-  },
-  "82": {
-    "label": "Juridique & contrats – sélectionnez",
-    "options": [
-      { "option": "Premier·ère juriste (contrats, MTAs…)", "value": "Contacter PACTT-J1" },
-      { "option": "Deuxième juriste", "value": "Contacter PACTT-J2" },
-      { "option": "Troisième juriste", "value": "Contacter PACTT-J3" },
-      { "option": "Quatrième juriste", "value": "Contacter PACTT-J4" },
-      { "option": "Parajuriste", "value": "Contacter DH" },
-      { "option": "Courriel générique (juridique)", "value": "Contacter PACTTLEG" }
-    ],
-    "parent": "8"
+      { "option": "Open Access (publication)", "value": "Contacter MC" },
+      { "option": "Données de recherche (DMP, dépôt, partage, archivage)", "value": "Contacter UNIRIS-DR1" }
+    ]
   },
 
-  "10": {
-    "label": "Formations & doctorat – que souhaitez‑vous faire ? (Graduate Campus)",
+  /* =========================
+     GC — Graduate Campus
+     ========================= */
+  "GC": {
+    "parent": "0",
+    "label": "Graduate Campus · Quel besoin ?",
     "options": [
-      { "option": "Doctorat & formation doctorale", "value": "11" },
-      { "option": "Développement professionnel & carrières (postdocs, etc.)", "value": "Contacter VE" },
-      { "option": "Supervision / encadrement (ateliers pour encadrant·es)", "value": "Contacter MS" },
-      { "option": "Conseils individuels (doctorat, carrière, encadrement)", "value": "Contacter PF" },
-      { "option": "Appel à projets (événements jeunes chercheur·es)", "value": "Contacter VL" },
-      { "option": "Question générale Graduate Campus (e‑mail)", "value": "Contacter GCCONTACT" }
-    ],
-    "parent": "0"
-  },
-  "11": {
-    "label": "Doctorat & formation doctorale – précisez",
-    "options": [
-      { "option": "Infos générales / conditions / règlements", "value": "Contacter MB" },
-      { "option": "Suivi annuel des thèses, programmes doctoraux, ateliers", "value": "Contacter PF" },
-      { "option": "Charte, guides, référentiel des compétences", "value": "Contacter PF" }
-    ],
-    "parent": "10"
+      { "option": "Conseils doctorat & formation doctorale (thèse de A à Z, suivi annuel, admission/supervision)", "value": "Contacter GCCONTACT" },
+      { "option": "Développement professionnel & carrières (y compris postdocs)", "value": "Contacter VE" },
+      { "option": "Communication & communauté (événements, portraits, MT180…)", "value": "Contacter SN" },
+      { "option": "Question générale", "value": "Contacter GCCONTACT" }
+    ]
   },
 
-  "12": {
-    "label": "Recherche‑action / collaborative (ColLaboratoire) – sélectionnez un pôle",
+  /* =========================
+     PACTT — Valorisation
+     ========================= */
+  "PACTT": {
+    "parent": "0",
+    "label": "PACTT · Quel besoin ?",
     "options": [
-      { "option": "Pôle Recherche (conception de RACP, méthodologies)", "value": "120" },
-      { "option": "Pôle Soutien (mise en relation, problématisation de la demande sociale)", "value": "121" },
-      { "option": "Pôle Promotion (cours, réseaux, événements)", "value": "122" },
-      { "option": "Question générale / orientation", "value": "Contacter COL-AK" }
-    ],
-    "parent": "0"
-  },
-  "120": {
-    "label": "ColLaboratoire – Pôle Recherche",
-    "options": [
-      { "option": "Première personne de contact", "value": "Contacter COL-MA" },
-      { "option": "Deuxième personne de contact", "value": "Contacter COL-AC" },
-      { "option": "Troisième personne de contact", "value": "Contacter COL-LR" }
-    ],
-    "parent": "12"
-  },
-  "121": {
-    "label": "ColLaboratoire – Pôle Soutien",
-    "options": [
-      { "option": "Première personne de contact", "value": "Contacter COL-LB" },
-      { "option": "Deuxième personne de contact", "value": "Contacter COL-LF" },
-      { "option": "Troisième personne de contact", "value": "Contacter COL-MAC" }
-    ],
-    "parent": "12"
-  },
-  "122": {
-    "label": "ColLaboratoire – Pôle Promotion",
-    "options": [
-      { "option": "Première personne de contact", "value": "Contacter COL-MAC" },
-      { "option": "Deuxième personne de contact", "value": "Contacter COL-LB" }
-    ],
-    "parent": "12"
+      { "option": "Déclarer une invention / valoriser des résultats / PI (brevets, logiciels, licences…)", "value": "Contacter PACTTLIC" },
+      { "option": "Conseils juridiques & contrats (NDA, MTA, collaborations…)", "value": "Contacter PACTTLEG" },
+      { "option": "Programme InnoPACTT (InnoTREK, InnoSTEP, InnoDIGITAL)", "value": "Contacter PACTTINFO" },
+      { "option": "Question générale", "value": "Contacter PACTTINFO" },
+      { "option": "Responsable du service", "value": "Contacter AS" }
+    ]
   },
 
-  "13": {
-    "label": "UNIRIS – précisez votre besoin",
+  /* =========================
+     UNIRIS — Ressources informationnelles
+     ========================= */
+  "UNIRIS": {
+    "parent": "0",
+    "label": "UNIRIS · Quel besoin ?",
     "options": [
-      { "option": "Données de recherche (DMP, dépôt, partage, archivage…)", "value": "131" },
-      { "option": "Records management & GEDUNIL", "value": "132" },
-      { "option": "Archives historiques", "value": "133" },
-      { "option": "Veille stratégique & médias", "value": "134" },
-      { "option": "Question générale UNIRIS (e‑mail)", "value": "Contacter UNIRIS" }
-    ],
-    "parent": "0"
+      { "option": "Données de recherche (DMP, dépôt/partage, curation, archivage)", "value": "UNIRIS-DON" },
+      { "option": "Records management / GEDUnil / gestion documentaire", "value": "UNIRIS-RM" },
+      { "option": "Archives historiques", "value": "UNIRIS-AR" },
+      { "option": "Veille stratégique & médias", "value": "UNIRIS-V" },
+      { "option": "Question générale", "value": "Contacter UNIRIS" }
+    ]
   },
-  "131": {
-    "label": "UNIRIS – Données de recherche",
+
+  "UNIRIS-DON": {
+    "parent": "UNIRIS",
+    "label": "Données de recherche · Quel sujet ?",
     "options": [
-      { "option": "Première personne de contact", "value": "Contacter UNIRIS-DR1" },
-      { "option": "Deuxième personne de contact", "value": "Contacter UNIRIS-DR2" },
-      { "option": "Troisième personne de contact", "value": "Contacter UNIRIS-DR3" }
-    ],
-    "parent": "13"
+      { "option": "Point de contact (réseau Data Stewards, exigences FNS/Horizon, DMP)", "value": "Contacter UNIRIS-DR1" },
+      { "option": "Curatrice de données", "value": "Contacter UNIRIS-DR2" },
+      { "option": "Projet Swiss Data Stewardship Environment (SwissDS‑ENV)", "value": "Contacter UNIRIS-DR3" },
+      { "option": "Question générale", "value": "Contacter UNIRIS" }
+    ]
   },
-  "132": {
-    "label": "UNIRIS – Records management & GEDUNIL",
+
+  "UNIRIS-RM": {
+    "parent": "UNIRIS",
+    "label": "Records management / GEDUnil · Qui contacter ?",
     "options": [
-      { "option": "Première personne de contact", "value": "Contacter UNIRIS-RM1" },
-      { "option": "Deuxième personne de contact", "value": "Contacter UNIRIS-RM2" },
-      { "option": "Troisième personne de contact", "value": "Contacter UNIRIS-RM3" }
-    ],
-    "parent": "13"
+      { "option": "Spécialiste GEDUnil / Records Manager", "value": "Contacter UNIRIS-RM1" },
+      { "option": "GED Direction / Documentaliste", "value": "Contacter UNIRIS-RM2" },
+      { "option": "GED Direction / Assistante documentaire", "value": "Contacter UNIRIS-RM3" }
+    ]
   },
-  "133": {
-    "label": "UNIRIS – Archives historiques",
+
+  "UNIRIS-AR": {
+    "parent": "UNIRIS",
+    "label": "Archives historiques · Qui contacter ?",
     "options": [
-      { "option": "Première personne de contact", "value": "Contacter UNIRIS-AR1" },
-      { "option": "Deuxième personne de contact", "value": "Contacter UNIRIS-AR2" },
-      { "option": "Troisième personne de contact", "value": "Contacter UNIRIS-AR3" },
-      { "option": "Quatrième personne de contact", "value": "Contacter UNIRIS-AR4" }
-    ],
-    "parent": "13"
+      { "option": "Archiviste – Sacha Auderset", "value": "Contacter UNIRIS-AR1" },
+      { "option": "Archiviste – Julie Farine", "value": "Contacter UNIRIS-AR2" },
+      { "option": "Assistante archives – Elora Lovey", "value": "Contacter UNIRIS-AR3" },
+      { "option": "Assistant archives – Xavier Baume", "value": "Contacter UNIRIS-AR4" }
+    ]
   },
-  "134": {
-    "label": "UNIRIS – Veille stratégique & médias",
+
+  "UNIRIS-V": {
+    "parent": "UNIRIS",
+    "label": "Veille stratégique & médias · Qui contacter ?",
     "options": [
-      { "option": "Première personne de contact", "value": "Contacter UNIRIS-V1" },
-      { "option": "Deuxième personne de contact", "value": "Contacter UNIRIS-V2" }
-    ],
-    "parent": "13"
+      { "option": "Responsable veille stratégique – Eva Frei", "value": "Contacter UNIRIS-V1" },
+      { "option": "Assistante veille – Flavia Mizel", "value": "Contacter UNIRIS-V2" }
+    ]
+  },
+
+  /* =========================
+     ColLaboratoire — RACP
+     ========================= */
+  "COL": {
+    "parent": "0",
+    "label": "ColLaboratoire (RACP) · Quel besoin ?",
+    "options": [
+      { "option": "Démarrer / accompagner un projet de recherche‑action (RACP)", "value": "Contacter COL-AC" },
+      { "option": "Soutien méthodologique / formations RACP", "value": "Contacter COL-MA" },
+      { "option": "Partenariats, réseaux, promotion de la RACP", "value": "Contacter COL-LR" },
+      { "option": "Question générale (direction de l’unité)", "value": "Contacter COL-AK" }
+    ]
   }
 }
