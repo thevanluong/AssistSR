@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Doggygo · AssistSR2</title>
+<title>DoggyGo · Contacts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <!-- Google Font -->
@@ -91,7 +91,7 @@
     box-shadow: var(--shadow-soft);
     background: linear-gradient(135deg, var(--glass), rgba(255,255,255,.22));
     backdrop-filter: saturate(160%) blur(12px);
-    overflow: hidden; /* sécurité */
+    overflow: hidden;
   }
   .glass-card .card-body{ padding: clamp(14px, 2.2vw, 24px); }
   #question > .q-title{
@@ -124,10 +124,9 @@
     display: grid;
     align-items: center;
     gap: clamp(12px, 3vw, 24px);
-    /* Zone centrée pour éviter "trop à gauche / trop à droite" sur laptop */
     max-width: clamp(560px, 75vw, 780px);
     margin-inline: auto;
-    grid-template-columns: minmax(280px, 1fr) auto; /* identité + CTA */
+    grid-template-columns: minmax(280px, 1fr) auto;
   }
   .contact-id{ display:flex; gap:14px; align-items:center; }
   .avatar{
@@ -188,9 +187,9 @@
       <div class="d-flex align-items-center gap-3">
         <img src="doggygo.png" alt="" class="logo me-3" />
         <div>
-          <span class="brand-chip"><i class="fa-solid fa-paw"></i> Doggygo</span>
-          <h1 class="title h4">Votre assistant personnalisé</h1>
-          <p class="sub">Répondez aux questions. Nous vous indiquerons qui contacter au Service de la recherche.</p>
+          <span class="brand-chip"><i class="fa-solid fa-paw"></i> DoggyGo</span>
+          <h1 class="title h4">Trouvez la bonne personne de contact</h1>
+          <p class="sub">Choisissez un sujet (SR, Graduate Campus, PACTT, UNIRIS) : DoggyGo vous dirige vers la personne référente.</p>
         </div>
       </div>
     </section>
@@ -203,14 +202,17 @@
 
         <div id="buttons" style="display:none">
           <a id="back" href="javascript:goback();" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
-            <i class="fa-solid fa-chevron-left"></i> Retour
+            <i class="fa-solid fa-chevron-left"></i> <span data-i18n="back">Retour</span>
           </a>
           <a id="restart" href="javascript:location.reload()" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
-            <i class="fa-solid fa-rotate-left"></i> Recommencer
+            <i class="fa-solid fa-rotate-left"></i> <span data-i18n="restart">Recommencer</span>
           </a>
         </div>
 
-        <p class="sub mt-3"><i class="fa-regular fa-circle-question"></i> Les liens de contact pointent vers l’annuaire UNIL.</p>
+        <p class="sub mt-3">
+          <i class="fa-regular fa-circle-question"></i>
+          <span data-i18n="note">Les boutons <b>Contacter</b> ouvrent l’annuaire UNIL ou un e‑mail.</span>
+        </p>
       </div>
     </section>
   </main>
@@ -219,43 +221,100 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // ======== Données (nouveaux liens) ========
+    // ======== Config ========
     var lang = "fr";
-    var papagoUrl = "./trees/";
+    var treeBase = "./trees/";
+    var treeName = "doggygo-contacts-" + lang + ".json";
 
+    // ======== Persons (codes -> nom + lien annuaire / e‑mail) ========
+    // Remplacez les URL "#" par les liens annuaire UNIL si disponibles.
     var persons = {
-      "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
-      "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+      /* SR */
+      "JR"  : { "name": "Julian Randall",        "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" },
+      "MC"  : { "name": "Micaela Crespo",        "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+      "LC"  : { "name": "Lucia Couto",           "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+      "EAM" : { "name": "Eliane Abou-Mansour",   "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+      "RT"  : { "name": "Rolande Tardy",         "url": "#" },
       "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
-      "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
-      "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
-      "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
-      "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
-      "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
-      "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
-      "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
-      "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
-      "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
-      "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
+      "AB"  : { "name": "Aurélie Brehmer",       "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+      "CA"  : { "name": "Claire Arnold",         "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+      "ZEM" : { "name": "Zohra El Masbahi",      "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+      "ACB" : { "name": "Anne-Christine Butty",  "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+      "PAD" : { "name": "Pablo Diaz",            "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+      "TVL" : { "name": "Thé Van Luong",         "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+      "MD"  : { "name": "Maëlle Desard",         "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+      "VL"  : { "name": "Véronique Longchamp",   "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+      "SRSEC":{ "name": "Secrétariat SR",        "url": "mailto:recherche@unil.ch" },
+      "MP"  : { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
+
+      /* Graduate Campus */
+      "MB"  : { "name": "Mélanie Bosson",        "url": "#" },
+      "VE"  : { "name": "Verity Elston",         "url": "#" },
+      "PF"  : { "name": "Pauline Fritsch",       "url": "#" },
+      "MS"  : { "name": "Martine Schaer",        "url": "#" },
+      "SN"  : { "name": "Shervine Nafissi",      "url": "#" },
+      "GCCONTACT" : { "name": "Graduate Campus – Contact", "url": "mailto:graduatecampus@unil.ch" },
+
+      /* PACTT */
+      "AS"  : { "name": "Alberto Schena",        "url": "#" },
+      "PACTTINFO": { "name": "PACTT – Info",     "url": "mailto:pactt.info@chuv.ch" },
+      "PACTTLIC" : { "name": "PACTT – Inventions & valorisation", "url": "mailto:pactt.license@chuv.ch" },
+      "PACTTLEG" : { "name": "PACTT – Juridique & contrats",      "url": "mailto:pactt.legal@chuv.ch" },
+      "FG"  : { "name": "Florence Guth",         "url": "#" },
+      "ARL" : { "name": "Anne-Renée Leyvraz",    "url": "#" },
+      "JP"  : { "name": "Jonas Pollard",         "url": "#" },
+      "PH"  : { "name": "Pierre Heuzé",          "url": "#" },
+      "PACTT-J1": { "name": "Laura Lo Bello (Juriste)", "url": "#" },
+      "PACTT-J2": { "name": "Olga Larionova (Juriste)", "url": "#" },
+      "PACTT-J3": { "name": "Tristan Gianora (Juriste)", "url": "#" },
+      "PACTT-J4": { "name": "Simon Jossen (Juriste)",   "url": "#" },
+      "DH"  : { "name": "Djamila Houha (Parajuriste)",  "url": "#" },
+
+      /* ColLaboratoire (RACP) */
+      "AK"  : { "name": "Alain Kaufmann",        "url": "mailto:Alain.Kaufmann@unil.ch" },
+      "MA"  : { "name": "Marc Audétat",          "url": "#" },
+      "AC"  : { "name": "Alexandre Camus",       "url": "#" },
+      "LDB" : { "name": "Laetitia Della Bianca", "url": "#" },
+
+      /* UNIRIS */
+      "UNIRIS": { "name": "UNIRIS – Contact",    "url": "mailto:uniris@unil.ch" },
+      "UNIRIS-DR1": { "name": "Carmen Jambé",    "url": "#" },
+      "UNIRIS-DR2": { "name": "Magalie Vetter",  "url": "#" },
+      "UNIRIS-DR3": { "name": "Marielle Guirlet","url": "#" },
+      "UNIRIS-RM1": { "name": "Laurence Gauvin", "url": "#" },
+      "UNIRIS-RM2": { "name": "Nathalie Montet", "url": "#" },
+      "UNIRIS-RM3": { "name": "Noha El Sadawy",  "url": "#" },
+      "UNIRIS-AR1": { "name": "Sacha Auderset",  "url": "#" },
+      "UNIRIS-AR2": { "name": "Julie Farine",    "url": "#" },
+      "UNIRIS-AR3": { "name": "Elora Lovey",     "url": "#" },
+      "UNIRIS-AR4": { "name": "Xavier Baume",    "url": "#" },
+      "UNIRIS-V1" : { "name": "Eva Frei",        "url": "#" },
+      "UNIRIS-V2" : { "name": "Flavia Mizel",    "url": "#" }
     };
 
-    var translate = { 
-      "fr" : {
-          "contact": "Contacter",
-          "text" : "La personne ci‑dessous peut vous conseiller directement.",
-          "error" : "Doggygo n'est pas accessible pour le moment."
+    // ======== Traductions minimales ========
+    var translate = {
+      "fr": {
+        "contact": "Contacter",
+        "text"   : "La personne ci‑dessous est votre point de contact.",
+        "error"  : "DoggyGo n'est pas accessible pour le moment.",
+        "back"   : "Retour",
+        "restart": "Recommencer",
+        "note"   : "Les boutons Contacter ouvrent l’annuaire UNIL ou un e‑mail."
       },
-      "en" : {
-          "contact": "Contact",
-          "text" : "This person can advise you directly.",
-          "error" : "Doggygo is not available at the moment."
+      "en": {
+        "contact": "Contact",
+        "text"   : "This person is your point of contact.",
+        "error"  : "DoggyGo is not available right now.",
+        "back"   : "Back",
+        "restart": "Restart",
+        "note"   : "Contact buttons open the UNIL directory or an email."
       }
     };
 
     // ======== État ========
-    var papago = {};
-    var parent = "", oldItem = "", jList = "", sheet = "";
-    var trail = []; // fil d’Ariane des clés déjà visitées
+    var tree = {};
+    var parent = "", oldItem = "", trail = [];
 
     // ======== Helpers ========
     function $(sel){ return document.querySelector(sel); }
@@ -267,7 +326,13 @@
       div.textContent = String(str || "");
       return div.innerHTML;
     }
-
+    function t(key){ return (translate[lang] && translate[lang][key]) || key; }
+    function applyI18n(){
+      document.querySelectorAll("[data-i18n]").forEach(function(el){
+        var k = el.getAttribute("data-i18n");
+        el.innerHTML = t(k);
+      });
+    }
     function renderProgress(){
       var progressEl = $("#progress");
       if(!progressEl) return;
@@ -277,7 +342,6 @@
       }).join('');
       progressEl.innerHTML = chips;
     }
-
     function initials(name){
       if(!name) return "?";
       var parts = name.split(" ");
@@ -288,7 +352,7 @@
 
     // ======== Rendu principal ========
     function renderOptions(key){
-      var node = papago[key] || {};
+      var node = tree[key] || {};
       var label = escapeHTML(node.label || "");
       parent = node.parent || "";
       oldItem = key;
@@ -315,11 +379,12 @@
       show($("#buttons"));
       if(node.parent){ show($("#back")); } else { hide($("#back")); }
       hide($("#restart"));
+      applyI18n();
     }
 
     function renderContact(item){
       // "Contacter CODE" => libellé traduit + lookup
-      var clean = item.replace("Contacter", translate[lang]["contact"]);
+      var clean = item.replace("Contacter", t("contact"));
       var parts = clean.split(" ");
       var code = parts[1];
       var p = persons[code] || {};
@@ -329,22 +394,21 @@
       if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
       renderProgress();
 
-      // Un seul bouton "Contacter", dans une zone centrée (ni trop gauche, ni trop droite)
       var html = ''+
-        '<div class="q-title">'+ escapeHTML(translate[lang]["text"]) +'</div>'+
+        '<div class="q-title">'+ escapeHTML(t("text")) +'</div>'+
         '<div class="contact-wrap">'+
           '<div class="contact-id">'+
             '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
             '<div>'+
               '<p class="contact-name">'+ escapeHTML(name) +'</p>'+
-              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</p>'+
+              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Point de contact</p>'+
             '</div>'+
           '</div>'+
           '<div class="cta">'+
             '<a class="btn" target="_blank" rel="noopener" href="'+ url +'">'+
-              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
+              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(t("contact")) +
             '</a>'+
-          '</div>'+
+          </div>'+
         '</div>';
 
       setHTML("#question", html);
@@ -353,9 +417,10 @@
       show($("#buttons"));
       hide($("#back"));
       show($("#restart"));
+      applyI18n();
     }
 
-    // ======== API similaire à l’original ========
+    // ======== API (identique à votre prototype) ========
     function format(item){
       if(item.substr(0,9) === "Contacter"){
         renderContact(item);
@@ -376,25 +441,24 @@
       var params = new URLSearchParams(location.search);
       var qLang = params.get("lang");
       var notitle = params.get("notitle");
-      if(qLang && translate[qLang]) lang = qLang;
+      if(qLang && translate[qLang]){ lang = qLang; treeName = "doggygo-contacts-" + lang + ".json"; }
       if(notitle === "true"){
         document.querySelectorAll("h1,.title").forEach(function(h){ h.classList.add("visually-hidden"); });
       }
     }
-
     function showLoader(){
       setHTML("#question",
         '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div></div>'
       );
       hide($("#back")); hide($("#restart"));
     }
-
     async function boot(){
       loadParams();
+      applyI18n();
       showLoader();
       try{
-        var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
-        papago = await res.json();
+        var res = await fetch(treeBase + treeName, {cache:"no-store"});
+        tree = await res.json();
         show($("#buttons"));
         format("0");
       }catch(e){
@@ -405,7 +469,6 @@
         );
       }
     }
-
     document.addEventListener("DOMContentLoaded", boot);
   </script>
 </body>
