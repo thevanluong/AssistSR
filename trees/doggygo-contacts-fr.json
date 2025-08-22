@@ -10,10 +10,6 @@
       { "option": "Je ne sais pas / besoin d’orientation", "value": "Contacter SRSEC" }
     ]
   },
-
-  /* =========================
-     SR — Service de la recherche
-     ========================= */
   "SR": {
     "parent": "0",
     "label": "SR · Quel sujet ?",
@@ -29,7 +25,6 @@
       { "option": "Question générale (Secrétariat SR)", "value": "Contacter SRSEC" }
     ]
   },
-
   "SR-FIN": {
     "parent": "SR",
     "label": "Financements · Quel type ?",
@@ -41,7 +36,6 @@
       { "option": "Je ne sais pas", "value": "Contacter SRSEC" }
     ]
   },
-
   "SR-EU": {
     "parent": "SR-FIN",
     "label": "Euresearch · À qui voulez‑vous vous adresser ?",
@@ -50,7 +44,6 @@
       { "option": "Conseillère Euresearch", "value": "Contacter AB" }
     ]
   },
-
   "SR-MP": {
     "parent": "SR",
     "label": "Marchés publics · Que souhaitez‑vous ?",
@@ -59,7 +52,6 @@
       { "option": "Écrire à l’adresse générique", "value": "Contacter MP" }
     ]
   },
-
   "SR-OS": {
     "parent": "SR",
     "label": "Open Science · Quel sujet ?",
@@ -68,10 +60,6 @@
       { "option": "Données de recherche (DMP, dépôt, partage, archivage)", "value": "Contacter UNIRIS-DR1" }
     ]
   },
-
-  /* =========================
-     GC — Graduate Campus
-     ========================= */
   "GC": {
     "parent": "0",
     "label": "Graduate Campus · Quel besoin ?",
@@ -82,10 +70,6 @@
       { "option": "Question générale", "value": "Contacter GCCONTACT" }
     ]
   },
-
-  /* =========================
-     PACTT — Valorisation
-     ========================= */
   "PACTT": {
     "parent": "0",
     "label": "PACTT · Quel besoin ?",
@@ -97,10 +81,6 @@
       { "option": "Responsable du service", "value": "Contacter AS" }
     ]
   },
-
-  /* =========================
-     UNIRIS — Ressources informationnelles
-     ========================= */
   "UNIRIS": {
     "parent": "0",
     "label": "UNIRIS · Quel besoin ?",
@@ -112,7 +92,6 @@
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
-
   "UNIRIS-DON": {
     "parent": "UNIRIS",
     "label": "Données de recherche · Quel sujet ?",
@@ -123,7 +102,6 @@
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
-
   "UNIRIS-RM": {
     "parent": "UNIRIS",
     "label": "Records management / GEDUnil · Qui contacter ?",
@@ -133,7 +111,6 @@
       { "option": "GED Direction / Assistante documentaire", "value": "Contacter UNIRIS-RM3" }
     ]
   },
-
   "UNIRIS-AR": {
     "parent": "UNIRIS",
     "label": "Archives historiques · Qui contacter ?",
@@ -144,7 +121,6 @@
       { "option": "Assistant archives – Xavier Baume", "value": "Contacter UNIRIS-AR4" }
     ]
   },
-
   "UNIRIS-V": {
     "parent": "UNIRIS",
     "label": "Veille stratégique & médias · Qui contacter ?",
@@ -153,10 +129,6 @@
       { "option": "Assistante veille – Flavia Mizel", "value": "Contacter UNIRIS-V2" }
     ]
   },
-
-  /* =========================
-     ColLaboratoire — RACP
-     ========================= */
   "COL": {
     "parent": "0",
     "label": "ColLaboratoire (RACP) · Quel besoin ?",
