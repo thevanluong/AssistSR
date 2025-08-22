@@ -4,68 +4,185 @@
 <meta charset="UTF-8">
 <title>DoggyGo · Contacts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome 6 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+
 <style>
-  :root{ --radius:18px; --brand-1:#7b5cff; --brand-2:#40d4ff; --ink:#0f172a; --muted:#667085;
-    --surface:rgba(255,255,255,.65); --stroke:rgba(15,23,42,.12); --glass:rgba(255,255,255,.45);
-    --shadow:0 20px 60px rgba(16,24,40,.15); --shadow-soft:0 10px 32px rgba(16,24,40,.10);
-    --ring:0 0 0 .28rem rgba(123,92,255,.22); }
-  @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important; } }
-  body{ font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
-    color:var(--ink);
+  /* ======== Design System ======== */
+  :root{
+    --radius: 18px;
+    --brand-1: #7b5cff;
+    --brand-2: #40d4ff;
+    --ink: #0f172a;
+    --muted: #667085;
+    --surface: rgba(255,255,255,.65);
+    --stroke: rgba(15,23,42,.12);
+    --glass: rgba(255,255,255,.45);
+    --shadow: 0 20px 60px rgba(16,24,40,.15);
+    --shadow-soft: 0 10px 32px rgba(16,24,40,.10);
+    --ring: 0 0 0 .28rem rgba(123,92,255,.22);
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ======== Background ======== */
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+                 "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif;
+    color: var(--ink);
     background:
       radial-gradient(60vw 60vw at 10% -10%, #f0eaff 0%, rgba(255,255,255,0) 55%),
       radial-gradient(60vw 60vw at 115% 30%, #e9fbff 0%, rgba(255,255,255,0) 55%),
-      linear-gradient(180deg, #f8fbff 0%, #f5f7fb 30%, #f7f7ff 100%); min-height:100vh; }
-  .bg-orbs::before,.bg-orbs::after{ content:""; position:fixed; inset:auto auto -120px -120px; width:360px; height:360px;
-    background: radial-gradient(closest-side, rgba(123,92,255,.22), rgba(123,92,255,0) 70%); filter:blur(6px); z-index:0; pointer-events:none; }
-  .bg-orbs::after{ inset:-120px -140px auto auto; background:radial-gradient(closest-side, rgba(64,212,255,.25), rgba(64,212,255,0) 70%); }
-  .app-shell{ position:relative; z-index:1; max-width:980px; margin-inline:auto; padding:clamp(16px,4vw,28px); }
-  .hero{ border-radius:var(--radius); padding:clamp(16px,2vw,22px); box-shadow:var(--shadow); border:1px solid var(--stroke);
-    background:linear-gradient(135deg, var(--surface), rgba(255,255,255,.28)); backdrop-filter:saturate(140%) blur(10px); }
-  .brand-chip{ display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .9rem; border-radius:999px; font-weight:700; color:#fff;
-    background:linear-gradient(135deg, var(--brand-1), var(--brand-2)); box-shadow:0 12px 28px rgba(64,212,255,.28); }
-  .logo{ width:78px; height:78px; border-radius:16px; object-fit:cover; border:6px solid rgba(255,255,255,.9); box-shadow:var(--shadow-soft); }
-  .hero .title{ margin:.4rem 0 0; font-weight:800; letter-spacing:.1px; }
-  .hero .sub{ color:var(--muted); margin:.35rem 0 0; }
-  .glass-card{ margin-top:18px; border-radius:var(--radius); border:1px solid var(--stroke); box-shadow:var(--shadow-soft);
-    background:linear-gradient(135deg, var(--glass), rgba(255,255,255,.22)); backdrop-filter:saturate(160%) blur(12px); overflow:hidden; }
-  .glass-card .card-body{ padding:clamp(14px,2.2vw,24px); }
-  #question>.q-title{ font-size:1.2rem; font-weight:700; margin-bottom:10px; }
-  .option-item{ display:block; text-decoration:none; border-radius:14px; padding:14px 15px; border:1px solid rgba(15,23,42,.08);
-    background:rgba(255,255,255,.64); backdrop-filter:blur(6px) saturate(120%);
-    transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease; color:inherit; }
-  .option-item+.option-item{ margin-top:10px; }
+      linear-gradient(180deg, #f8fbff 0%, #f5f7fb 30%, #f7f7ff 100%);
+    min-height: 100vh;
+  }
+  .bg-orbs::before, .bg-orbs::after{
+    content:""; position: fixed; inset: auto auto -120px -120px; width: 360px; height: 360px;
+    background: radial-gradient(closest-side, rgba(123,92,255,.22), rgba(123,92,255,0) 70%);
+    filter: blur(6px); transform: translateZ(0);
+    pointer-events: none; z-index: 0;
+  }
+  .bg-orbs::after{
+    inset: -120px -140px auto auto; background:
+      radial-gradient(closest-side, rgba(64,212,255,.25), rgba(64,212,255,0) 70%);
+  }
+
+  /* ======== Shell ======== */
+  .app-shell{
+    position: relative; z-index: 1;
+    max-width: 980px; margin-inline: auto;
+    padding: clamp(16px, 4vw, 28px);
+  }
+
+  /* ======== Hero ======== */
+  .hero{
+    border-radius: var(--radius);
+    padding: clamp(16px, 2vw, 22px);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--stroke);
+    background: linear-gradient(135deg, var(--surface), rgba(255,255,255,.28));
+    backdrop-filter: saturate(140%) blur(10px);
+  }
+  .brand-chip{
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.45rem .9rem; border-radius: 999px; font-weight: 700; letter-spacing:.2px; color:#fff;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    box-shadow: 0 12px 28px rgba(64,212,255,.28);
+  }
+  .logo{
+    width:78px; height:78px; border-radius: 16px; object-fit: cover;
+    border: 6px solid rgba(255,255,255,.9);
+    box-shadow: var(--shadow-soft);
+  }
+  .hero .title{ margin: .4rem 0 0; font-weight: 800; letter-spacing: .1px; }
+  .hero .sub{ color: var(--muted); margin: .35rem 0 0; }
+
+  /* ======== Card / Question ======== */
+  .glass-card{
+    margin-top: 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow-soft);
+    background: linear-gradient(135deg, var(--glass), rgba(255,255,255,.22));
+    backdrop-filter: saturate(160%) blur(12px);
+    overflow: hidden;
+  }
+  .glass-card .card-body{ padding: clamp(14px, 2.2vw, 24px); }
+  #question > .q-title{
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;
+  }
+
+  /* ======== Options ======== */
+  .option-item{
+    display: block; text-decoration: none;
+    border-radius: 14px; padding: 14px 15px;
+    border: 1px solid rgba(15,23,42,.08);
+    background: rgba(255,255,255,.64);
+    backdrop-filter: blur(6px) saturate(120%);
+    transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    color: inherit; white-space: normal;
+  }
+  .option-item + .option-item{ margin-top: 10px; }
   .option-item .label{ display:inline-flex; gap:.6rem; align-items:center; }
   .option-item .label i{ opacity:.75; }
-  .option-item:hover{ transform:translateY(-1px); box-shadow:0 12px 28px rgba(16,24,40,.12); border-color:rgba(15,23,42,.18); background:rgba(255,255,255,.82); }
-  .option-item:focus{ outline:none; box-shadow:var(--ring); }
-  .contact-wrap{ display:grid; align-items:center; gap:clamp(12px,3vw,24px); max-width:clamp(560px,75vw,780px); margin-inline:auto;
-    grid-template-columns:minmax(280px,1fr) auto; }
+  .option-item:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(16,24,40,.12);
+    border-color: rgba(15,23,42,.18);
+    background: rgba(255,255,255,.82);
+  }
+  .option-item:focus{ outline: none; box-shadow: var(--ring); }
+
+  /* ======== Contact view ======== */
+  .contact-wrap{
+    display: grid;
+    align-items: center;
+    gap: clamp(12px, 3vw, 24px);
+    max-width: clamp(560px, 75vw, 780px);
+    margin-inline: auto;
+    grid-template-columns: minmax(280px, 1fr) auto;
+  }
   .contact-id{ display:flex; gap:14px; align-items:center; }
-  .avatar{ width:64px; height:64px; border-radius:16px; background:linear-gradient(135deg, var(--brand-1), var(--brand-2));
-    color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 12px 26px rgba(123,92,255,.25);
-    font-size:1.35rem; font-weight:800; }
-  .contact-name{ font-weight:800; margin:0; }
-  .contact-meta{ color:var(--muted); font-size:.95rem; margin:2px 0 0; }
-  .cta{ display:flex; gap:.6rem; justify-self:end; }
-  .cta .btn{ border-radius:999px; padding:.7rem 1rem; font-weight:600; color:#fff; background:linear-gradient(135deg, var(--brand-1), var(--brand-2));
-    border:none; box-shadow:0 10px 24px rgba(64,212,255,.28); }
-  .cta .btn:focus{ box-shadow:var(--ring); }
-  @media (max-width: 991.98px){ .contact-wrap{ grid-template-columns:1fr; max-width:100%; } .cta{ width:100%; } .cta .btn{ width:100%; } }
-  #buttons{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:10px; }
-  #buttons .btn{ border-radius:999px; padding:.55rem .9rem; font-weight:600; box-shadow:0 8px 18px rgba(16,24,40,.06); }
-  .progress-chips{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
-  .chip{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:999px; font-weight:700; font-size:.85rem;
-    background:rgba(123,92,255,.12); color:#5b4af7; border:1px solid rgba(123,92,255,.22); }
-  .chip.muted{ background:transparent; color:var(--muted); border:1px dashed rgba(15,23,42,.15); }
-  .fade-up{ animation:fadeUp .25s ease-out; } @keyframes fadeUp{ from{ transform:translateY(6px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+  .avatar{
+    width:64px; height:64px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 12px 26px rgba(123,92,255,.25);
+    font-size: 1.35rem; font-weight: 800;
+  }
+  .contact-name{ font-weight: 800; margin: 0; }
+  .contact-meta{ color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
+
+  .cta{ display:flex; gap:.6rem; justify-self: end; }
+  .cta .btn{
+    border-radius: 999px; padding: .7rem 1rem; font-weight: 600;
+    min-width: 0;
+    color:#fff;
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    border: none;
+    box-shadow: 0 10px 24px rgba(64,212,255,.28);
+  }
+  .cta .btn:focus{ box-shadow: var(--ring); }
+
+  @media (max-width: 991.98px){
+    .contact-wrap{ grid-template-columns: 1fr; max-width: 100%; }
+    .cta{ width: 100%; justify-self: stretch; }
+    .cta .btn{ width: 100%; }
+  }
+
+  /* ======== Controls ======== */
+  #buttons{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top: 10px; }
+  #buttons .btn{
+    border-radius: 999px; padding: .55rem .9rem; font-weight:600;
+    box-shadow: 0 8px 18px rgba(16,24,40,.06);
+  }
+
+  /* ======== Progress ======== */
+  .progress-chips{ display:flex; gap:.4rem; flex-wrap: wrap; align-items: center; }
+  .chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:999px; font-weight:700; font-size:.85rem;
+    background: rgba(123,92,255,.12); color:#5b4af7; border: 1px solid rgba(123,92,255,.22);
+  }
+  .chip.muted{ background: transparent; color: var(--muted); border: 1px dashed rgba(15,23,42,.15); }
+
+  /* ======== Animations ======== */
+  .fade-up{ animation: fadeUp .25s ease-out; }
+  @keyframes fadeUp{
+    from{ transform: translateY(6px); opacity: 0; }
+    to{ transform: translateY(0); opacity: 1; }
+  }
 </style>
 </head>
 <body class="bg-orbs">
   <main class="app-shell">
+    <!-- HERO -->
     <section class="hero d-flex align-items-center justify-content-between gap-3">
       <div class="d-flex align-items-center gap-3">
         <img src="doggygo.png" alt="" class="logo me-3" />
@@ -77,6 +194,7 @@
       </div>
     </section>
 
+    <!-- CARD -->
     <section class="glass-card fade-up">
       <div class="card-body">
         <div id="progress" class="progress-chips mb-2" aria-live="polite"></div>
@@ -84,16 +202,18 @@
 
         <div id="buttons" style="display:none">
           <a id="back" href="javascript:goback();" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
-            <i class="fa-solid fa-chevron-left"></i> <span data-i18n="back">Retour</span>
+            <i class="fa-solid fa-chevron-left"></i> <span data-i18n="back">Revenir</span>
           </a>
           <a id="restart" href="javascript:location.reload()" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
             <i class="fa-solid fa-rotate-left"></i> <span data-i18n="restart">Recommencer</span>
           </a>
         </div>
 
-        <p class="sub mt-3"><i class="fa-regular fa-circle-question"></i>
+        <p class="sub mt-3">
+          <i class="fa-regular fa-circle-question"></i>
           <span data-i18n="note">Les boutons <b>Contacter</b> ouvrent l’annuaire UNIL ou un e‑mail.</span>
         </p>
+
         <div id="warn-file" class="text-muted small" style="display:none">
           <i class="fa-solid fa-triangle-exclamation"></i> Ouvert en <code>file://</code> — utilisation du JSON embarqué. Pour charger le JSON externe, servez la page via HTTP.
         </div>
@@ -101,12 +221,10 @@
     </section>
   </main>
 
-  <!-- JSON inline de secours (peut rester vide si vous servez via HTTP). 
-       Vous pouvez y coller votre doggygo-contacts-fr.json pour un fonctionnement en file:// -->
-  <script id="tree-inline-fr" type="application/json">
-  { }
-  </script>
+  <!-- Fallback JSON inline (peut rester vide si vous servez via HTTP) -->
+  <script id="tree-inline-fr" type="application/json">{}</script>
 
+  <!-- Bootstrap JS (bundle) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -115,82 +233,92 @@
     var treeBase = "./trees/";
     var treeName = "doggygo-contacts-" + lang + ".json";
 
-    // ======== Persons (codes -> nom + lien / e‑mail) ========
+    // ======== Persons (codes -> nom + lien annuaire / e‑mail) ========
     var persons = {
       /* SR */
-      "JR":  { "name": "Julian Randall",        "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" },
-      "MC":  { "name": "Micaela Crespo",        "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
-      "LC":  { "name": "Lucia Couto",           "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
-      "EAM": { "name": "Eliane Abou-Mansour",   "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
-      "RT":  { "name": "Rolande Tardy",         "url": "#" },
-      "AEDC":{ "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
-      "AB":  { "name": "Aurélie Brehmer",       "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
-      "CA":  { "name": "Claire Arnold",         "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
-      "ZEM": { "name": "Zohra El Masbahi",      "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
-      "ACB": { "name": "Anne-Christine Butty",  "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
-      "PAD": { "name": "Pablo Diaz",            "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
-      "TVL": { "name": "Thé Van Luong",         "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
-      "MD":  { "name": "Maëlle Desard",         "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
-      "VL":  { "name": "Véronique Longchamp",   "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
-      "SRSEC":{ "name": "Secrétariat SR",       "url": "mailto:recherche@unil.ch" },
-      "MP":  { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
+      "JR"  : { "name": "Julian Randall",        "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" },
+      "MC"  : { "name": "Micaela Crespo",        "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+      "LC"  : { "name": "Lucia Couto",           "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+      "EAM" : { "name": "Eliane Abou-Mansour",   "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+      "RT"  : { "name": "Rolande Tardy",         "url": "https://annuaire.unil.ch/person/hd73XGXkGb4U5w" },
+      "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
+      "AB"  : { "name": "Aurélie Brehmer",       "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+      "CA"  : { "name": "Claire Arnold",         "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+      "ZEM" : { "name": "Zohra El Masbahi",      "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+      "ACB" : { "name": "Anne-Christine Butty",  "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+      "PAD" : { "name": "Pablo Diaz",            "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+      "TVL" : { "name": "Thé Van Luong",         "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+      "MD"  : { "name": "Maëlle Desard",         "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+      "VL"  : { "name": "Véronique Longchamp",   "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
+      "SRSEC":{ "name": "Secrétariat SR",        "url": "mailto:recherche@unil.ch" },
+      "MP"  : { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
 
       /* Graduate Campus */
-      "MB":  { "name": "Mélanie Bosson",        "url": "#" },
-      "VE":  { "name": "Verity Elston",         "url": "#" },
-      "PF":  { "name": "Pauline Fritsch",       "url": "#" },
-      "MS":  { "name": "Martine Schaer",        "url": "#" },
-      "SN":  { "name": "Shervine Nafissi",      "url": "#" },
+      "MB"  : { "name": "Mélanie Bosson",        "url": "https://annuaire.unil.ch/person/Z3zgfb83u29UXn" },
+      "VE"  : { "name": "Verity Elston",         "url": "https://annuaire.unil.ch/person/yLQjyww9ekudcm" },
+      "PF"  : { "name": "Pauline Fritsch",       "url": "https://annuaire.unil.ch/person/Dz8ghV2HzeAGUd" },
+      "MS"  : { "name": "Martine Schaer",        "url": "https://annuaire.unil.ch/person/4m444gpckuHb25" },
+      "SN"  : { "name": "Shervine Nafissi",      "url": "https://annuaire.unil.ch/person/nApfs3z9krU78L" },
       "GCCONTACT" : { "name": "Graduate Campus – Contact", "url": "mailto:graduatecampus@unil.ch" },
 
       /* PACTT */
-      "AS":  { "name": "Alberto Schena",        "url": "#" },
-      "PACTTINFO": { "name": "PACTT – Info",    "url": "mailto:pactt.info@chuv.ch" },
+      "AS"  : { "name": "Alberto Schena",        "url": "mailto:Alberto.Schena@unil.ch" },
+      "PACTTINFO": { "name": "PACTT – Info",     "url": "mailto:pactt.info@chuv.ch" },
       "PACTTLIC" : { "name": "PACTT – Inventions & valorisation", "url": "mailto:pactt.license@chuv.ch" },
       "PACTTLEG" : { "name": "PACTT – Juridique & contrats",      "url": "mailto:pactt.legal@chuv.ch" },
-      "FG":  { "name": "Florence Guth",         "url": "#" },
-      "ARL": { "name": "Anne-Renée Leyvraz",    "url": "#" },
-      "JP":  { "name": "Jonas Pollard",         "url": "#" },
-      "PH":  { "name": "Pierre Heuzé",          "url": "#" },
+      "FG"  : { "name": "Florence Guth",         "url": "#" },
+      "ARL" : { "name": "Anne-Renée Leyvraz",    "url": "#" },
+      "JP"  : { "name": "Jonas Pollard",         "url": "#" },
+      "PH"  : { "name": "Pierre Heuzé",          "url": "#" },
       "PACTT-J1": { "name": "Laura Lo Bello (Juriste)", "url": "#" },
       "PACTT-J2": { "name": "Olga Larionova (Juriste)", "url": "#" },
       "PACTT-J3": { "name": "Tristan Gianora (Juriste)", "url": "#" },
       "PACTT-J4": { "name": "Simon Jossen (Juriste)",   "url": "#" },
-      "DH":  { "name": "Djamila Houha (Parajuriste)",   "url": "#" },
+      "DH"  : { "name": "Djamila Houha (Parajuriste)",  "url": "#" },
 
-      /* ColLaboratoire (RACP) — correspond exactement aux codes du JSON */
+      /* ColLaboratoire (RACP) — codes COL-* alignés avec le JSON */
       "COL-AK" : { "name": "Alain Kaufmann",             "url": "mailto:Alain.Kaufmann@unil.ch" },
-      "COL-MA" : { "name": "Marc Audétat",               "url": "#" },
-      "COL-AC" : { "name": "Alexandre Camus",            "url": "#" },
-      "COL-LR" : { "name": "Line Rochat",                "url": "#" },
+      "COL-MA" : { "name": "Marc Audétat",               "url": "https://annuaire.unil.ch/person/czBgZ4u7m9XUBj" },
+      "COL-AC" : { "name": "Alexandre Camus",            "url": "https://annuaire.unil.ch/person/Rc5BnLkKew3U7p" },
+      "COL-LR" : { "name": "Line Rochat",                "url": "https://annuaire.unil.ch/person/HD8HUeGjZLAfUQ" },
       "COL-LB" : { "name": "Laure Bonnevie",             "url": "#" },
       "COL-LF" : { "name": "Leyla Fessler",              "url": "#" },
       "COL-MAC": { "name": "Marina Ardizzone Cabitza",   "url": "#" },
 
       /* UNIRIS */
       "UNIRIS": { "name": "UNIRIS – Contact",    "url": "mailto:uniris@unil.ch" },
-      "UNIRIS-DR1": { "name": "Carmen Jambé",    "url": "#" },
-      "UNIRIS-DR2": { "name": "Magalie Vetter",  "url": "#" },
-      "UNIRIS-DR3": { "name": "Marielle Guirlet","url": "#" },
-      "UNIRIS-RM1": { "name": "Laurence Gauvin", "url": "#" },
-      "UNIRIS-RM2": { "name": "Nathalie Montet", "url": "#" },
-      "UNIRIS-RM3": { "name": "Noha El Sadawy",  "url": "#" },
-      "UNIRIS-AR1": { "name": "Sacha Auderset",  "url": "#" },
-      "UNIRIS-AR2": { "name": "Julie Farine",    "url": "#" },
+      "UNIRIS-DR1": { "name": "Carmen Jambé",    "url": "https://annuaire.unil.ch/person/hKVsgGXkGb4U5w" },
+      "UNIRIS-DR2": { "name": "Magalie Vetter",  "url": "https://annuaire.unil.ch/person/R4hmKLkKew3U7p" },
+      "UNIRIS-DR3": { "name": "Marielle Guirlet","url": "mailto:Marielle.Guirlet@unil.ch" },
+      "UNIRIS-RM1": { "name": "Laurence Gauvin", "url": "https://annuaire.unil.ch/person/DH7AV2HzeAGUdB" },
+      "UNIRIS-RM2": { "name": "Nathalie Montet", "url": "https://annuaire.unil.ch/person/4GhGmgpckuHb25" },
+      "UNIRIS-RM3": { "name": "Noha El Sadawy",  "url": "https://annuaire.unil.ch/person/QGLsAyQdbFR27m" },
+      "UNIRIS-AR1": { "name": "Sacha Auderset",  "url": "https://annuaire.unil.ch/person/XsbBrpnh8kfQsy" },
+      "UNIRIS-AR2": { "name": "Julie Farine",    "url": "https://annuaire.unil.ch/person/rybU4RB5Kh7cUQ" },
       "UNIRIS-AR3": { "name": "Elora Lovey",     "url": "#" },
       "UNIRIS-AR4": { "name": "Xavier Baume",    "url": "#" },
-      "UNIRIS-V1" : { "name": "Eva Frei",        "url": "#" },
-      "UNIRIS-V2" : { "name": "Flavia Mizel",    "url": "#" }
+      "UNIRIS-V1" : { "name": "Eva Frei",        "url": "https://annuaire.unil.ch/person/uHmiw2fbRe7LFH" },
+      "UNIRIS-V2" : { "name": "Flavia Mizel",    "url": "mailto:Flavia.Mizel@unil.ch" }
     };
 
     // ======== Traductions ========
     var translate = {
-      "fr": { "contact":"Contacter","text":"La personne ci‑dessous est votre point de contact.",
-              "error":"DoggyGo n'est pas accessible pour le moment.","back":"Retour","restart":"Recommencer",
-              "note":"Les boutons Contacter ouvrent l’annuaire UNIL ou un e‑mail." },
-      "en": { "contact":"Contact","text":"This person is your point of contact.",
-              "error":"DoggyGo is not available right now.","back":"Back","restart":"Restart",
-              "note":"Contact buttons open the UNIL directory or an email." }
+      "fr": {
+        "contact": "Contacter",
+        "text"   : "La personne ci‑dessous est votre point de contact.",
+        "error"  : "DoggyGo n'est pas accessible pour le moment.",
+        "back"   : "Revenir",
+        "restart": "Recommencer",
+        "note"   : "Les boutons Contacter ouvrent l’annuaire UNIL ou un e‑mail."
+      },
+      "en": {
+        "contact": "Contact",
+        "text"   : "This person is your point of contact.",
+        "error"  : "DoggyGo is not available right now.",
+        "back"   : "Back",
+        "restart": "Restart",
+        "note"   : "Contact buttons open the UNIL directory or an email."
+      }
     };
 
     // ======== État ========
@@ -202,114 +330,187 @@
     function setHTML(idOrEl, html){ (typeof idOrEl === 'string' ? $(idOrEl) : idOrEl).innerHTML = html; }
     function show(el){ el.style.display = ""; }
     function hide(el){ el.style.display = "none"; }
-    function escapeHTML(str){ var d=document.createElement('div'); d.textContent = String(str||""); return d.innerHTML; }
-    function t(key){ return (translate[lang] && translate[lang][key]) || key; }
-    function applyI18n(){ document.querySelectorAll("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); }); }
-    function renderProgress(){
-      var el = $("#progress"); if(!el) return;
-      if(trail.length===0){ el.innerHTML=""; return; }
-      el.innerHTML = trail.map(function(_,i){ return '<span class="chip'+(i===trail.length-1?'':' muted')+'">'+(i+1)+'</span>'; }).join('');
+    function escapeHTML(str){
+      var div = document.createElement('div');
+      div.textContent = String(str || "");
+      return div.innerHTML;
     }
-    function initials(name){ if(!name) return "?"; var p=name.split(" "); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase(); }
+    function t(key){ return (translate[lang] && translate[lang][key]) || key; }
+    function applyI18n(){
+      document.querySelectorAll("[data-i18n]").forEach(function(el){
+        var k = el.getAttribute("data-i18n");
+        el.innerHTML = t(k);
+      });
+    }
+    function renderProgress(){
+      var progressEl = $("#progress");
+      if(!progressEl) return;
+      if(trail.length === 0){ progressEl.innerHTML = ""; return; }
+      var chips = trail.map(function(_, idx){
+        return '<span class="chip'+(idx === trail.length-1 ? '' : ' muted')+'">'+ (idx+1) +'</span>';
+      }).join('');
+      progressEl.innerHTML = chips;
+    }
+    function initials(name){
+      if(!name) return "?";
+      var parts = name.split(" ");
+      var a = parts[0] ? parts[0][0] : "";
+      var b = parts[1] ? parts[1][0] : "";
+      return (a+b).toUpperCase();
+    }
 
-    // ======== Rendu ========
+    // ======== Rendu principal ========
     function renderOptions(key){
       var node = tree[key] || {};
       var label = escapeHTML(node.label || "");
-      parent = node.parent || ""; oldItem = key;
-      if(trail[trail.length-1] !== key){ trail.push(key); } renderProgress();
+      parent = node.parent || "";
+      oldItem = key;
+
+      if(trail[trail.length-1] !== key){ trail.push(key); }
+      renderProgress();
 
       var optionsHTML = (node.options || []).map(function(opt){
-        var v = String(opt.value||"").replace(/'/g,"\\'");
-        return '<a class="option-item" href="javascript:format(\''+v+'\')" role="button">'+
-                 '<span class="label"><i class="fa-solid fa-arrow-right-long"></i> '+escapeHTML(opt.option)+'</span>'+
-               '</a>';
+        var v = String(opt.value || "").replace(/'/g, "\\'");
+        return ''+
+          '<a class="option-item" href="javascript:format(\''+ v +'\')" role="button">'+
+            '<span class="label"><i class="fa-solid fa-arrow-right-long"></i> '+ escapeHTML(opt.option) +'</span>'+
+          '</a>';
       }).join('');
 
-      setHTML("#question", '<div class="q-title">'+label+'</div><div class="list-group">'+optionsHTML+'</div>');
+      var html = ''+
+        '<div class="q-title">'+ label +'</div>'+
+        '<div class="list-group">'+ optionsHTML +'</div>';
+
+      setHTML("#question", html);
       $("#question").classList.add("fade-up");
-      show($("#buttons")); if(node.parent){ show($("#back")); } else { hide($("#back")); } hide($("#restart")); applyI18n();
+
+      // Controls
+      show($("#buttons"));
+      if(node.parent){ show($("#back")); } else { hide($("#back")); }
+      hide($("#restart"));
+      applyI18n();
     }
+
     function renderContact(item){
-      var clean = item.replace("Contacter", t("contact"));
-      var code = clean.split(" ")[1];
+      // Ex: "Contacter CODE"
+      var match = /^Contacter\s+(.+)$/.exec(item);
+      var code = match ? match[1] : "";
       var p = persons[code] || {};
-      var name = p.name || code || "Contact"; var url = p.url || "#";
-      if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); } renderProgress();
+      var name = p.name || code || "Contact";
+      var url = p.url || "#";
+
+      if(trail[trail.length-1] !== "contact:"+code){ trail.push("contact:"+code); }
+      renderProgress();
 
       var html = ''+
-        '<div class="q-title">'+escapeHTML(t("text"))+'</div>'+
+        '<div class="q-title">'+ escapeHTML(t("text")) +'</div>'+
         '<div class="contact-wrap">'+
           '<div class="contact-id">'+
             '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
-            '<div><p class="contact-name">'+escapeHTML(name)+'</p>'+
-            '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Point de contact</p></div>'+
+            '<div>'+
+              '<p class="contact-name">'+ escapeHTML(name) +'</p>'+
+              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Point de contact</p>'+
+            '</div>'+
           '</div>'+
-          '<div class="cta"><a class="btn" target="_blank" rel="noopener" href="'+url+'">'+
-            '<i class="fa-solid fa-paper-plane"></i> '+escapeHTML(t("contact"))+'</a></div>'+
+          '<div class="cta">'+
+            '<a class="btn" target="_blank" rel="noopener" href="'+ url +'">'+
+              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(t("contact")) +
+            '</a>'+
+          '</div>'+
         '</div>';
-      setHTML("#question", html); $("#question").classList.add("fade-up");
-      show($("#buttons")); hide($("#back")); show($("#restart")); applyI18n();
+
+      setHTML("#question", html);
+      $("#question").classList.add("fade-up");
+
+      // 👉 Boutons : montrer aussi "Revenir" sur la fiche contact
+      show($("#buttons"));
+      show($("#back"));      // <— demandé
+      show($("#restart"));
+      applyI18n();
     }
 
     // ======== API ========
-    function format(item){ if(item.substr(0,9)==="Contacter"){ renderContact(item); } else { renderOptions(item); } }
-    function goback(){ if(!parent) return; trail.pop(); format(parent); }
-    window.format = format; window.goback = goback;
-
-    // ======== Chargement du tree (HTTP + fallback inline) ========
-    async function loadTree(){
-      // 1) Essai HTTP (fonctionne en http:// ou https://)
-      try{
-        const url = treeBase + treeName;
-        const res = await fetch(url, { cache:"no-store" });
-        if(res.ok){
-          const data = await res.json();
-          console.log("[DoggyGo] JSON chargé via HTTP:", url);
-          return data;
-        }else{
-          console.warn("[DoggyGo] Échec HTTP", res.status, res.statusText);
-        }
-      }catch(e){
-        console.warn("[DoggyGo] fetch() a échoué:", e);
+    function format(item){
+      if(String(item).substr(0,9) === "Contacter"){
+        renderContact(item);
+      } else {
+        renderOptions(item);
       }
-      // 2) Fallback inline (fonctionne en file://)
-      var inline = document.getElementById("tree-inline-fr");
-      if(inline && inline.textContent.trim()){
-        try{
-          var parsed = JSON.parse(inline.textContent);
-          console.log("[DoggyGo] JSON chargé via inline <script>.");
-          $("#warn-file") && show($("#warn-file"));
-          return parsed;
-        }catch(e){
-          console.error("[DoggyGo] JSON inline invalide:", e);
-        }
-      }
-      throw new Error("Impossible de charger le JSON (HTTP et inline ont échoué).");
     }
+    function goback(){
+      // si on est sur une fiche contact, revenir à la dernière question (oldItem)
+      var last = trail[trail.length-1] || "";
+      if(typeof last === "string" && last.indexOf("contact:") === 0){
+        trail.pop(); // enlever la fiche contact de la trace
+        format(oldItem);
+        return;
+      }
+      // sinon : remonter dans l'arbre
+      if(!parent) return;
+      trail.pop();
+      format(parent);
+    }
+    window.format = format;
+    window.goback = goback;
 
     // ======== Init ========
     function loadParams(){
       var params = new URLSearchParams(location.search);
-      var qLang = params.get("lang"); var notitle = params.get("notitle");
+      var qLang = params.get("lang");
+      var notitle = params.get("notitle");
       if(qLang && translate[qLang]){ lang = qLang; treeName = "doggygo-contacts-" + lang + ".json"; }
-      if(notitle === "true"){ document.querySelectorAll("h1,.title").forEach(function(h){ h.classList.add("visually-hidden"); }); }
+      if(notitle === "true"){
+        document.querySelectorAll("h1,.title").forEach(function(h){ h.classList.add("visually-hidden"); });
+      }
     }
     function showLoader(){
-      setHTML("#question", '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:50%"></div></div>');
+      setHTML("#question",
+        '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div></div>'
+      );
       hide($("#back")); hide($("#restart"));
     }
+
+    async function loadTree(){
+      try{
+        var url = treeBase + treeName;
+        var res = await fetch(url, {cache:"no-store"});
+        if(res.ok){
+          var data = await res.json();
+          return data;
+        }
+      }catch(e){
+        console.warn("[DoggyGo] fetch error:", e);
+      }
+      // Fallback inline (utile en file://)
+      var inline = document.getElementById("tree-inline-fr");
+      if(inline && inline.textContent.trim()){
+        try{
+          var parsed = JSON.parse(inline.textContent);
+          show($("#warn-file"));
+          return parsed;
+        }catch(e){
+          console.error("JSON inline invalide:", e);
+        }
+      }
+      throw new Error("Impossible de charger le JSON.");
+    }
+
     async function boot(){
-      loadParams(); applyI18n(); showLoader();
+      loadParams();
+      applyI18n();
+      showLoader();
       try{
         tree = await loadTree();
         if(!tree["0"]) throw new Error('Le JSON ne contient pas la clé "0".');
-        show($("#buttons")); format("0");
+        show($("#buttons"));
+        format("0");
       }catch(e){
         console.error(e);
-        setHTML("#question", '<div class="alert alert-danger mb-0" role="alert">'+
-          '<i class="fa-solid fa-triangle-exclamation"></i> '+ t('error') +
-          '<div class="small mt-1">'+ escapeHTML(e.message) +'</div></div>');
+        setHTML("#question",
+          '<div class="alert alert-danger mb-0" role="alert">'+
+          '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +
+          '<div class="small mt-1">'+ escapeHTML(e.message) +'</div></div>'
+        );
       }
     }
     document.addEventListener("DOMContentLoaded", boot);
