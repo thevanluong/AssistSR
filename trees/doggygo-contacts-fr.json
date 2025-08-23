@@ -10,6 +10,7 @@
       { "option": "Je ne sais pas / besoin d’orientation", "value": "Contacter SRSEC" }
     ]
   },
+
   "SR": {
     "parent": "0",
     "label": "SR · Quel sujet ?",
@@ -22,7 +23,18 @@
       { "option": "Formations liées à la recherche", "value": "Contacter VL" },
       { "option": "Plateformes de recherche (répondante UNIL)", "value": "Contacter ACB" },
       { "option": "Communication & communauté (SR)", "value": "Contacter MD" },
+      { "option": "Direction du SR", "value": "SR-DIR" },
+      { "option": "Collaborations externes (prestataires)", "value": "Contacter SG" },
       { "option": "Question générale (Secrétariat SR)", "value": "Contacter SRSEC" }
+    ]
+  },
+  "SR-DIR": {
+    "parent": "SR",
+    "label": "Direction du SR · Qui contacter ?",
+    "options": [
+      { "option": "Chef du service – Julian Randall", "value": "Contacter JR" },
+      { "option": "Cheffe de service adjointe – Micaela Crespo", "value": "Contacter MC" },
+      { "option": "Assistante de direction – Lucia Couto", "value": "Contacter LC" }
     ]
   },
   "SR-FIN": {
@@ -60,27 +72,90 @@
       { "option": "Données de recherche (DMP, dépôt, partage, archivage)", "value": "Contacter UNIRIS-DR1" }
     ]
   },
+
   "GC": {
     "parent": "0",
     "label": "Graduate Campus · Quel besoin ?",
     "options": [
       { "option": "Conseils doctorat & formation doctorale (thèse de A à Z, suivi annuel, admission/supervision)", "value": "Contacter GCCONTACT" },
+      { "option": "Doctorat & formation — équipe", "value": "GC-DOC" },
       { "option": "Développement professionnel & carrières (y compris postdocs)", "value": "Contacter VE" },
+      { "option": "Carrières — équipe", "value": "GC-CAR" },
       { "option": "Communication & communauté (événements, portraits, MT180…)", "value": "Contacter SN" },
+      { "option": "Communication & communauté — équipe", "value": "GC-COM" },
+      { "option": "Promotion de la relève (swissuniversities)", "value": "GC-SWISS" },
       { "option": "Question générale", "value": "Contacter GCCONTACT" }
     ]
   },
+  "GC-DOC": {
+    "parent": "GC",
+    "label": "Doctorat & formation — Qui contacter ?",
+    "options": [
+      { "option": "Mélanie Bosson", "value": "Contacter MB" },
+      { "option": "Pauline Fritsch", "value": "Contacter PF" }
+    ]
+  },
+  "GC-CAR": {
+    "parent": "GC",
+    "label": "Carrières — Qui contacter ?",
+    "options": [
+      { "option": "Verity Elston", "value": "Contacter VE" },
+      { "option": "Martine Schaer", "value": "Contacter MS" }
+    ]
+  },
+  "GC-COM": {
+    "parent": "GC",
+    "label": "Communication & communauté — Qui contacter ?",
+    "options": [
+      { "option": "Shervine Nafissi", "value": "Contacter SN" },
+      { "option": "Véronique Longchamp", "value": "Contacter VL" }
+    ]
+  },
+  "GC-SWISS": {
+    "parent": "GC",
+    "label": "Promotion de la relève (swissuniversities) — Qui contacter ?",
+    "options": [
+      { "option": "Esther Liekmeier", "value": "Contacter GC-EL" },
+      { "option": "Aliénor Vauthey", "value": "Contacter GC-AV" }
+    ]
+  },
+
   "PACTT": {
     "parent": "0",
     "label": "PACTT · Quel besoin ?",
     "options": [
       { "option": "Déclarer une invention / valoriser des résultats / PI (brevets, logiciels, licences…)", "value": "Contacter PACTTLIC" },
+      { "option": "Équipe « Inventions & valorisation » — choisir une personne", "value": "PACTT-VAL" },
       { "option": "Conseils juridiques & contrats (NDA, MTA, collaborations…)", "value": "Contacter PACTTLEG" },
+      { "option": "Équipe juridique — choisir une personne", "value": "PACTT-JUR" },
       { "option": "Programme InnoPACTT (InnoTREK, InnoSTEP, InnoDIGITAL)", "value": "Contacter PACTTINFO" },
+      { "option": "Administration & finance", "value": "Contacter PACTT-AP" },
       { "option": "Question générale", "value": "Contacter PACTTINFO" },
       { "option": "Responsable du service", "value": "Contacter AS" }
     ]
   },
+  "PACTT-VAL": {
+    "parent": "PACTT",
+    "label": "Inventions & valorisation — Qui contacter ?",
+    "options": [
+      { "option": "Florence Guth", "value": "Contacter FG" },
+      { "option": "Anne-Renée Leyvraz", "value": "Contacter ARL" },
+      { "option": "Jonas Pollard", "value": "Contacter JP" },
+      { "option": "Pierre Heuzé", "value": "Contacter PH" }
+    ]
+  },
+  "PACTT-JUR": {
+    "parent": "PACTT",
+    "label": "Juridique — Qui contacter ?",
+    "options": [
+      { "option": "Laura Lo Bello (Juriste)", "value": "Contacter PACTT-J1" },
+      { "option": "Olga Larionova (Juriste)", "value": "Contacter PACTT-J2" },
+      { "option": "Tristan Gianora (Juriste)", "value": "Contacter PACTT-J3" },
+      { "option": "Simon Jossen (Juriste)", "value": "Contacter PACTT-J4" },
+      { "option": "Parajuriste — Djamila Houha", "value": "Contacter DH" }
+    ]
+  },
+
   "UNIRIS": {
     "parent": "0",
     "label": "UNIRIS · Quel besoin ?",
@@ -89,6 +164,8 @@
       { "option": "Records management / GEDUnil / gestion documentaire", "value": "UNIRIS-RM" },
       { "option": "Archives historiques", "value": "UNIRIS-AR" },
       { "option": "Veille stratégique & médias", "value": "UNIRIS-V" },
+      { "option": "Responsable du service", "value": "Contacter UNIRIS-RESP" },
+      { "option": "Administration du service", "value": "Contacter UNIRIS-ADM" },
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
@@ -129,6 +206,7 @@
       { "option": "Assistante veille – Flavia Mizel", "value": "Contacter UNIRIS-V2" }
     ]
   },
+
   "COL": {
     "parent": "0",
     "label": "ColLaboratoire (RACP) · Quel besoin ?",
@@ -136,7 +214,22 @@
       { "option": "Démarrer / accompagner un projet de recherche‑action (RACP)", "value": "Contacter COL-AC" },
       { "option": "Soutien méthodologique / formations RACP", "value": "Contacter COL-MA" },
       { "option": "Partenariats, réseaux, promotion de la RACP", "value": "Contacter COL-LR" },
+      { "option": "Contacter une autre personne de l’équipe", "value": "COL-TEAM" },
       { "option": "Question générale (direction de l’unité)", "value": "Contacter COL-AK" }
+    ]
+  },
+  "COL-TEAM": {
+    "parent": "COL",
+    "label": "ColLaboratoire — Qui contacter ?",
+    "options": [
+      { "option": "Responsable de recherche — Laetitia Della Bianca", "value": "Contacter COL-LDB" },
+      { "option": "Chargée de recherche — Laure Bonnevie", "value": "Contacter COL-LB" },
+      { "option": "Chargée de recherche — Leyla Fessler", "value": "Contacter COL-LF" },
+      { "option": "Chargée de recherche — Marina Ardizzone Cabitza", "value": "Contacter COL-MAC" },
+      { "option": "Directeur — Alain Kaufmann", "value": "Contacter COL-AK" },
+      { "option": "Responsable de recherche — Marc Audétat", "value": "Contacter COL-MA" },
+      { "option": "Responsable de recherche — Alexandre Camus", "value": "Contacter COL-AC" },
+      { "option": "Responsable de recherche — Line Rochat", "value": "Contacter COL-LR" }
     ]
   }
 }
