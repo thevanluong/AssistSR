@@ -6,7 +6,6 @@
       { "option": "Graduate Campus – doctorat, carrière, formations, supervision", "value": "GC" },
       { "option": "PACTT – valorisation, propriété intellectuelle, contrats avec l’industrie", "value": "PACTT" },
       { "option": "UNIRIS – données de recherche, records management / GEDUnil, archives, veille", "value": "UNIRIS" },
-      { "option": "ColLaboratoire – recherche‑action, collaborative et participative (RACP)", "value": "COL" },
       { "option": "Je ne sais pas / besoin d’orientation", "value": "Contacter SRSEC" }
     ]
   },
@@ -22,9 +21,10 @@
       { "option": "Outils informatiques pour la recherche (IA, ORCID, IRIS)", "value": "Contacter TVL" },
       { "option": "Formations liées à la recherche", "value": "Contacter VL" },
       { "option": "Plateformes de recherche (répondante UNIL)", "value": "Contacter ACB" },
+      { "option": "Recherche‑action, collaborative et participative (RACP)", "value": "SR-RACP" },
       { "option": "Communication & communauté (SR)", "value": "Contacter MD" },
-      { "option": "Direction du SR", "value": "SR-DIR" },
       { "option": "Collaborations externes (prestataires)", "value": "Contacter SG" },
+      { "option": "Direction du SR", "value": "SR-DIR" },
       { "option": "Question générale (Secrétariat SR)", "value": "Contacter SRSEC" }
     ]
   },
@@ -72,6 +72,14 @@
       { "option": "Données de recherche (DMP, dépôt, partage, archivage)", "value": "Contacter UNIRIS-DR1" }
     ]
   },
+  "SR-RACP": {
+    "parent": "SR",
+    "label": "Recherche‑action, collaborative et participative (RACP) — Qui contacter ?",
+    "options": [
+      { "option": "Responsable de recherche – Alexandre Camus", "value": "Contacter COL-AC" },
+      { "option": "Responsable de recherche – Marc Audétat", "value": "Contacter COL-MA" }
+    ]
+  },
 
   "GC": {
     "parent": "0",
@@ -81,8 +89,7 @@
       { "option": "Doctorat & formation — équipe", "value": "GC-DOC" },
       { "option": "Développement professionnel & carrières (y compris postdocs)", "value": "Contacter VE" },
       { "option": "Carrières — équipe", "value": "GC-CAR" },
-      { "option": "Communication & communauté (événements, portraits, MT180…)", "value": "Contacter SN" },
-      { "option": "Communication & communauté — équipe", "value": "GC-COM" },
+      { "option": "Communication & communauté — Qui contacter ?", "value": "GC-COM" },
       { "option": "Promotion de la relève (swissuniversities)", "value": "GC-SWISS" },
       { "option": "Question générale", "value": "Contacter GCCONTACT" }
     ]
@@ -129,9 +136,8 @@
       { "option": "Conseils juridiques & contrats (NDA, MTA, collaborations…)", "value": "Contacter PACTTLEG" },
       { "option": "Équipe juridique — choisir une personne", "value": "PACTT-JUR" },
       { "option": "Programme InnoPACTT (InnoTREK, InnoSTEP, InnoDIGITAL)", "value": "Contacter PACTTINFO" },
-      { "option": "Administration & finance", "value": "Contacter PACTT-AP" },
-      { "option": "Question générale", "value": "Contacter PACTTINFO" },
-      { "option": "Responsable du service", "value": "Contacter AS" }
+      { "option": "Administration & direction — Qui contacter ?", "value": "PACTT-ADM-DIR" },
+      { "option": "Question générale", "value": "Contacter PACTTINFO" }
     ]
   },
   "PACTT-VAL": {
@@ -155,6 +161,14 @@
       { "option": "Parajuriste – Djamila Houha", "value": "Contacter DH" }
     ]
   },
+  "PACTT-ADM-DIR": {
+    "parent": "PACTT",
+    "label": "Administration & direction — Qui contacter ?",
+    "options": [
+      { "option": "Responsable du service – Alberto Schena", "value": "Contacter AS" },
+      { "option": "Administration & finance – Aurélie Périsset", "value": "Contacter PACTT-AP" }
+    ]
+  },
 
   "UNIRIS": {
     "parent": "0",
@@ -164,8 +178,7 @@
       { "option": "Records management / GEDUnil / gestion documentaire", "value": "UNIRIS-RM" },
       { "option": "Archives historiques", "value": "UNIRIS-AR" },
       { "option": "Veille stratégique & médias", "value": "UNIRIS-V" },
-      { "option": "Responsable du service", "value": "Contacter UNIRIS-RESP" },
-      { "option": "Administration du service", "value": "Contacter UNIRIS-ADM" },
+      { "option": "Administration & direction du service — Qui contacter ?", "value": "UNIRIS-ADM-DIR" },
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
@@ -206,30 +219,12 @@
       { "option": "Assistante veille – Flavia Mizel", "value": "Contacter UNIRIS-V2" }
     ]
   },
-
-  "COL": {
-    "parent": "0",
-    "label": "ColLaboratoire (RACP) · Quel besoin ?",
+  "UNIRIS-ADM-DIR": {
+    "parent": "UNIRIS",
+    "label": "Administration & direction du service — Qui contacter ?",
     "options": [
-      { "option": "Démarrer / accompagner un projet de recherche‑action (RACP)", "value": "Contacter COL-AC" },
-      { "option": "Soutien méthodologique / formations RACP", "value": "Contacter COL-MA" },
-      { "option": "Partenariats, réseaux, promotion de la RACP", "value": "Contacter COL-LR" },
-      { "option": "Contacter une autre personne de l’équipe", "value": "COL-TEAM" },
-      { "option": "Question générale (direction de l’unité)", "value": "Contacter COL-AK" }
-    ]
-  },
-  "COL-TEAM": {
-    "parent": "COL",
-    "label": "ColLaboratoire — Qui contacter ?",
-    "options": [
-      { "option": "Responsable de recherche – Laetitia Della Bianca", "value": "Contacter COL-LDB" },
-      { "option": "Chargée de recherche – Laure Bonnevie", "value": "Contacter COL-LB" },
-      { "option": "Chargée de recherche – Leyla Fessler", "value": "Contacter COL-LF" },
-      { "option": "Chargée de recherche – Marina Ardizzone Cabitza", "value": "Contacter COL-MAC" },
-      { "option": "Directeur – Alain Kaufmann", "value": "Contacter COL-AK" },
-      { "option": "Responsable de recherche – Marc Audétat", "value": "Contacter COL-MA" },
-      { "option": "Responsable de recherche – Alexandre Camus", "value": "Contacter COL-AC" },
-      { "option": "Responsable de recherche – Line Rochat", "value": "Contacter COL-LR" }
+      { "option": "Chef de service – Gérard Bagnoud", "value": "Contacter UNIRIS-RESP" },
+      { "option": "Collaborateur administratif – Romain Clément", "value": "Contacter UNIRIS-ADM" }
     ]
   }
 }
