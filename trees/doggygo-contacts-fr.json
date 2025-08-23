@@ -52,8 +52,8 @@
     "parent": "SR-FIN",
     "label": "Euresearch · À qui voulez‑vous vous adresser ?",
     "options": [
-      { "option": "Responsable Euresearch (UNIL‑CHUV)", "value": "Contacter AEDC" },
-      { "option": "Conseillère Euresearch", "value": "Contacter AB" }
+      { "option": "Responsable Euresearch – Anne‑Emmanuelle de Crousaz", "value": "Contacter AEDC" },
+      { "option": "Conseillère Euresearch – Aurélie Brehmer", "value": "Contacter AB" }
     ]
   },
   "SR-MP": {
@@ -91,32 +91,32 @@
     "parent": "GC",
     "label": "Doctorat & formation — Qui contacter ?",
     "options": [
-      { "option": "Mélanie Bosson", "value": "Contacter MB" },
-      { "option": "Pauline Fritsch", "value": "Contacter PF" }
+      { "option": "Co-Directrice – Mélanie Bosson", "value": "Contacter MB" },
+      { "option": "Adjointe – Pauline Fritsch", "value": "Contacter PF" }
     ]
   },
   "GC-CAR": {
     "parent": "GC",
     "label": "Carrières — Qui contacter ?",
     "options": [
-      { "option": "Verity Elston", "value": "Contacter VE" },
-      { "option": "Martine Schaer", "value": "Contacter MS" }
+      { "option": "Co-Directrice – Verity Elston", "value": "Contacter VE" },
+      { "option": "Adjointe – Martine Schaer", "value": "Contacter MS" }
     ]
   },
   "GC-COM": {
     "parent": "GC",
     "label": "Communication & communauté — Qui contacter ?",
     "options": [
-      { "option": "Shervine Nafissi", "value": "Contacter SN" },
-      { "option": "Véronique Longchamp", "value": "Contacter VL" }
+      { "option": "Responsable communication – Shervine Nafissi", "value": "Contacter SN" },
+      { "option": "Coordinatrice du Graduate Campus – Véronique Longchamp", "value": "Contacter VL" }
     ]
   },
   "GC-SWISS": {
     "parent": "GC",
     "label": "Promotion de la relève (swissuniversities) — Qui contacter ?",
     "options": [
-      { "option": "Esther Liekmeier", "value": "Contacter GC-EL" },
-      { "option": "Aliénor Vauthey", "value": "Contacter GC-AV" }
+      { "option": "Chargée de projet (Promotion de la relève) – Esther Liekmeier", "value": "Contacter GC-EL" },
+      { "option": "Chargée de projet (Promotion de la relève) – Aliénor Vauthey", "value": "Contacter GC-AV" }
     ]
   },
 
@@ -138,21 +138,21 @@
     "parent": "PACTT",
     "label": "Inventions & valorisation — Qui contacter ?",
     "options": [
-      { "option": "Florence Guth", "value": "Contacter FG" },
-      { "option": "Anne-Renée Leyvraz", "value": "Contacter ARL" },
-      { "option": "Jonas Pollard", "value": "Contacter JP" },
-      { "option": "Pierre Heuzé", "value": "Contacter PH" }
+      { "option": "Chargée de la valorisation – Florence Guth", "value": "Contacter FG" },
+      { "option": "Chargée de la valorisation – Anne-Renée Leyvraz", "value": "Contacter ARL" },
+      { "option": "Chargé de la valorisation – Jonas Pollard", "value": "Contacter JP" },
+      { "option": "Chargé de la valorisation – Pierre Heuzé", "value": "Contacter PH" }
     ]
   },
   "PACTT-JUR": {
     "parent": "PACTT",
     "label": "Juridique — Qui contacter ?",
     "options": [
-      { "option": "Laura Lo Bello (Juriste)", "value": "Contacter PACTT-J1" },
-      { "option": "Olga Larionova (Juriste)", "value": "Contacter PACTT-J2" },
-      { "option": "Tristan Gianora (Juriste)", "value": "Contacter PACTT-J3" },
-      { "option": "Simon Jossen (Juriste)", "value": "Contacter PACTT-J4" },
-      { "option": "Parajuriste — Djamila Houha", "value": "Contacter DH" }
+      { "option": "Juriste – Laura Lo Bello", "value": "Contacter PACTT-J1" },
+      { "option": "Juriste – Olga Larionova", "value": "Contacter PACTT-J2" },
+      { "option": "Juriste – Tristan Gianora", "value": "Contacter PACTT-J3" },
+      { "option": "Juriste – Simon Jossen", "value": "Contacter PACTT-J4" },
+      { "option": "Parajuriste – Djamila Houha", "value": "Contacter DH" }
     ]
   },
 
@@ -173,9 +173,9 @@
     "parent": "UNIRIS",
     "label": "Données de recherche · Quel sujet ?",
     "options": [
-      { "option": "Point de contact (réseau Data Stewards, exigences FNS/Horizon, DMP)", "value": "Contacter UNIRIS-DR1" },
-      { "option": "Curatrice de données", "value": "Contacter UNIRIS-DR2" },
-      { "option": "Projet Swiss Data Stewardship Environment (SwissDS‑ENV)", "value": "Contacter UNIRIS-DR3" },
+      { "option": "Point de contact – Carmen Jambé", "value": "Contacter UNIRIS-DR1" },
+      { "option": "Curatrice de données – Magalie Vetter", "value": "Contacter UNIRIS-DR2" },
+      { "option": "Coordinatrice du projet (SwissDS‑ENV) – Marielle Guirlet", "value": "Contacter UNIRIS-DR3" },
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
@@ -183,9 +183,9 @@
     "parent": "UNIRIS",
     "label": "Records management / GEDUnil · Qui contacter ?",
     "options": [
-      { "option": "Spécialiste GEDUnil / Records Manager", "value": "Contacter UNIRIS-RM1" },
-      { "option": "GED Direction / Documentaliste", "value": "Contacter UNIRIS-RM2" },
-      { "option": "GED Direction / Assistante documentaire", "value": "Contacter UNIRIS-RM3" }
+      { "option": "Spécialiste GEDUnil / Records Manager – Laurence Gauvin", "value": "Contacter UNIRIS-RM1" },
+      { "option": "GED Direction / Documentaliste – Nathalie Montet", "value": "Contacter UNIRIS-RM2" },
+      { "option": "GED Direction / Assistante documentaire – Noha El Sadawy", "value": "Contacter UNIRIS-RM3" }
     ]
   },
   "UNIRIS-AR": {
@@ -222,14 +222,14 @@
     "parent": "COL",
     "label": "ColLaboratoire — Qui contacter ?",
     "options": [
-      { "option": "Responsable de recherche — Laetitia Della Bianca", "value": "Contacter COL-LDB" },
-      { "option": "Chargée de recherche — Laure Bonnevie", "value": "Contacter COL-LB" },
-      { "option": "Chargée de recherche — Leyla Fessler", "value": "Contacter COL-LF" },
-      { "option": "Chargée de recherche — Marina Ardizzone Cabitza", "value": "Contacter COL-MAC" },
-      { "option": "Directeur — Alain Kaufmann", "value": "Contacter COL-AK" },
-      { "option": "Responsable de recherche — Marc Audétat", "value": "Contacter COL-MA" },
-      { "option": "Responsable de recherche — Alexandre Camus", "value": "Contacter COL-AC" },
-      { "option": "Responsable de recherche — Line Rochat", "value": "Contacter COL-LR" }
+      { "option": "Responsable de recherche – Laetitia Della Bianca", "value": "Contacter COL-LDB" },
+      { "option": "Chargée de recherche – Laure Bonnevie", "value": "Contacter COL-LB" },
+      { "option": "Chargée de recherche – Leyla Fessler", "value": "Contacter COL-LF" },
+      { "option": "Chargée de recherche – Marina Ardizzone Cabitza", "value": "Contacter COL-MAC" },
+      { "option": "Directeur – Alain Kaufmann", "value": "Contacter COL-AK" },
+      { "option": "Responsable de recherche – Marc Audétat", "value": "Contacter COL-MA" },
+      { "option": "Responsable de recherche – Alexandre Camus", "value": "Contacter COL-AC" },
+      { "option": "Responsable de recherche – Line Rochat", "value": "Contacter COL-LR" }
     ]
   }
 }
