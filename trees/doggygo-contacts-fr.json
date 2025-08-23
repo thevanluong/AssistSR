@@ -12,7 +12,7 @@
 
   "SR": {
     "parent": "0",
-    "label": "SR · Quel sujet ?",
+    "label": "Service de la recherche · Quel sujet ?",
     "options": [
       { "option": "Financements et bailleurs", "value": "SR-FIN" },
       { "option": "Marchés publics (achats liés à un projet)", "value": "SR-MP" },
@@ -22,10 +22,10 @@
       { "option": "Formations liées à la recherche", "value": "Contacter VL" },
       { "option": "Plateformes de recherche (répondante UNIL)", "value": "Contacter ACB" },
       { "option": "Recherche‑action, collaborative et participative (RACP)", "value": "SR-RACP" },
-      { "option": "Communication & communauté (SR)", "value": "Contacter MD" },
+      { "option": "Communication & communauté", "value": "Contacter MD" },
       { "option": "Collaborations externes (prestataires)", "value": "Contacter SG" },
-      { "option": "Direction du SR", "value": "SR-DIR" },
-      { "option": "Question générale (Secrétariat SR)", "value": "Contacter SRSEC" }
+      { "option": "Administration & direction", "value": "SR-DIR" },
+      { "option": "Question générale", "value": "Contacter SRSEC" }
     ]
   },
   "SR-DIR": {
@@ -89,7 +89,7 @@
       { "option": "Doctorat & formation — équipe", "value": "GC-DOC" },
       { "option": "Développement professionnel & carrières (y compris postdocs)", "value": "Contacter VE" },
       { "option": "Carrières — équipe", "value": "GC-CAR" },
-      { "option": "Communication & communauté — Qui contacter ?", "value": "GC-COM" },
+      { "option": "Communication & communauté", "value": "GC-COM" },
       { "option": "Promotion de la relève (swissuniversities)", "value": "GC-SWISS" },
       { "option": "Question générale", "value": "Contacter GCCONTACT" }
     ]
@@ -136,7 +136,7 @@
       { "option": "Conseils juridiques & contrats (NDA, MTA, collaborations…)", "value": "Contacter PACTTLEG" },
       { "option": "Équipe juridique — choisir une personne", "value": "PACTT-JUR" },
       { "option": "Programme InnoPACTT (InnoTREK, InnoSTEP, InnoDIGITAL)", "value": "Contacter PACTTINFO" },
-      { "option": "Administration & direction — Qui contacter ?", "value": "PACTT-ADM-DIR" },
+      { "option": "Administration & direction", "value": "PACTT-ADM-DIR" },
       { "option": "Question générale", "value": "Contacter PACTTINFO" }
     ]
   },
@@ -178,7 +178,7 @@
       { "option": "Records management / GEDUnil / gestion documentaire", "value": "UNIRIS-RM" },
       { "option": "Archives historiques", "value": "UNIRIS-AR" },
       { "option": "Veille stratégique & médias", "value": "UNIRIS-V" },
-      { "option": "Administration & direction du service — Qui contacter ?", "value": "UNIRIS-ADM-DIR" },
+      { "option": "Administration & direction", "value": "UNIRIS-ADM-DIR" },
       { "option": "Question générale", "value": "Contacter UNIRIS" }
     ]
   },
