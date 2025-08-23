@@ -28,6 +28,10 @@
 	"SG"  : { "name": "Stéphanie Glaeser",     "url": "mailto:collabexterne@unil.ch" },
 	"SRSEC":{ "name": "Secrétariat SR",        "url": "mailto:recherche@unil.ch" },
 	"MP"  : { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
+	/* RACP (ex‑ColLaboratoire) — désormais au SR */
+	"COL-MA" : { "name": "Marc Audétat",     "url": "https://annuaire.unil.ch/person/czBgZ4u7m9XUBj" },
+	"COL-AC" : { "name": "Alexandre Camus",  "url": "https://annuaire.unil.ch/person/Rc5BnLkKew3U7p" },
+
 
 	/* Graduate Campus */
 	"MB"  : { "name": "Mélanie Bosson",        "url": "https://annuaire.unil.ch/person/Z3zgfb83u29UXn" },
@@ -54,16 +58,6 @@
 	"PACTT-J4": { "name": "Simon Jossen (Juriste)",   "url": "#" },
 	"DH"  : { "name": "Djamila Houha (Parajuriste)",  "url": "#" },
 	"PACTT-AP": { "name": "Aurélie Périsset (Admin & Finance)", "url": "#" },
-
-	/* ColLaboratoire (RACP) */
-	"COL-AK" : { "name": "Alain Kaufmann",             "url": "mailto:Alain.Kaufmann@unil.ch" },
-	"COL-MA" : { "name": "Marc Audétat",               "url": "https://annuaire.unil.ch/person/czBgZ4u7m9XUBj" },
-	"COL-AC" : { "name": "Alexandre Camus",            "url": "https://annuaire.unil.ch/person/Rc5BnLkKew3U7p" },
-	"COL-LR" : { "name": "Line Rochat",                "url": "https://annuaire.unil.ch/person/HD8HUeGjZLAfUQ" },
-	"COL-LB" : { "name": "Laure Bonnevie",             "url": "#" },
-	"COL-LF" : { "name": "Leyla Fessler",              "url": "#" },
-	"COL-MAC": { "name": "Marina Ardizzone Cabitza",   "url": "#" },
-	"COL-LDB": { "name": "Laetitia Della Bianca",      "url": "https://annuaire.unil.ch/person/XDcdjpnh8kfQsy" },
 
 	/* UNIRIS */
 	"UNIRIS": { "name": "UNIRIS – Contact",    "url": "mailto:uniris@unil.ch" },
