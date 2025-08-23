@@ -122,8 +122,8 @@
     "parent": "GC",
     "label": "Promotion de la relève (swissuniversities) — Qui contacter ?",
     "options": [
-      { "option": "Chargée de projet (Promotion de la relève) – Esther Liekmeier", "value": "Contacter GC-EL" },
-      { "option": "Chargée de projet (Promotion de la relève) – Aliénor Vauthey", "value": "Contacter GC-AV" }
+      { "option": "Chargée de projet – Esther Liekmeier", "value": "Contacter GC-EL" },
+      { "option": "Chargée de projet – Aliénor Vauthey", "value": "Contacter GC-AV" }
     ]
   },
 
