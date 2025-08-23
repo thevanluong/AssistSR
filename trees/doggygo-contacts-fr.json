@@ -2,7 +2,7 @@
   "0": {
     "label": "De quoi avez-vous besoin ?",
     "options": [
-      { "option": "Service de la recherche (SR) – financements, marchés publics, éthique, open science, outils, formations", "value": "SR" },
+      { "option": "Service de la recherche – financements, marchés publics, éthique, open science, outils, formations", "value": "SR" },
       { "option": "Graduate Campus – doctorat, carrière, formations, supervision", "value": "GC" },
       { "option": "PACTT – valorisation, propriété intellectuelle, contrats avec l’industrie", "value": "PACTT" },
       { "option": "UNIRIS – données de recherche, records management / GEDUnil, archives, veille", "value": "UNIRIS" },
@@ -30,7 +30,7 @@
   },
   "SR-DIR": {
     "parent": "SR",
-    "label": "Direction du SR · Qui contacter ?",
+    "label": "Direction du Service de la recherche · Qui contacter ?",
     "options": [
       { "option": "Chef du service – Julian Randall", "value": "Contacter JR" },
       { "option": "Cheffe de service adjointe – Micaela Crespo", "value": "Contacter MC" },
@@ -60,7 +60,7 @@
     "parent": "SR",
     "label": "Marchés publics · Que souhaitez‑vous ?",
     "options": [
-      { "option": "Être conseillé·e par la personne en charge (SR)", "value": "Contacter ZEM" },
+      { "option": "Être conseillé·e par la personne en charge", "value": "Contacter ZEM" },
       { "option": "Écrire à l’adresse générique", "value": "Contacter MP" }
     ]
   },
@@ -74,7 +74,7 @@
   },
   "SR-RACP": {
     "parent": "SR",
-    "label": "Recherche‑action, collaborative et participative (RACP) — Qui contacter ?",
+    "label": "Recherche‑action, collaborative et participative  — Qui contacter ?",
     "options": [
       { "option": "Responsable de recherche – Alexandre Camus", "value": "Contacter COL-AC" },
       { "option": "Responsable de recherche – Marc Audétat", "value": "Contacter COL-MA" }
