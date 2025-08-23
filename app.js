@@ -27,7 +27,7 @@
 	"VL"  : { "name": "Véronique Longchamp",   "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
 	"SG"  : { "name": "Stéphanie Glaeser",     "url": "mailto:collabexterne@unil.ch" },
 	"SRSEC":{ "name": "Secrétariat SR",        "url": "mailto:recherche@unil.ch" },
-	"MP"  : { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
+	"MP"  : { "name": "Marchés publics recherche",  "url": "mailto:marchespublics-recherche@unil.ch" },
 	/* RACP (ex‑ColLaboratoire) — désormais au SR */
 	"COL-MA" : { "name": "Marc Audétat",     "url": "https://annuaire.unil.ch/person/czBgZ4u7m9XUBj" },
 	"COL-AC" : { "name": "Alexandre Camus",  "url": "https://annuaire.unil.ch/person/Rc5BnLkKew3U7p" },
@@ -52,12 +52,12 @@
 	"ARL" : { "name": "Anne-Renée Leyvraz",    "url": "https://annuaire.unil.ch/person/wpDy8cUikfng4b" },
 	"JP"  : { "name": "Jonas Pollard",         "url": "https://annuaire.unil.ch/person/r4LgKRB5Kh7cUQ" },
 	"PH"  : { "name": "Pierre Heuzé",          "url": "https://annuaire.unil.ch/person/p9j2zB2bjLZnA4" },
-	"PACTT-J1": { "name": "Laura Lo Bello (Juriste)", "url": "https://annuaire.unil.ch/person/fwsXbrVL9AmpXg" },
-	"PACTT-J2": { "name": "Olga Larionova (Juriste)", "url": "https://annuaire.unil.ch/person/fwbDUrVL9AmpXg" },
-	"PACTT-J3": { "name": "Tristan Gianora (Juriste)", "url": "https://annuaire.unil.ch/person/25yyRiUs8kBdye" },
-	"PACTT-J4": { "name": "Simon Jossen (Juriste)",   "url": "https://annuaire.unil.ch/person/hFw75GXkGb4U5w" },
-	"DH"  : { "name": "Djamila Houha (Parajuriste)",  "url": "https://annuaire.unil.ch/person/HisdneGjZLAfUQ" },
-	"PACTT-AP": { "name": "Aurélie Périsset (Admin & finance)", "url": "https://annuaire.unil.ch/person/hF7LAGXkGb4U5w" },
+	"PACTT-J1": { "name": "Laura Lo Bello", "url": "https://annuaire.unil.ch/person/fwsXbrVL9AmpXg" },
+	"PACTT-J2": { "name": "Olga Larionova", "url": "https://annuaire.unil.ch/person/fwbDUrVL9AmpXg" },
+	"PACTT-J3": { "name": "Tristan Gianora", "url": "https://annuaire.unil.ch/person/25yyRiUs8kBdye" },
+	"PACTT-J4": { "name": "Simon Jossen",   "url": "https://annuaire.unil.ch/person/hFw75GXkGb4U5w" },
+	"DH"  : { "name": "Djamila Houha",  "url": "https://annuaire.unil.ch/person/HisdneGjZLAfUQ" },
+	"PACTT-AP": { "name": "Aurélie Périsset", "url": "https://annuaire.unil.ch/person/hF7LAGXkGb4U5w" },
 
 	/* UNIRIS */
 	"UNIRIS": { "name": "UNIRIS – Contact",    "url": "mailto:uniris@unil.ch" },
