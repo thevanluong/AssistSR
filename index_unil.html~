@@ -2,10 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>DoggyGo · Contacts</title>
+<title>Doggygo · AssistSR2 (UNIL)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Google Font -->
+<!-- Police : on privilégie "Newson" (UNIL) si elle est chargée ailleurs ; fallback Inter/system -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,44 +13,59 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
-  /* ======== Design System ======== */
+  /* ==========================================================
+     UNIL THEME — tokens alignés sur le nouveau site
+     - Bleu primaire #008CCC et halo #B3DDEF (focus ring)
+     - Ink (texte) #0A1F30 ; Muted #6A7883 ; Bordures #E2E9EE
+     ========================================================== */
   :root{
+    /* Rayons / ombres */
     --radius: 18px;
-    --brand-1: #7b5cff;
-    --brand-2: #40d4ff;
-    --ink: #0f172a;
-    --muted: #667085;
-    --surface: rgba(255,255,255,.65);
-    --stroke: rgba(15,23,42,.12);
-    --glass: rgba(255,255,255,.45);
-    --shadow: 0 20px 60px rgba(16,24,40,.15);
-    --shadow-soft: 0 10px 32px rgba(16,24,40,.10);
-    --ring: 0 0 0 .28rem rgba(123,92,255,.22);
+
+    /* Couleurs UNIL */
+    --brand-1: #008ccc;  /* primaire (UNIL) */
+    --brand-2: #b3ddef;  /* halo/focus clair */
+    --ink: #0a1f30;      /* texte principal */
+    --muted: #6a7883;    /* texte secondaire */
+    --stroke: #e2e9ee;   /* traits/bordures */
+
+    /* Surfaces */
+    --surface: rgba(255,255,255,.90);
+    --glass: rgba(255,255,255,.65);
+
+    /* Ombres (légèrement teintées ink) */
+    --shadow: 0 24px 60px rgba(10,31,48,.08);
+    --shadow-soft: 0 12px 32px rgba(10,31,48,.06);
+
+    /* Focus ring cohérent UNIL (double halo bleu) */
+    --ring: 0 0 0 .28rem rgba(0,140,204,.22);
   }
+
   @media (prefers-reduced-motion: reduce){
     *{ animation: none !important; transition: none !important; }
   }
 
   /* ======== Background ======== */
   body{
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    font-family: Newson, Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
                  "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif;
     color: var(--ink);
+    /* Fond froid et lumineux, sans violets, inspiré du site UNIL */
     background:
-      radial-gradient(60vw 60vw at 10% -10%, #f0eaff 0%, rgba(255,255,255,0) 55%),
-      radial-gradient(60vw 60vw at 115% 30%, #e9fbff 0%, rgba(255,255,255,0) 55%),
-      linear-gradient(180deg, #f8fbff 0%, #f5f7fb 30%, #f7f7ff 100%);
+      radial-gradient(60vw 60vw at -10% -10%, #e6f3fb 0%, rgba(255,255,255,0) 58%),
+      radial-gradient(60vw 60vw at 110% 30%, #eff7fb 0%, rgba(255,255,255,0) 58%),
+      linear-gradient(180deg, #f7fafc 0%, #f5f9fc 30%, #f9fbfd 100%);
     min-height: 100vh;
   }
   .bg-orbs::before, .bg-orbs::after{
     content:""; position: fixed; inset: auto auto -120px -120px; width: 360px; height: 360px;
-    background: radial-gradient(closest-side, rgba(123,92,255,.22), rgba(123,92,255,0) 70%);
+    background: radial-gradient(closest-side, rgba(0,140,204,.10), rgba(0,140,204,0) 70%);
     filter: blur(6px); transform: translateZ(0);
     pointer-events: none; z-index: 0;
   }
   .bg-orbs::after{
-    inset: -120px -140px auto auto; background:
-      radial-gradient(closest-side, rgba(64,212,255,.25), rgba(64,212,255,0) 70%);
+    inset: -120px -140px auto auto;
+    background: radial-gradient(closest-side, rgba(179,221,239,.18), rgba(179,221,239,0) 70%);
   }
 
   /* ======== Shell ======== */
@@ -66,18 +81,20 @@
     padding: clamp(16px, 2vw, 22px);
     box-shadow: var(--shadow);
     border: 1px solid var(--stroke);
-    background: linear-gradient(135deg, var(--surface), rgba(255,255,255,.28));
+    background: linear-gradient(135deg, var(--surface), rgba(255,255,255,.96));
     backdrop-filter: saturate(140%) blur(10px);
   }
   .brand-chip{
     display:inline-flex; align-items:center; gap:.5rem;
-    padding:.45rem .9rem; border-radius: 999px; font-weight: 700; letter-spacing:.2px; color:#fff;
+    padding:.45rem .9rem; border-radius: 999px; font-weight: 800; letter-spacing:.2px; color:#fff;
     background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
-    box-shadow: 0 12px 28px rgba(64,212,255,.28);
+    box-shadow: 0 12px 28px rgba(0,140,204,.22);
+    text-transform: uppercase;
+    font-size: .85rem;
   }
   .logo{
     width:78px; height:78px; border-radius: 16px; object-fit: cover;
-    border: 6px solid rgba(255,255,255,.9);
+    border: 6px solid rgba(255,255,255,.95);
     box-shadow: var(--shadow-soft);
   }
   .hero .title{ margin: .4rem 0 0; font-weight: 800; letter-spacing: .1px; }
@@ -89,21 +106,22 @@
     border-radius: var(--radius);
     border: 1px solid var(--stroke);
     box-shadow: var(--shadow-soft);
-    background: linear-gradient(135deg, var(--glass), rgba(255,255,255,.22));
+    background: linear-gradient(135deg, var(--glass), rgba(255,255,255,.58));
     backdrop-filter: saturate(160%) blur(12px);
-    overflow: hidden; /* sécurité */
+    overflow: hidden;
   }
   .glass-card .card-body{ padding: clamp(14px, 2.2vw, 24px); }
   #question > .q-title{
-    font-size: 1.2rem; font-weight: 700; margin-bottom: 10px;
+    font-size: 1.2rem; font-weight: 800; margin-bottom: 10px;
+    letter-spacing: .1px;
   }
 
   /* ======== Options ======== */
   .option-item{
     display: block; text-decoration: none;
     border-radius: 14px; padding: 14px 15px;
-    border: 1px solid rgba(15,23,42,.08);
-    background: rgba(255,255,255,.64);
+    border: 1px solid var(--stroke);
+    background: rgba(255,255,255,.92);
     backdrop-filter: blur(6px) saturate(120%);
     transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
     color: inherit; white-space: normal;
@@ -113,18 +131,17 @@
   .option-item .label i{ opacity:.75; }
   .option-item:hover{
     transform: translateY(-1px);
-    box-shadow: 0 12px 28px rgba(16,24,40,.12);
-    border-color: rgba(15,23,42,.18);
-    background: rgba(255,255,255,.82);
+    box-shadow: 0 12px 28px rgba(0,0,0,.06);
+    border-color: rgba(0,140,204,.25);
+    background: rgba(255,255,255,.98);
   }
-  .option-item:focus{ outline: none; box-shadow: var(--ring); }
+  .option-item:focus{ outline: none; box-shadow: var(--ring); border-color: rgba(0,140,204,.35); }
 
   /* ======== Contact view ======== */
   .contact-wrap{
     display: grid;
     align-items: center;
     gap: clamp(12px, 3vw, 24px);
-    /* Zone centrée */
     max-width: clamp(560px, 75vw, 780px);
     margin-inline: auto;
     grid-template-columns: minmax(280px, 1fr) auto;
@@ -134,21 +151,22 @@
     width:64px; height:64px; border-radius: 16px;
     background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
     color:#fff; display:flex; align-items:center; justify-content:center;
-    box-shadow: 0 12px 26px rgba(123,92,255,.25);
+    box-shadow: 0 12px 26px rgba(0,140,204,.20);
     font-size: 1.35rem; font-weight: 800;
   }
-  .contact-name{ font-weight: 800; margin: 0; }
+  .contact-name{ font-weight: 800; margin: 0; letter-spacing:.1px; }
   .contact-meta{ color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
 
   .cta{ display:flex; gap:.6rem; justify-self: end; }
   .cta .btn{
-    border-radius: 999px; padding: .7rem 1rem; font-weight: 600;
+    border-radius: 999px; padding: .7rem 1rem; font-weight: 700;
     min-width: 0;
     color:#fff;
     background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
     border: none;
-    box-shadow: 0 10px 24px rgba(64,212,255,.28);
+    box-shadow: 0 10px 24px rgba(0,140,204,.22);
   }
+  .cta .btn:hover{ filter: saturate(110%); }
   .cta .btn:focus{ box-shadow: var(--ring); }
 
   @media (max-width: 991.98px){
@@ -160,18 +178,26 @@
   /* ======== Controls ======== */
   #buttons{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top: 10px; }
   #buttons .btn{
-    border-radius: 999px; padding: .55rem .9rem; font-weight:600;
-    box-shadow: 0 8px 18px rgba(16,24,40,.06);
+    border-radius: 999px; padding: .55rem .9rem; font-weight:700;
+    box-shadow: 0 8px 18px rgba(0,0,0,.05);
+  }
+  #buttons .btn-outline-secondary{
+    --bs-btn-color: var(--ink);
+    --bs-btn-border-color: var(--stroke);
+    --bs-btn-hover-bg: rgba(0,140,204,.06);
+    --bs-btn-hover-border-color: rgba(0,140,204,.35);
   }
 
   /* ======== Progress ======== */
   .progress-chips{ display:flex; gap:.4rem; flex-wrap: wrap; align-items: center; }
   .chip{
     display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; border-radius:999px; font-weight:700; font-size:.85rem;
-    background: rgba(123,92,255,.12); color:#5b4af7; border: 1px solid rgba(123,92,255,.22);
+    width:26px; height:26px; border-radius:999px; font-weight:800; font-size:.85rem;
+    background: rgba(0,140,204,.12);
+    color:#006b99;
+    border: 1px solid rgba(0,140,204,.22);
   }
-  .chip.muted{ background: transparent; color: var(--muted); border: 1px dashed rgba(15,23,42,.15); }
+  .chip.muted{ background: transparent; color: var(--muted); border: 1px dashed rgba(0,0,0,.10); }
 
   /* ======== Animations ======== */
   .fade-up{ animation: fadeUp .25s ease-out; }
@@ -188,9 +214,9 @@
       <div class="d-flex align-items-center gap-3">
         <img src="doggygo.png" alt="" class="logo me-3" />
         <div>
-          <span class="brand-chip"><i class="fa-solid fa-paw"></i> DoggyGo</span>
-          <h1 class="title h4">Trouvez la bonne personne de contact</h1>
-          <p class="sub">Choisissez un sujet (SR, Graduate Campus, PACTT, UNIRIS, ColLaboratoire) : DoggyGo vous dirige vers la personne référente.</p>
+          <span class="brand-chip"><i class="fa-solid fa-paw"></i> Doggygo</span>
+          <h1 class="title h4">Votre assistant personnalisé</h1>
+          <p class="sub">Répondez aux questions. Nous vous indiquerons qui contacter au Service de la recherche.</p>
         </div>
       </div>
     </section>
@@ -203,16 +229,14 @@
 
         <div id="buttons" style="display:none">
           <a id="back" href="javascript:goback();" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
-            <i class="fa-solid fa-chevron-left"></i> <span data-i18n="back">Retour</span>
+            <i class="fa-solid fa-chevron-left"></i> Retour
           </a>
           <a id="restart" href="javascript:location.reload()" class="btn btn-outline-secondary" style="display:none; text-decoration:none">
-            <i class="fa-solid fa-rotate-left"></i> <span data-i18n="restart">Recommencer</span>
+            <i class="fa-solid fa-rotate-left"></i> Recommencer
           </a>
         </div>
 
-        <p class="sub mt-3"><i class="fa-regular fa-circle-question"></i>
-          <span data-i18n="note">Les boutons <b>Contacter</b> ouvrent l’annuaire UNIL ou un e‑mail.</span>
-        </p>
+        <p class="sub mt-3"><i class="fa-regular fa-circle-question"></i> Les liens de contact pointent vers l’annuaire UNIL.</p>
       </div>
     </section>
   </main>
@@ -221,104 +245,43 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // ======== Config ========
+    // ======== Données (nouveaux liens) ========
     var lang = "fr";
-    var treeBase = "./trees/";
-    var treeName = "doggygo-contacts-" + lang + ".json";
+    var papagoUrl = "./trees/";
 
-    // ======== Persons (codes -> nom + lien / e‑mail) ========
-    // Remplacez les URL "#" par les liens annuaire UNIL si disponibles.
     var persons = {
-      /* SR */
-      "JR"  : { "name": "Julian Randall",        "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" },
-      "MC"  : { "name": "Micaela Crespo",        "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
-      "LC"  : { "name": "Lucia Couto",           "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
-      "EAM" : { "name": "Eliane Abou Mansour",   "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
-      "RT"  : { "name": "Rolande Tardy",         "url": "#" },
+      "EAM" : { "name": "Eliane Abou Mansour", "url": "https://annuaire.unil.ch/person/LgLLf7wep3kZBi" },
+      "VL"  : { "name": "Véronique Longchamp",  "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
       "AEDC": { "name": "Anne-Emmanuelle de Crousaz", "url": "https://annuaire.unil.ch/person/R87FcLkKew3U7p" },
-      "AB"  : { "name": "Aurélie Brehmer",       "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
-      "CA"  : { "name": "Claire Arnold",         "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
-      "ZEM" : { "name": "Zohra El Masbahi",      "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
-      "ACB" : { "name": "Anne-Christine Butty",  "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
-      "PAD" : { "name": "Pablo Andrés Diaz",     "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
-      "TVL" : { "name": "Thé Van Luong",         "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
-      "MD"  : { "name": "Maëlle Desard",         "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
-      "VL"  : { "name": "Véronique Longchamp",   "url": "https://annuaire.unil.ch/person/u5rsd2fbRe7LFH" },
-      "SRSEC":{ "name": "Secrétariat SR",        "url": "mailto:recherche@unil.ch" },
-      "MP"  : { "name": "Marchés publics (SR)",  "url": "mailto:marchespublics-recherche@unil.ch" },
-
-      /* Graduate Campus */
-      "MB"  : { "name": "Mélanie Bosson",        "url": "#" },
-      "VE"  : { "name": "Verity Elston",         "url": "#" },
-      "PF"  : { "name": "Pauline Fritsch",       "url": "#" },
-      "MS"  : { "name": "Martine Schaer",        "url": "#" },
-      "SN"  : { "name": "Shervine Nafissi",      "url": "#" },
-      "GCCONTACT" : { "name": "Graduate Campus – Contact", "url": "mailto:graduatecampus@unil.ch" },
-
-      /* PACTT */
-      "AS"  : { "name": "Alberto Schena",        "url": "#" },
-      "PACTTINFO": { "name": "PACTT – Info",     "url": "mailto:pactt.info@chuv.ch" },
-      "PACTTLIC" : { "name": "PACTT – Inventions & valorisation", "url": "mailto:pactt.license@chuv.ch" },
-      "PACTTLEG" : { "name": "PACTT – Juridique & contrats",      "url": "mailto:pactt.legal@chuv.ch" },
-      "FG"  : { "name": "Florence Guth",         "url": "#" },
-      "ARL" : { "name": "Anne-Renée Leyvraz",    "url": "#" },
-      "JP"  : { "name": "Jonas Pollard",         "url": "#" },
-      "PH"  : { "name": "Pierre Heuzé",          "url": "#" },
-      "PACTT-J1": { "name": "Laura Lo Bello (Juriste)", "url": "#" },
-      "PACTT-J2": { "name": "Olga Larionova (Juriste)", "url": "#" },
-      "PACTT-J3": { "name": "Tristan Gianora (Juriste)", "url": "#" },
-      "PACTT-J4": { "name": "Simon Jossen (Juriste)",   "url": "#" },
-      "DH"  : { "name": "Djamila Houha (Parajuriste)",  "url": "#" },
-
-      /* UNIRIS */
-      "UNIRIS"    : { "name": "UNIRIS – Contact", "url": "mailto:uniris@unil.ch" },
-      "UNIRIS-DR1": { "name": "Carmen Jambé",     "url": "#" },
-      "UNIRIS-DR2": { "name": "Magalie Vetter",   "url": "#" },
-      "UNIRIS-DR3": { "name": "Marielle Guirlet", "url": "#" },
-      "UNIRIS-RM1": { "name": "Laurence Gauvin",  "url": "#" },
-      "UNIRIS-RM2": { "name": "Nathalie Montet",  "url": "#" },
-      "UNIRIS-RM3": { "name": "Noha El Sadawy",   "url": "#" },
-      "UNIRIS-AR1": { "name": "Sacha Auderset",   "url": "#" },
-      "UNIRIS-AR2": { "name": "Julie Farine",     "url": "#" },
-      "UNIRIS-AR3": { "name": "Elora Lovey",      "url": "#" },
-      "UNIRIS-AR4": { "name": "Xavier Baume",     "url": "#" },
-      "UNIRIS-V1" : { "name": "Eva Frei",         "url": "#" },
-      "UNIRIS-V2" : { "name": "Flavia Mizel",     "url": "#" },
-
-      /* ColLaboratoire (RACP) */
-      "COL-AK" : { "name": "Alain Kaufmann",              "url": "mailto:Alain.Kaufmann@unil.ch" },
-      "COL-LC" : { "name": "Lucia Couto",                 "url": "#" },
-      "COL-MA" : { "name": "Marc Audétat",                "url": "#" },
-      "COL-AC" : { "name": "Alexandre Camus",             "url": "#" },
-      "COL-LR" : { "name": "Line Rochat",                 "url": "#" },
-      "COL-LB" : { "name": "Laure Bonnevie",              "url": "#" },
-      "COL-MAC": { "name": "Marina Ardizzone Cabitza",    "url": "#" },
-      "COL-LF" : { "name": "Leyla Fessler",               "url": "#" }
+      "AB"  : { "name": "Aurélie Brehmer",     "url": "https://annuaire.unil.ch/person/hk2dAGXkGb4U5w" },
+      "CA"  : { "name": "Claire Arnold",        "url": "https://annuaire.unil.ch/person/47c7LgpckuHb25" },
+      "ZEM" : { "name": "Zohra El Masbahi",     "url": "https://annuaire.unil.ch/person/KGKZjmZikDrmpw" },
+      "ACB" : { "name": "Anne-Christine Butty", "url": "https://annuaire.unil.ch/person/LjB3d7wep3kZBi" },
+      "MD"  : { "name": "Maëlle Desard",        "url": "https://annuaire.unil.ch/person/hkifyGXkGb4U5w" },
+      "PAD" : { "name": "Pablo Andrés Diaz",    "url": "https://annuaire.unil.ch/person/pfFzXB2bjLZnA4" },
+      "TVL" : { "name": "Thé Van Luong",        "url": "https://annuaire.unil.ch/person/cmbpD4u7m9XUBj" },
+      "MC"  : { "name": "Micaela Crespo",       "url": "https://annuaire.unil.ch/person/cKu9p4u7m9XUBj" },
+      "LC"  : { "name": "Lucia Couto",          "url": "https://annuaire.unil.ch/person/p9L8fB2bjLZnA4" },
+      "JR"  : { "name": "Julian Randall",       "url": "https://annuaire.unil.ch/person/R4rszLkKew3U7p" }
     };
 
-    // ======== Traductions minimales ========
     var translate = {
-      "fr": {
-        "contact": "Contacter",
-        "text"   : "La personne ci‑dessous est votre point de contact.",
-        "error"  : "DoggyGo n'est pas accessible pour le moment.",
-        "back"   : "Retour",
-        "restart": "Recommencer",
-        "note"   : "Les boutons Contacter ouvrent l’annuaire UNIL ou un e‑mail."
+      "fr" : {
+          "contact": "Contacter",
+          "text" : "La personne ci‑dessous peut vous conseiller directement.",
+          "error" : "Doggygo n'est pas accessible pour le moment."
       },
-      "en": {
-        "contact": "Contact",
-        "text"   : "This person is your point of contact.",
-        "error"  : "DoggyGo is not available right now.",
-        "back"   : "Back",
-        "restart": "Restart",
-        "note"   : "Contact buttons open the UNIL directory or an email."
+      "en" : {
+          "contact": "Contact",
+          "text" : "This person can advise you directly.",
+          "error" : "Doggygo is not available at the moment."
       }
     };
 
     // ======== État ========
-    var tree = {};
-    var parent = "", oldItem = "", trail = [];
+    var papago = {};
+    var parent = "", oldItem = "", jList = "", sheet = "";
+    var trail = []; // fil d’Ariane
 
     // ======== Helpers ========
     function $(sel){ return document.querySelector(sel); }
@@ -330,13 +293,7 @@
       div.textContent = String(str || "");
       return div.innerHTML;
     }
-    function t(key){ return (translate[lang] && translate[lang][key]) || key; }
-    function applyI18n(){
-      document.querySelectorAll("[data-i18n]").forEach(function(el){
-        var k = el.getAttribute("data-i18n");
-        el.innerHTML = t(k);
-      });
-    }
+
     function renderProgress(){
       var progressEl = $("#progress");
       if(!progressEl) return;
@@ -346,6 +303,7 @@
       }).join('');
       progressEl.innerHTML = chips;
     }
+
     function initials(name){
       if(!name) return "?";
       var parts = name.split(" ");
@@ -356,7 +314,7 @@
 
     // ======== Rendu principal ========
     function renderOptions(key){
-      var node = tree[key] || {};
+      var node = papago[key] || {};
       var label = escapeHTML(node.label || "");
       parent = node.parent || "";
       oldItem = key;
@@ -383,12 +341,10 @@
       show($("#buttons"));
       if(node.parent){ show($("#back")); } else { hide($("#back")); }
       hide($("#restart"));
-      applyI18n();
     }
 
     function renderContact(item){
-      // "Contacter CODE" => libellé traduit + lookup
-      var clean = item.replace("Contacter", t("contact"));
+      var clean = item.replace("Contacter", translate[lang]["contact"]);
       var parts = clean.split(" ");
       var code = parts[1];
       var p = persons[code] || {};
@@ -399,18 +355,18 @@
       renderProgress();
 
       var html = ''+
-        '<div class="q-title">'+ escapeHTML(t("text")) +'</div>'+
+        '<div class="q-title">'+ escapeHTML(translate[lang]["text"]) +'</div>'+
         '<div class="contact-wrap">'+
           '<div class="contact-id">'+
             '<div class="avatar" aria-hidden="true">'+ initials(name) +'</div>'+
             '<div>'+
               '<p class="contact-name">'+ escapeHTML(name) +'</p>'+
-              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Point de contact</p>'+
+              '<p class="contact-meta"><i class="fa-regular fa-address-card"></i> UNIL · Service de la recherche</p>'+
             '</div>'+
           '</div>'+
           '<div class="cta">'+
             '<a class="btn" target="_blank" rel="noopener" href="'+ url +'">'+
-              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(t("contact")) +
+              '<i class="fa-solid fa-paper-plane"></i> '+ escapeHTML(translate[lang]["contact"]) +
             '</a>'+
           '</div>'+
         '</div>';
@@ -421,10 +377,9 @@
       show($("#buttons"));
       hide($("#back"));
       show($("#restart"));
-      applyI18n();
     }
 
-    // ======== API similaire à votre prototype ========
+    // ======== API similaire à l’original ========
     function format(item){
       if(item.substr(0,9) === "Contacter"){
         renderContact(item);
@@ -445,34 +400,36 @@
       var params = new URLSearchParams(location.search);
       var qLang = params.get("lang");
       var notitle = params.get("notitle");
-      if(qLang && translate[qLang]){ lang = qLang; treeName = "doggygo-contacts-" + lang + ".json"; }
+      if(qLang && translate[qLang]) lang = qLang;
       if(notitle === "true"){
         document.querySelectorAll("h1,.title").forEach(function(h){ h.classList.add("visually-hidden"); });
       }
     }
+
     function showLoader(){
       setHTML("#question",
         '<div class="progress" style="height:6px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 50%"></div></div>'
       );
       hide($("#back")); hide($("#restart"));
     }
+
     async function boot(){
       loadParams();
-      applyI18n();
       showLoader();
       try{
-        var res = await fetch(treeBase + treeName, {cache:"no-store"});
-        tree = await res.json();
+        var res = await fetch(papagoUrl + "papago-" + lang + ".json", {cache:"no-store"});
+        papago = await res.json();
         show($("#buttons"));
         format("0");
       }catch(e){
         console.error(e);
         setHTML("#question",
           '<div class="alert alert-danger mb-0" role="alert">'+
-          '<i class="fa-solid fa-triangle-exclamation"></i> '+ translate[lang]['error'] +'</div>'
+          '<i class="fa-solid fa-triangle-exclamation"></i> '+ (translate[lang] ? translate[lang]["error"] : "Doggygo n\'est pas accessible pour le moment.") +'</div>'
         );
       }
     }
+
     document.addEventListener("DOMContentLoaded", boot);
   </script>
 </body>
